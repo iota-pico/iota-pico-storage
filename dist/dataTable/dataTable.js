@@ -1,7 +1,5 @@
 Object.defineProperty(exports, "__esModule", { value: true });
-const rngServiceFactory_1 = require("@iota-pico/core/dist/factories/rngServiceFactory");
-const jsonHelper_1 = require("@iota-pico/core/dist/helpers/jsonHelper");
-const numberHelper_1 = require("@iota-pico/core/dist/helpers/numberHelper");
+const arrayHelper_1 = require("@iota-pico/core/dist/helpers/arrayHelper");
 const objectHelper_1 = require("@iota-pico/core/dist/helpers/objectHelper");
 const stringHelper_1 = require("@iota-pico/core/dist/helpers/stringHelper");
 const nullLogger_1 = require("@iota-pico/core/dist/loggers/nullLogger");
@@ -18,57 +16,38 @@ class DataTable {
     /**
      * Create a new instance of the DataTable.
      * @param storageClient A storage client to perform storage operations.
-     * @param indexAddress The address to store the index.
-     * @param dataAddress The address to store the data.
-     * @param cryptoSigner The object to use for signing.
-     * @param cryptoVerifier The object to use for verification.
+     * @param configProvider A provider to get the configuration for the table.
      * @param logger Logger to send storage info to.
      */
-    constructor(storageClient, indexAddress, dataAddress, cryptoSigner, cryptoVerifier, logger) {
-        if (!objectHelper_1.ObjectHelper.isType(indexAddress, address_1.Address)) {
-            throw new storageError_1.StorageError("The indexAddress must be of type Address");
-        }
+    constructor(storageClient, configProvider, logger) {
         this._storageClient = storageClient;
-        this._indexAddress = indexAddress;
-        this._dataAddress = dataAddress;
-        this._cryptoSigner = cryptoSigner;
-        this._cryptoVerifier = cryptoVerifier;
+        this._configProvider = configProvider;
         this._logger = logger || new nullLogger_1.NullLogger();
-    }
-    /**
-     * Set the index for the table.
-     * @param index The table index.
-     * @returns The hash of the newly created bundle.
-     */
-    async setIndex(index) {
-        this._logger.info("===> DataTable::setIndex");
-        const signedItem = this.createSignedItem(index);
-        const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
-        const trytes = objectToTrytesConverter.to(signedItem);
-        const hash = await this._storageClient.save(this._indexAddress, trytes, DataTable.INDEX_TAG);
-        this._logger.info("<=== DataTable::setIndex", hash);
-        return hash;
     }
     /**
      * Get the index for the table.
      * @returns The table index.
      */
-    async getIndex() {
-        this._logger.info("===> DataTable::getIndex");
-        const allIndexes = await this._storageClient.loadAllWithTag(this._indexAddress, DataTable.INDEX_TAG);
-        const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
-        // Now reverse walk the indexes to find the most recent one that has a valid signature
-        let count = allIndexes.length - 1;
-        let mostRecent;
-        while (mostRecent === undefined && count >= 0) {
-            const signedItem = objectToTrytesConverter.from(allIndexes[count].data);
-            if (this.validateSignedObject(signedItem, allIndexes[count].attachmentTimestamp)) {
-                mostRecent = signedItem.data;
+    async index() {
+        this._logger.info("===> DataTable::index");
+        await this.loadConfig();
+        let dataTableIndex;
+        if (!stringHelper_1.StringHelper.isEmpty(this._config.indexBundleHash)) {
+            const indexBundleHash = hash_1.Hash.fromTrytes(trytes_1.Trytes.fromString(this._config.indexBundleHash));
+            const index = await this._storageClient.load([indexBundleHash]);
+            if (index && index.length > 0) {
+                const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
+                dataTableIndex = objectToTrytesConverter.from(index[0].data);
+                this._logger.info("<=== DataTable::index", dataTableIndex);
             }
-            count--;
+            else {
+                this._logger.info("<=== DataTable::index no index available");
+            }
         }
-        this._logger.info("<=== DataTable::getIndex", mostRecent);
-        return mostRecent;
+        else {
+            this._logger.info("<=== DataTable::index no index hash specified");
+        }
+        return dataTableIndex;
     }
     /**
      * Store an item of data in the table.
@@ -78,57 +57,49 @@ class DataTable {
      */
     async store(data, tag = tag_1.Tag.EMPTY) {
         this._logger.info("===> DataTable::store");
-        const signedItem = this.createSignedItem(data);
+        await this.loadConfig();
         const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
-        const trytes = objectToTrytesConverter.to(signedItem);
-        const bundleHash = await this._storageClient.save(this._dataAddress, trytes, tag);
+        const trytes = objectToTrytesConverter.to(data);
+        const storageAddress = address_1.Address.fromTrytes(trytes_1.Trytes.fromString(this._config.storageAddress));
+        const bundleHash = await this._storageClient.save(storageAddress, trytes, tag);
+        let index = await this.index();
+        index = index || [];
+        index.push(bundleHash.toTrytes().toString());
+        const objectToTrytesConverterIndex = new objectTrytesConverter_1.ObjectTrytesConverter();
+        const trytesIndex = objectToTrytesConverterIndex.to(index);
+        const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
+        this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
+        await this.saveConfig();
         this._logger.info("<=== DataTable::store", bundleHash);
-        let index = await this.getIndex();
-        index = index || { bundles: [] };
-        index.bundles.push(bundleHash.toTrytes().toString());
-        await this.setIndex(index);
         return bundleHash;
     }
     /**
-     * Retrieve the data stored in the table.
-     * @param id The id of the item to retrieve.
-     * @returns The item stored with the id.
-     */
-    async retrieve(id) {
-        this._logger.info("===> DataTable::retrieve");
-        const storageItem = await this._storageClient.load(this._dataAddress, id);
-        const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
-        const signedItem = objectToTrytesConverter.from(storageItem.data);
-        if (!this.validateSignedObject(signedItem, storageItem.attachmentTimestamp)) {
-            this._logger.info("<=== DataTable::retrieve invalid signature");
-            throw new storageError_1.StorageError("Item signature was not valid", id);
-        }
-        this._logger.info("<=== DataTable::retrieve", signedItem.data);
-        return signedItem.data;
-    }
-    /**
      * Retrieve all the data stored in the table.
+     * @param ids Ids of all the items to retrieve, if empty will retrieve all items from index.
      * @returns The items stored in the table.
      */
-    async retrieveAll() {
-        this._logger.info("===> DataTable::retrieveAll");
-        const index = await this.getIndex();
+    async retrieve(ids) {
+        let loadIds;
+        if (arrayHelper_1.ArrayHelper.isTyped(ids, hash_1.Hash)) {
+            loadIds = ids;
+        }
+        else {
+            const index = await this.index();
+            if (arrayHelper_1.ArrayHelper.isTyped(index, String)) {
+                loadIds = index.map(b => hash_1.Hash.fromTrytes(trytes_1.Trytes.fromString(b)));
+            }
+        }
+        this._logger.info("===> DataTable::retrieve", loadIds);
+        await this.loadConfig();
         const ret = [];
-        if (index && index.bundles) {
-            const allStorageItems = await this._storageClient.loadAllBundles(this._dataAddress, index.bundles.map(b => hash_1.Hash.fromTrytes(trytes_1.Trytes.fromString(b))));
+        if (arrayHelper_1.ArrayHelper.isTyped(loadIds, hash_1.Hash)) {
+            const allStorageItems = await this._storageClient.load(loadIds);
             const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
             allStorageItems.forEach(storageItem => {
-                const signedItem = objectToTrytesConverter.from(storageItem.data);
-                if (!this.validateSignedObject(signedItem, storageItem.attachmentTimestamp)) {
-                    this._logger.info("<=== DataTable::retrieveAll invalid signature");
-                    throw new storageError_1.StorageError("Item signature was not valid", storageItem.id);
-                }
-                else {
-                    ret.push(signedItem.data);
-                }
+                ret.push(objectToTrytesConverter.from(storageItem.data));
             });
         }
-        this._logger.info("<=== DataTable::retrieveAll", ret);
+        this._logger.info("<=== DataTable::retrieve", ret);
         return ret;
     }
     /**
@@ -136,44 +107,47 @@ class DataTable {
      * @param id The id of the item to remove.
      */
     async remove(id) {
-        let index = await this.getIndex();
-        index = index || { bundles: [] };
-        const strBundleHash = id.toTrytes().toString();
-        const idx = index.bundles.indexOf(strBundleHash);
+        this._logger.info("===> DataTable::remove", id);
+        await this.loadConfig();
+        let index = await this.index();
+        index = index || [];
+        const removeHash = id.toTrytes().toString();
+        const idx = index.indexOf(removeHash);
         if (idx >= 0) {
-            index.bundles.splice(idx, 1);
-            await this.setIndex(index);
-        }
-    }
-    createSignedItem(data) {
-        const rngService = rngServiceFactory_1.RngServiceFactory.instance().create("default");
-        if (objectHelper_1.ObjectHelper.isEmpty(rngService)) {
-            throw new storageError_1.StorageError("Unable to create RngService, have you called the PAL.initialize");
-        }
-        const json = jsonHelper_1.JsonHelper.stringify(data);
-        const timestamp = Date.now();
-        return {
-            signature: this._cryptoSigner.sign(json + timestamp.toString()),
-            timestamp,
-            data
-        };
-    }
-    validateSignedObject(signedItem, attachmentTimestamp) {
-        if (stringHelper_1.StringHelper.isString(signedItem.signature) &&
-            numberHelper_1.NumberHelper.isNumber(attachmentTimestamp) &&
-            attachmentTimestamp > 0 &&
-            numberHelper_1.NumberHelper.isNumber(signedItem.timestamp) &&
-            signedItem.timestamp > 0 &&
-            attachmentTimestamp - signedItem.timestamp < 1000 * 60 * 3) {
-            const json = jsonHelper_1.JsonHelper.stringify(signedItem.data + signedItem.timestamp.toString());
-            return this._cryptoVerifier.verify(json, signedItem.signature);
+            index.splice(idx, 1);
+            const objectToTrytesConverter = new objectTrytesConverter_1.ObjectTrytesConverter();
+            const trytesIndex = objectToTrytesConverter.to(index);
+            const storageAddress = address_1.Address.fromTrytes(trytes_1.Trytes.fromString(this._config.storageAddress));
+            const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
+            this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
+            await this.saveConfig();
+            this._logger.info("<=== DataTable::remove");
         }
         else {
-            return false;
+            this._logger.info("<=== DataTable::remove nothing to remove");
+        }
+    }
+    /* @internal */
+    async loadConfig() {
+        if (objectHelper_1.ObjectHelper.isEmpty(this._config)) {
+            this._logger.info("===> DataTable::getConfig");
+            this._config = await this._configProvider.load();
+            if (objectHelper_1.ObjectHelper.isEmpty(this._config) || objectHelper_1.ObjectHelper.isEmpty(this._config.storageAddress)) {
+                throw new storageError_1.StorageError("Configuration must contain at least the storageAddress");
+            }
+            this._logger.info("<=== DataTable::getConfig", this._config);
+        }
+    }
+    /* @internal */
+    async saveConfig() {
+        if (!objectHelper_1.ObjectHelper.isEmpty(this._config)) {
+            this._logger.info("===> DataTable::setConfig", this._config);
+            await this._configProvider.save(this._config);
+            this._logger.info("<=== DataTable::setConfig");
         }
     }
 }
 /* @internal */
 DataTable.INDEX_TAG = tag_1.Tag.fromTrytes(trytes_1.Trytes.fromString("INDEX"));
 exports.DataTable = DataTable;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0YVRhYmxlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL2RhdGFUYWJsZS9kYXRhVGFibGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLHdGQUFxRjtBQUNyRix3RUFBcUU7QUFDckUsNEVBQXlFO0FBQ3pFLDRFQUF5RTtBQUN6RSw0RUFBeUU7QUFFekUsd0VBQXFFO0FBQ3JFLGlHQUE4RjtBQUM5RiwrREFBNEQ7QUFDNUQseURBQXNEO0FBQ3RELHVEQUFvRDtBQUNwRCw2REFBMEQ7QUFDMUQsd0RBQXFEO0FBUXJEOztHQUVHO0FBQ0g7SUFzQkk7Ozs7Ozs7O09BUUc7SUFDSCxZQUFZLGFBQTZCLEVBQUUsWUFBcUIsRUFBRSxXQUFvQixFQUFFLFlBQTJCLEVBQUUsY0FBK0IsRUFBRSxNQUFnQjtRQUNsSyxFQUFFLENBQUMsQ0FBQyxDQUFDLDJCQUFZLENBQUMsTUFBTSxDQUFDLFlBQVksRUFBRSxpQkFBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO1lBQzlDLE1BQU0sSUFBSSwyQkFBWSxDQUFDLDBDQUEwQyxDQUFDLENBQUM7UUFDdkUsQ0FBQztRQUNELElBQUksQ0FBQyxjQUFjLEdBQUcsYUFBYSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxhQUFhLEdBQUcsWUFBWSxDQUFDO1FBQ2xDLElBQUksQ0FBQyxZQUFZLEdBQUcsV0FBVyxDQUFDO1FBQ2hDLElBQUksQ0FBQyxhQUFhLEdBQUcsWUFBWSxDQUFDO1FBQ2xDLElBQUksQ0FBQyxlQUFlLEdBQUcsY0FBYyxDQUFDO1FBQ3RDLElBQUksQ0FBQyxPQUFPLEdBQUcsTUFBTSxJQUFJLElBQUksdUJBQVUsRUFBRSxDQUFDO0lBQzlDLENBQUM7SUFFRDs7OztPQUlHO0lBQ0ksS0FBSyxDQUFDLFFBQVEsQ0FBQyxLQUFzQjtRQUN4QyxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQywwQkFBMEIsQ0FBQyxDQUFDO1FBRTlDLE1BQU0sVUFBVSxHQUFHLElBQUksQ0FBQyxnQkFB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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0YVRhYmxlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL2RhdGFUYWJsZS9kYXRhVGFibGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLDBFQUF1RTtBQUN2RSw0RUFBeUU7QUFDekUsNEVBQXlFO0FBRXpFLHdFQUFxRTtBQUNyRSxpR0FBOEY7QUFDOUYsK0RBQTREO0FBQzVELHlEQUFzRDtBQUN0RCx1REFBb0Q7QUFDcEQsNkRBQTBEO0FBQzFELHdEQUFxRDtBQU9yRDs7R0FFRztBQUNIO0lBZ0JJOzs7OztPQUtHO0lBQ0gsWUFBWSxhQUE2QixFQUM3QixjQUF3QyxFQUN4QyxNQUFnQjtRQUN4QixJQUFJLENBQUMsY0FBYyxHQUFHLGFBQWEsQ0FBQztRQUNwQyxJQUFJLENBQUMsZUFBZSxHQUFHLGNBQWMsQ0FBQztRQUN0QyxJQUFJLENBQUMsT0FBTyxHQUFHLE1BQU0sSUFBSSxJQUFJLHVCQUFVLEVBQUUsQ0FBQztJQUM5QyxDQUFDO0lBRUQ7OztPQUdHO0lBQ0ksS0FBSyxDQUFDLEtBQUs7UUFDZCxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyx1QkFBdUIsQ0FBQyxDQUFDO1FBRTNDLE1BQU0sSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRXhCLElBQUksY0FBYyxDQUFDO1FBQ25CLEVBQUUsQ0FBQyxDQUFDLENBQUMsMkJBQVksQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxlQUFlLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDdEQsTUFBTSxlQUFlLEdBQUcsV0FBSSxDQUFDLFVBQVUsQ0FBQyxlQUFNLENBQUMsVUFBVSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQztZQUN6RixNQUFNLEtBQUssR0FBRyxNQUFNLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQztZQUVoRSxFQUFFLENBQUMsQ0FBQyxL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

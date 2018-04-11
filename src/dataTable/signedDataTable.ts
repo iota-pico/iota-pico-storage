@@ -1,7 +1,11 @@
+import { RngServiceFactory } from "@iota-pico/core/dist/factories/rngServiceFactory";
 import { ArrayHelper } from "@iota-pico/core/dist/helpers/arrayHelper";
+import { JsonHelper } from "@iota-pico/core/dist/helpers/jsonHelper";
+import { NumberHelper } from "@iota-pico/core/dist/helpers/numberHelper";
 import { ObjectHelper } from "@iota-pico/core/dist/helpers/objectHelper";
 import { StringHelper } from "@iota-pico/core/dist/helpers/stringHelper";
 import { ILogger } from "@iota-pico/core/dist/interfaces/ILogger";
+import { IPlatformCrypto } from "@iota-pico/core/dist/interfaces/IPlatformCrypto";
 import { NullLogger } from "@iota-pico/core/dist/loggers/nullLogger";
 import { ObjectTrytesConverter } from "@iota-pico/data/dist/converters/objectTrytesConverter";
 import { Address } from "@iota-pico/data/dist/data/address";
@@ -13,14 +17,18 @@ import { DataTableIndex } from "../interfaces/dataTableIndex";
 import { IDataTable } from "../interfaces/IDataTable";
 import { IDataTableConfig } from "../interfaces/IDataTableConfig";
 import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { ISignedItem } from "../interfaces/ISignedItem";
 import { IStorageClient } from "../interfaces/IStorageClient";
 
 /**
- * Represents a table for storing data.
+ * Represents a table for storing data with signing.
  */
-export class DataTable<T> implements IDataTable<T> {
+export class SignedDataTable<T> implements IDataTable<T> {
     /* @internal */
     private static readonly INDEX_TAG: Tag = Tag.fromTrytes(Trytes.fromString("INDEX"));
+
+    /* @internal */
+    private static readonly TIMESTAMP_TTL: number = 1000 * 60;
 
     /* @internal */
     private readonly _storageClient: IStorageClient;
@@ -32,19 +40,25 @@ export class DataTable<T> implements IDataTable<T> {
     private _config: IDataTableConfig;
 
     /* @internal */
+    private readonly _platformCrypto: IPlatformCrypto;
+
+    /* @internal */
     private readonly _logger: ILogger;
 
     /**
      * Create a new instance of the DataTable.
      * @param storageClient A storage client to perform storage operations.
      * @param configProvider A provider to get the configuration for the table.
+     * @param platformCrypto The object to use for platform crypto functions.
      * @param logger Logger to send storage info to.
      */
     constructor(storageClient: IStorageClient,
                 configProvider: IDataTableConfigProvider,
+                platformCrypto: IPlatformCrypto,
                 logger?: ILogger) {
         this._storageClient = storageClient;
         this._configProvider = configProvider;
+        this._platformCrypto = platformCrypto;
         this._logger = logger || new NullLogger();
     }
 
@@ -53,7 +67,7 @@ export class DataTable<T> implements IDataTable<T> {
      * @returns The table index.
      */
     public async index(): Promise<DataTableIndex> {
-        this._logger.info("===> DataTable::index");
+        this._logger.info("===> SignedDataTable::index");
 
         await this.loadConfig();
 
@@ -63,16 +77,22 @@ export class DataTable<T> implements IDataTable<T> {
             const index = await this._storageClient.load([indexBundleHash]);
 
             if (index && index.length > 0) {
-                const objectToTrytesConverter = new ObjectTrytesConverter<DataTableIndex>();
+                const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<DataTableIndex>>();
 
-                dataTableIndex = objectToTrytesConverter.from(index[0].data);
+                const signedItem = objectToTrytesConverter.from(index[0].data);
 
-                this._logger.info("<=== DataTable::index", dataTableIndex);
+                if (!this.validateSignedItem(signedItem, index[0].attachmentTimestamp)) {
+                    this._logger.info("<=== SignedDataTable::index invalid signature");
+                    throw new StorageError("Item signature was not valid", indexBundleHash);
+                } else {
+                    dataTableIndex = signedItem.data;
+                    this._logger.info("<=== SignedDataTable::index", signedItem);
+                }
             } else {
-                this._logger.info("<=== DataTable::index no index available");
+                this._logger.info("<=== SignedDataTable::index no index available");
             }
         } else {
-            this._logger.info("<=== DataTable::index no index hash specified");
+            this._logger.info("<=== SignedDataTable::index no index hash specified");
         }
 
         return dataTableIndex;
@@ -85,13 +105,13 @@ export class DataTable<T> implements IDataTable<T> {
      * @returns The id of the stored item.
      */
     public async store(data: T, tag: Tag = Tag.EMPTY): Promise<Hash> {
-        this._logger.info("===> DataTable::store");
+        this._logger.info("===> SignedDataTable::store");
 
-        await this.loadConfig();
+        const signedItem = this.createSignedItem(data);
 
-        const objectToTrytesConverter = new ObjectTrytesConverter<T>();
+        const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<T>>();
 
-        const trytes = objectToTrytesConverter.to(data);
+        const trytes = objectToTrytesConverter.to(signedItem);
 
         const storageAddress = Address.fromTrytes(Trytes.fromString(this._config.storageAddress));
 
@@ -101,15 +121,17 @@ export class DataTable<T> implements IDataTable<T> {
         index = index || [];
         index.push(bundleHash.toTrytes().toString());
 
-        const objectToTrytesConverterIndex = new ObjectTrytesConverter<DataTableIndex>();
+        const signedItemIndex = this.createSignedItem(index);
 
-        const trytesIndex = objectToTrytesConverterIndex.to(index);
+        const objectToTrytesConverterIndex = new ObjectTrytesConverter<ISignedItem<DataTableIndex>>();
 
-        const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
+        const trytesIndex = objectToTrytesConverterIndex.to(signedItemIndex);
+
+        const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, SignedDataTable.INDEX_TAG);
         this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
         await this.saveConfig();
 
-        this._logger.info("<=== DataTable::store", bundleHash);
+        this._logger.info("<=== SignedDataTable::store", bundleHash);
 
         return bundleHash;
     }
@@ -130,7 +152,7 @@ export class DataTable<T> implements IDataTable<T> {
             }
         }
 
-        this._logger.info("===> DataTable::retrieve", loadIds);
+        this._logger.info("===> SignedDataTable::retrieve", loadIds);
 
         await this.loadConfig();
 
@@ -138,14 +160,20 @@ export class DataTable<T> implements IDataTable<T> {
         if (ArrayHelper.isTyped(loadIds, Hash)) {
             const allStorageItems = await this._storageClient.load(loadIds);
 
-            const objectToTrytesConverter = new ObjectTrytesConverter<T>();
+            const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<T>>();
 
             allStorageItems.forEach(storageItem => {
-                ret.push(objectToTrytesConverter.from(storageItem.data));
+                const signedItem = objectToTrytesConverter.from(storageItem.data);
+
+                if (!this.validateSignedItem(signedItem, storageItem.attachmentTimestamp)) {
+                    this._logger.info("<=== SignedDataTable::retrieve invalid signature", storageItem);
+                } else {
+                    ret.push(signedItem.data);
+                }
             });
         }
 
-        this._logger.info("<=== DataTable::retrieve", ret);
+        this._logger.info("<=== SignedDataTable::retrieve", ret);
 
         return ret;
     }
@@ -155,9 +183,7 @@ export class DataTable<T> implements IDataTable<T> {
      * @param id The id of the item to remove.
      */
     public async remove(id: Hash): Promise<void> {
-        this._logger.info("===> DataTable::remove", id);
-
-        await this.loadConfig();
+        this._logger.info("===> SignedDataTable::remove", id);
 
         let index = await this.index();
         index = index || [];
@@ -167,19 +193,57 @@ export class DataTable<T> implements IDataTable<T> {
         if (idx >= 0) {
             index.splice(idx, 1);
 
-            const objectToTrytesConverter = new ObjectTrytesConverter<DataTableIndex>();
+            const signedItem = this.createSignedItem(index);
 
-            const trytesIndex = objectToTrytesConverter.to(index);
+            const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<DataTableIndex>>();
+
+            const trytesIndex = objectToTrytesConverter.to(signedItem);
 
             const storageAddress = Address.fromTrytes(Trytes.fromString(this._config.storageAddress));
 
-            const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
+            const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, SignedDataTable.INDEX_TAG);
             this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
             await this.saveConfig();
 
-            this._logger.info("<=== DataTable::remove");
+            this._logger.info("<=== SignedDataTable::remove");
         } else {
-            this._logger.info("<=== DataTable::remove nothing to remove");
+            this._logger.info("<=== SignedDataTable::remove nothing to remove");
+        }
+    }
+
+    /* @internal */
+    private createSignedItem<U>(data: U): ISignedItem<U> {
+        const rngService = RngServiceFactory.instance().create("default");
+
+        if (ObjectHelper.isEmpty(rngService)) {
+            throw new StorageError("Unable to create RngService, have you called the PAL.initialize");
+        }
+
+        const json = JsonHelper.stringify(data);
+
+        const timestamp = Date.now();
+
+        return {
+            signature: this._platformCrypto.sign(json + timestamp.toString()),
+            timestamp,
+            data
+        };
+    }
+
+    /* @internal */
+    private validateSignedItem<U>(signedItem: ISignedItem<U>, attachmentTimestamp: number): boolean {
+        // We only allow a short time to live between the attachmentTimestamp and our data
+        // timestamp - this prevents the timestamp and therefore the signature being reused
+        if (StringHelper.isString(signedItem.signature) &&
+            NumberHelper.isNumber(attachmentTimestamp) &&
+            attachmentTimestamp > 0 &&
+            NumberHelper.isNumber(signedItem.timestamp) &&
+            signedItem.timestamp > 0 &&
+            attachmentTimestamp - signedItem.timestamp < SignedDataTable.TIMESTAMP_TTL) {
+            const json = JsonHelper.stringify(signedItem.data) + signedItem.timestamp.toString();
+            return this._platformCrypto.verify(json, signedItem.signature);
+        } else {
+            return false;
         }
     }
 

@@ -19,27 +19,9 @@ export interface IStorageClient {
     save(address: Address, data: Trytes, tag?: Tag): Promise<Hash>;
 
     /**
-     * Load the data stored at the address.
-     * @param address The address from which to retrieve the item.
-     * @param id The id of the item to load.
-     * @returns The item stored at the address.
+     * Load the data stored with the given bundle hash ids.
+     * @param ids The ids of the items to load.
+     * @returns The items stored at the hashes.
      */
-    load(address: Address, id: Hash): Promise<StorageItem>;
-
-    /**
-     * Load all the items with the specified tag.
-     * @param address The address from which to retrieve the items.
-     * @param tag The tag of the item to load.
-     * @returns The items stored at the address with specified tag.
-     */
-    loadAllWithTag(address: Address, tag: Tag): Promise<StorageItem[]>;
-
-    /**
-     * Load all the specified bundles.
-     * @param address The address from which to retrieve the items.
-     * @param bundles The hashes of the bundles to load.
-     * @returns The items stored at the address with specified bundle hashes.
-     */
-    loadAllBundles(address: Address, bundles: Hash[]): Promise<StorageItem[]>;
-
+    load(ids: Hash[]): Promise<StorageItem[]>;
 }

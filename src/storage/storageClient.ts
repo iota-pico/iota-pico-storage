@@ -67,113 +67,18 @@ export class StorageClient implements IStorageClient {
     }
 
     /**
-     * Load the data stored at the address.
-     * @param address The address from which to retrieve the item.
-     * @param id The id of the item to load.
-     * @returns The item stored at the address.
+     * Load the data stored with the given bundle hash ids.
+     * @param ids The ids of the items to load.
+     * @returns The items stored at the hashes.
      */
-    public async load(address: Address, id: Hash): Promise<StorageItem> {
-        this._logger.info("===> StorageClient::load", address, id);
+    public async load(ids: Hash[]): Promise<StorageItem[]> {
+        this._logger.info("===> StorageClient::load", ids);
 
-        if (!ObjectHelper.isType(address, Address)) {
-            throw new StorageError("The address must be of type Address");
+        if (!ArrayHelper.isTyped(ids, Hash)) {
+            throw new StorageError("The ids must be an array of type Hash");
         }
 
-        const ret = await this._transactionClient.findTransactionObjects([id]);
-
-        let finalTrytes = "";
-        let attachmentTimestamp = 0;
-        if (!ArrayHelper.isEmpty(ret)) {
-            // Sort the transactions in the bundle and combine the trytes
-            ret.sort((a, b) => {
-                const x = a.currentIndex.toNumber();
-                const y = b.currentIndex.toNumber();
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            })
-                .forEach(transaction => {
-                    finalTrytes += transaction.signatureMessageFragment.toTrytes().toString();
-                });
-
-            // Trim any trailing 9s
-            finalTrytes = finalTrytes.replace(/9+$/, "");
-
-            // trytes length must be an even number
-            if (finalTrytes.length % 2 === 1) {
-                finalTrytes += "9";
-            }
-
-            attachmentTimestamp = ret[0].attachmentTimestamp.toNumber();
-        }
-
-        this._logger.info("<=== StorageClient::load", finalTrytes);
-
-        return new StorageItem(id, Trytes.fromString(finalTrytes), attachmentTimestamp);
-    }
-
-    /**
-     * Load all the items with the specified tag.
-     * @param address The address from which to retrieve the items.
-     * @param tag The tag of the item to load.
-     * @returns The items stored at the address with specified tag.
-     */
-    public async loadAllWithTag(address: Address, tag: Tag): Promise<StorageItem[]> {
-        this._logger.info("===> StorageClient::loadAllWithTag", address, tag);
-
-        if (!ObjectHelper.isType(address, Address)) {
-            throw new StorageError("The address must be of type Address");
-        }
-
-        if (!ObjectHelper.isType(tag, Tag)) {
-            throw new StorageError("The tag must be of type Tag");
-        }
-
-        // Once this PR is integrated https://github.com/iotaledger/iri/pull/340/files
-        // we can do this instead of getting all the data and filtering
-        //const ret = await this._transactionClient.findTransactionObjects(undefined, [address], [tag]);
-        const ret = await this._transactionClient.findTransactionObjects(undefined, [address]);
-
-        let items: StorageItem[] = [];
-
-        if (!ArrayHelper.isEmpty(ret)) {
-            const tagString = tag.toTrytes().toString();
-
-            // Group the transactions by bundle hash
-            const byBundle: { [id: string]: Transaction[] } = {};
-
-            ret.forEach(transaction => {
-                if (transaction.tag.toString() === tagString) {
-                    const bundleHash = transaction.bundle.toTrytes().toString();
-                    byBundle[bundleHash] = byBundle[bundleHash] || [];
-                    byBundle[bundleHash].push(transaction);
-                }
-            });
-
-            items = this.processBundles(byBundle);
-        }
-
-        this._logger.info("<=== StorageClient::loadAllWithTag", items);
-
-        return items;
-    }
-
-    /**
-     * Load all the specified bundles.
-     * @param address The address from which to retrieve the items.
-     * @param bundles The hashes of the bundles to load.
-     * @returns The items stored at the address with specified bundle hashes.
-     */
-    public async loadAllBundles(address: Address, bundles: Hash[]): Promise<StorageItem[]> {
-        this._logger.info("===> StorageClient::loadAllBundles", address, bundles);
-
-        if (!ObjectHelper.isType(address, Address)) {
-            throw new StorageError("The address must be of type Address");
-        }
-
-        if (!ArrayHelper.isTyped(bundles, Hash)) {
-            throw new StorageError("The bundles must be an array of type Hash");
-        }
-
-        const ret = await this._transactionClient.findTransactionObjects(bundles, [address]);
+        const ret = await this._transactionClient.findTransactionObjects(ids);
 
         let items: StorageItem[] = [];
 
@@ -190,11 +95,12 @@ export class StorageClient implements IStorageClient {
             items = this.processBundles(byBundle);
         }
 
-        this._logger.info("<=== StorageClient::loadAllBundles", items);
+        this._logger.info("<=== StorageClient::load", items);
 
         return items;
     }
 
+    /* @internal */
     private processBundles(byBundle: { [id: string]: Transaction[] }): StorageItem[] {
         const items: StorageItem[] = [];
 
@@ -208,29 +114,35 @@ export class StorageClient implements IStorageClient {
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
 
-        // Sort each of the bundle transactions and create trytes for it
         sortedBundles.forEach(bundle => {
-            let itemTrytes = "";
-            bundle.sort((a, b) => {
-                const x = a.currentIndex.toNumber();
-                const y = b.currentIndex.toNumber();
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            })
-                .forEach(transaction => {
-                    itemTrytes += transaction.signatureMessageFragment.toTrytes().toString();
-                });
-
-            // Trim any trailing 9s
-            itemTrytes = itemTrytes.replace(/9+$/, "");
-
-            // trytes length must be an even number
-            if (itemTrytes.length % 2 === 1) {
-                itemTrytes += "9";
-            }
-
-            items.push(new StorageItem(bundle[0].bundle, Trytes.fromString(itemTrytes), bundle[0].attachmentTimestamp.toNumber()));
+            items.push(this.processItem(bundle));
         });
 
         return items;
+    }
+
+    /* @internal */
+    private processItem(bundle: Transaction[]): StorageItem {
+        let itemTrytes = "";
+        // Sort each of the bundle transactions and create trytes for it
+
+        bundle.sort((a, b) => {
+            const x = a.currentIndex.toNumber();
+            const y = b.currentIndex.toNumber();
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        })
+            .forEach(transaction => {
+                itemTrytes += transaction.signatureMessageFragment.toTrytes().toString();
+            });
+
+        // Trim any trailing 9s
+        itemTrytes = itemTrytes.replace(/9+$/, "");
+
+        // trytes length must be an even number
+        if (itemTrytes.length % 2 === 1) {
+            itemTrytes += "9";
+        }
+
+        return new StorageItem(bundle[0].bundle, Trytes.fromString(itemTrytes), bundle[0].tag, bundle[0].attachmentTimestamp.toNumber());
     }
 }
