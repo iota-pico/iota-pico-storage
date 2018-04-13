@@ -9,5 +9,7 @@ export declare class StorageItem {
     data: Trytes;
     tag: Tag;
     attachmentTimestamp: number;
-    constructor(id: Hash, data: Trytes, tag: Tag, attachmentTimestamp: number);
+    bundleHash: Hash;
+    transactionHashes: Hash[];
+    constructor(id: Hash, data: Trytes, tag: Tag, attachmentTimestamp: number, bundleHash: Hash, transactionHashes: Hash[]);
 }

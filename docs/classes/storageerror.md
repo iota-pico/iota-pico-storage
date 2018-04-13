@@ -87,7 +87,7 @@ Create an instance of StorageError.
 
 *Inherited from CoreError.additional*
 
-*Defined in [D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:12](https://github.com/iotaeco/iota-pico-core/blob/96a402e/dist/error/coreError.d.ts#L12)*
+*Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:12*
 
 
 
@@ -113,7 +113,7 @@ ___
 
 *Inherited from CoreError.domain*
 
-*Defined in [D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:8](https://github.com/iotaeco/iota-pico-core/blob/96a402e/dist/error/coreError.d.ts#L8)*
+*Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:8*
 
 
 
@@ -132,7 +132,7 @@ ___
 
 *Inherited from CoreError.innerError*
 
-*Defined in [D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:18](https://github.com/iotaeco/iota-pico-core/blob/96a402e/dist/error/coreError.d.ts#L18)*
+*Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:18*
 
 
 
@@ -183,6 +183,8 @@ ___
 
 *Inherited from Error.stack*
 
+*Overrides Error.stack*
+
 *Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/typescript/lib/lib.es5.d.ts:887*
 
 
@@ -203,7 +205,7 @@ ___
 
 *Inherited from CoreError.format*
 
-*Defined in [D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:37](https://github.com/iotaeco/iota-pico-core/blob/96a402e/dist/error/coreError.d.ts#L37)*
+*Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:37*
 
 
 
@@ -230,7 +232,7 @@ ___
 
 *Inherited from CoreError.isError*
 
-*Defined in [D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:33](https://github.com/iotaeco/iota-pico-core/blob/96a402e/dist/error/coreError.d.ts#L33)*
+*Defined in D:/Workarea/iotaeco/iota-pico-storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:33*
 
 
 

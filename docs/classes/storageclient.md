@@ -5,7 +5,7 @@
 # Class: StorageClient
 
 
-Default implementation of the IStorageClient.
+Default implementation of the StorageClient.
 
 ## Implements
 
@@ -20,9 +20,8 @@ Default implementation of the IStorageClient.
 
 ### Methods
 
-* [delete](storageclient.md#delete)
-* [retrieve](storageclient.md#retrieve)
-* [store](storageclient.md#store)
+* [load](storageclient.md#load)
+* [save](storageclient.md#save)
 
 
 
@@ -34,7 +33,7 @@ Default implementation of the IStorageClient.
 ### ⊕ **new StorageClient**(transactionClient: *`ITransactionClient`*, logger?: *`ILogger`*): [StorageClient](storageclient.md)
 
 
-*Defined in storage/storageClient.ts:15*
+*Defined in storage/storageClient.ts:24*
 
 
 
@@ -58,73 +57,35 @@ Create a new instance of the StorageClient.
 
 
 ## Methods
-<a id="delete"></a>
+<a id="load"></a>
 
-###  delete
+###  load
 
-► **delete**(address: *`Address`*): `Promise`.<`void`>
-
-
-
-*Implementation of [IStorageClient](../interfaces/istorageclient.md).[delete](../interfaces/istorageclient.md#delete)*
-
-*Defined in storage/storageClient.ts:55*
+► **load**(ids: *`Hash`[]*): `Promise`.<[StorageItem](storageitem.md)[]>
 
 
 
-Delete the item stored at the address.
+*Implementation of [IStorageClient](../interfaces/istorageclient.md).[load](../interfaces/istorageclient.md#load)*
+
+*Defined in storage/storageClient.ts:74*
+
+
+
+Load the data stored with the given bundle hash ids.
 
 
 **Parameters:**
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| address | `Address`   |  The address to delete the data. |
+| ids | `Hash`[]   |  The ids of the items to load. |
 
 
 
 
 
-**Returns:** `Promise`.<`void`>
-
-
-
-
-
-___
-
-<a id="retrieve"></a>
-
-###  retrieve
-
-► **retrieve**T(address: *`Address`*): `Promise`.<`T`>
-
-
-
-*Implementation of [IStorageClient](../interfaces/istorageclient.md).[retrieve](../interfaces/istorageclient.md#retrieve)*
-
-*Defined in storage/storageClient.ts:44*
-
-
-
-Retrieve the data stored at the address.
-
-
-**Type parameters:**
-
-#### T 
-**Parameters:**
-
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| address | `Address`   |  The address from which to retrieve the item. |
-
-
-
-
-
-**Returns:** `Promise`.<`T`>
-The item stored at the address.
+**Returns:** `Promise`.<[StorageItem](storageitem.md)[]>
+The items stored at the hashes.
 
 
 
@@ -133,38 +94,38 @@ The item stored at the address.
 
 ___
 
-<a id="store"></a>
+<a id="save"></a>
 
-###  store
+###  save
 
-► **store**T(address: *`Address`*, data: *`T`*): `Promise`.<`void`>
-
-
-
-*Implementation of [IStorageClient](../interfaces/istorageclient.md).[store](../interfaces/istorageclient.md#store)*
-
-*Defined in storage/storageClient.ts:33*
+► **save**(address: *`Address`*, data: *`Trytes`*, tag?: *`Tag`*): `Promise`.<`Hash`>
 
 
 
-Store an item of data on the address.
+*Implementation of [IStorageClient](../interfaces/istorageclient.md).[save](../interfaces/istorageclient.md#save)*
+
+*Defined in storage/storageClient.ts:43*
 
 
-**Type parameters:**
 
-#### T 
+Save an item of data on the address.
+
+
 **Parameters:**
 
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| address | `Address`   |  The address to store the item. |
-| data | `T`   |  The data to store. |
+| Param | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| address | `Address`  | - |   The address to store the item. |
+| data | `Trytes`  | - |   The data to store. |
+| tag | `Tag`  |  Tag.EMPTY |   Tag to label the data with. |
 
 
 
 
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`.<`Hash`>
+The id of the item saved.
+
 
 
 

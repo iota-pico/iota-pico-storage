@@ -34,7 +34,7 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
      * @param serviceAccountKey The key to acccess the google api.
      * @param logger Logger to send info to.
      */
-    constructor(bucketName: string, configName: string, serviceAccountKey: IGoogleServiceAccountKey, logger?: ILogger) {
+    constructor(bucketName: string, configName: string, serviceAccountKey?: IGoogleServiceAccountKey, logger?: ILogger) {
         if (StringHelper.isEmpty(bucketName)) {
             throw new StorageError("The bucketName must not be an empty string");
         }
@@ -68,9 +68,7 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
         } catch (exc) {
             let emptyConfig = false;
             if (ObjectHelper.isType(exc, NetworkError)) {
-                if (exc.additional && exc.additional.errorResponseCode === 403) {
-                    emptyConfig = true;
-                }
+                emptyConfig = true;
             }
             if (!emptyConfig) {
                 throw exc;

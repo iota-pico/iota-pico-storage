@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/error/storageError.ts</title>
+    <title>Code coverage report for src/storage/storageItem.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">src/error</a> storageError.ts
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/storage</a> storageItem.ts
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/7</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -63,13 +63,14 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -77,24 +78,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CoreError } from "@iota-pico/core/dist/error/coreError";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Hash } from "@iota-pico/data/dist/data/hash";
+import { Tag } from "@iota-pico/data/dist/data/tag";
+import { Trytes } from "@iota-pico/data/dist/data/trytes";
 &nbsp;
 /**
- * A storage implementation of an error.
+ * Class to maintain an item stored on the tangle.
  */
-export class StorageError extends CoreError {
-    /**
-     * Create an instance of StorageError.
-     * @param message The message for the error.
-     * @param additional Additional details about the error.
-     * @param innerError Add information from inner error if there was one.
-     */
-    constructor(message: string, additional?: { [id: string]: any }, innerError?: Error) {
-        super(message, additional, innerError);
-        this.domain = "Storage";
+export class StorageItem {
+    public id: Hash;
+    public data: Trytes;
+    public tag: Tag;
+    public attachmentTimestamp: number;
+    public bundleHash: Hash;
+    public transactionHashes: Hash[];
+&nbsp;
+<span class="fstat-no" title="function not covered" >    constructor(</span>id: Hash, data: Trytes, tag: Tag, attachmentTimestamp: number, bundleHash: Hash, transactionHashes: Hash[]) {
+<span class="cstat-no" title="statement not covered" >        this.id = id;</span>
+<span class="cstat-no" title="statement not covered" >        this.data = data;</span>
+<span class="cstat-no" title="statement not covered" >        this.tag = tag;</span>
+<span class="cstat-no" title="statement not covered" >        this.attachmentTimestamp = attachmentTimestamp;</span>
+<span class="cstat-no" title="statement not covered" >        this.bundleHash = bundleHash;</span>
+<span class="cstat-no" title="statement not covered" >        this.transactionHashes = transactionHashes;</span>
     }
 }
 &nbsp;</pre></td></tr>

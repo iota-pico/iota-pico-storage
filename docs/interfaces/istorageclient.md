@@ -15,11 +15,11 @@ Represents a client for performing storage operations.
 
 
 ## Methods
-<a id="delete"></a>
+<a id="load"></a>
 
-###  delete
+###  load
 
-► **delete**(address: *`Address`*): `Promise`.<`void`>
+► **load**(ids: *`Hash`[]*): `Promise`.<[StorageItem](../classes/storageitem.md)[]>
 
 
 
@@ -27,57 +27,21 @@ Represents a client for performing storage operations.
 
 
 
-Delete the item stored at the address.
+Load the data stored with the given bundle hash ids.
 
 
 **Parameters:**
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| address | `Address`   |  The address to delete the data. |
+| ids | `Hash`[]   |  The ids of the items to load. |
 
 
 
 
 
-**Returns:** `Promise`.<`void`>
-
-
-
-
-
-___
-
-<a id="retrieve"></a>
-
-###  retrieve
-
-► **retrieve**T(address: *`Address`*): `Promise`.<`T`>
-
-
-
-*Defined in interfaces/IStorageClient.ts:20*
-
-
-
-Retrieve the data stored at the address.
-
-
-**Type parameters:**
-
-#### T 
-**Parameters:**
-
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| address | `Address`   |  The address from which to retrieve the item. |
-
-
-
-
-
-**Returns:** `Promise`.<`T`>
-The item stored at the address.
+**Returns:** `Promise`.<[StorageItem](../classes/storageitem.md)[]>
+The items stored at the hashes.
 
 
 
@@ -86,36 +50,36 @@ The item stored at the address.
 
 ___
 
-<a id="store"></a>
+<a id="save"></a>
 
-###  store
+###  save
 
-► **store**T(address: *`Address`*, data: *`T`*): `Promise`.<`void`>
-
-
-
-*Defined in interfaces/IStorageClient.ts:13*
+► **save**(address: *`Address`*, data: *`Trytes`*, tag?: *`Tag`*): `Promise`.<`Hash`>
 
 
 
-Store an item of data on the address.
+*Defined in interfaces/IStorageClient.ts:19*
 
 
-**Type parameters:**
 
-#### T 
+Save an item of data on the address.
+
+
 **Parameters:**
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
 | address | `Address`   |  The address to store the item. |
-| data | `T`   |  The data to store. |
+| data | `Trytes`   |  The data to store. |
+| tag | `Tag`   |  Tag to label the data with. |
 
 
 
 
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`.<`Hash`>
+The id of the item saved.
+
 
 
 

@@ -13,7 +13,7 @@ export declare class GoogleStorageConfigProvider implements IDataTableConfigProv
      * @param serviceAccountKey The key to acccess the google api.
      * @param logger Logger to send info to.
      */
-    constructor(bucketName: string, configName: string, serviceAccountKey: IGoogleServiceAccountKey, logger?: ILogger);
+    constructor(bucketName: string, configName: string, serviceAccountKey?: IGoogleServiceAccountKey, logger?: ILogger);
     /**
      * Load the configuration for the data table.
      * @returns The configuration.
