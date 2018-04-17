@@ -4,5 +4,6 @@
  */
 export interface IDataTableConfig {
     indexBundleHash?: string;
-    storageAddress: string;
+    indexAddress: string;
+    dataAddress: string;
 }

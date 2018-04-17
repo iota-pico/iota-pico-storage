@@ -7,14 +7,13 @@ import { NullLogger } from "@iota-pico/core/dist/loggers/nullLogger";
 import { NetworkEndPoint } from "@iota-pico/core/dist/network/networkEndPoint";
 import * as jws from "jws";
 import { StorageError } from "../error/storageError";
-import { IDataTableConfig } from "../interfaces/IDataTableConfig";
-import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { IConfigProvider } from "../interfaces/IConfigProvider";
 import { IGoogleServiceAccountKey } from "../interfaces/IGoogleServiceAccountKey";
 
 /**
  * Represents a config provider which uses google storage.
  */
-export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
+export class GoogleStorageConfigProvider implements IConfigProvider {
     /* @internal */
     private readonly _logger: ILogger;
 
@@ -52,7 +51,7 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
      * Load the configuration for the data table.
      * @returns The configuration.
      */
-    public async load(): Promise<IDataTableConfig> {
+    public async load<T>(): Promise<T> {
         this._logger.info("===> GoogleStorageConfigProvider::load");
 
         const networkEndpoint = new NetworkEndPoint("https", "storage.googleapis.com", 443);
@@ -61,10 +60,10 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
         // Use a cache bust when we are doing admin
         const cacheBust = ObjectHelper.isEmpty(this._serviceAccountKey) ? "" : `?cachebust=${Date.now()}`;
 
-        let config: IDataTableConfig;
+        let config: T;
 
         try {
-            config = await networkClient.getJson<IDataTableConfig>(`${this._bucketName}/${this._configName}${cacheBust}`);
+            config = await networkClient.getJson<T>(`${this._bucketName}/${this._configName}.json${cacheBust}`);
         } catch (exc) {
             let emptyConfig = false;
             if (ObjectHelper.isType(exc, NetworkError)) {
@@ -84,7 +83,7 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
      * Save the configuration for the data table.
      * @param config The configuration to set.
      */
-    public async save(config: IDataTableConfig): Promise<void> {
+    public async save<T>(config: T): Promise<void> {
         this._logger.info("===> GoogleStorageConfigProvider::save");
 
         if (ObjectHelper.isEmpty(this._serviceAccountKey)) {
@@ -100,7 +99,7 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
 
         const token = await this.getToken("https://www.googleapis.com/auth/devstorage.full_control");
 
-        await networkClient.postJson(config, `upload/storage/v1/b/${this._bucketName}/o?name=${this._configName}`, {
+        await networkClient.postJson(config, `upload/storage/v1/b/${this._bucketName}/o?name=${this._configName}.json`, {
             Authorization: `Bearer ${token}`
         });
 
@@ -109,13 +108,14 @@ export class GoogleStorageConfigProvider implements IDataTableConfigProvider {
             role: "READER"
         };
 
-        await networkClient.postJson(permissions, `storage/v1/b/${this._bucketName}/o/${this._configName}/acl`, {
+        await networkClient.postJson(permissions, `storage/v1/b/${this._bucketName}/o/${this._configName}.json/acl`, {
             Authorization: `Bearer ${token}`
         });
 
         this._logger.info("<=== GoogleStorageConfigProvider::save");
     }
 
+    /* @internal */
     private async getToken(scope: string): Promise<string> {
         this._logger.info("===> GoogleStorageConfigProvider::getToken");
 

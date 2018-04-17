@@ -1,11 +1,10 @@
 import { ILogger } from "@iota-pico/core/dist/interfaces/ILogger";
-import { IDataTableConfig } from "../interfaces/IDataTableConfig";
-import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { IConfigProvider } from "../interfaces/IConfigProvider";
 import { IGoogleServiceAccountKey } from "../interfaces/IGoogleServiceAccountKey";
 /**
  * Represents a config provider which uses google storage.
  */
-export declare class GoogleStorageConfigProvider implements IDataTableConfigProvider {
+export declare class GoogleStorageConfigProvider implements IConfigProvider {
     /**
      * Create a new instance of the GoogleStorageConfigProvider.
      * @param bucketName The name of the bucket object.
@@ -18,11 +17,10 @@ export declare class GoogleStorageConfigProvider implements IDataTableConfigProv
      * Load the configuration for the data table.
      * @returns The configuration.
      */
-    load(): Promise<IDataTableConfig>;
+    load<T>(): Promise<T>;
     /**
      * Save the configuration for the data table.
      * @param config The configuration to set.
      */
-    save(config: IDataTableConfig): Promise<void>;
-    private getToken(scope);
+    save<T>(config: T): Promise<void>;
 }

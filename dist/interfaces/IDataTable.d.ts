@@ -19,6 +19,14 @@ export interface IDataTable<T> {
      */
     store(data: T, tag?: Tag): Promise<Hash>;
     /**
+     * Update an item of data in the table.
+     * @param originalId The id of the item to update.
+     * @param data The data to update.
+     * @param tag The tag to store with the item.
+     * @returns The id of the updated item.
+     */
+    update(originalId: Hash, data: T, tag?: Tag): Promise<Hash>;
+    /**
      * Retrieve all the data stored in the table.
      * @param ids Ids of all the items to retrieve, if empty will retrieve all items from index.
      * @returns The items stored in the table.

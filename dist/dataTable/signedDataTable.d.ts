@@ -14,10 +14,11 @@ export declare class SignedDataTable<T> implements IDataTable<T> {
      * Create a new instance of the DataTable.
      * @param storageClient A storage client to perform storage operations.
      * @param configProvider A provider to get the configuration for the table.
+     * @param tableName The name of the table.
      * @param platformCrypto The object to use for platform crypto functions.
      * @param logger Logger to send storage info to.
      */
-    constructor(storageClient: IStorageClient, configProvider: IDataTableConfigProvider, platformCrypto: IPlatformCrypto, logger?: ILogger);
+    constructor(storageClient: IStorageClient, configProvider: IDataTableConfigProvider, tableName: string, platformCrypto: IPlatformCrypto, logger?: ILogger);
     /**
      * Get the index for the table.
      * @returns The table index.
@@ -30,6 +31,14 @@ export declare class SignedDataTable<T> implements IDataTable<T> {
      * @returns The id of the stored item.
      */
     store(data: T, tag?: Tag): Promise<Hash>;
+    /**
+     * Update an item of data in the table.
+     * @param originalId The id of the item to update.
+     * @param data The data to update.
+     * @param tag The tag to store with the item.
+     * @returns The id of the updated item.
+     */
+    update(originalId: Hash, data: T, tag?: Tag): Promise<Hash>;
     /**
      * Retrieve all the data stored in the table.
      * @param ids Ids of all the items to retrieve, if empty will retrieve all items from index.

@@ -29,6 +29,9 @@ export class DataTable<T> implements IDataTable<T> {
     private readonly _configProvider: IDataTableConfigProvider;
 
     /* @internal */
+    private readonly _tableName: string;
+
+    /* @internal */
     private _config: IDataTableConfig;
 
     /* @internal */
@@ -38,13 +41,16 @@ export class DataTable<T> implements IDataTable<T> {
      * Create a new instance of the DataTable.
      * @param storageClient A storage client to perform storage operations.
      * @param configProvider A provider to get the configuration for the table.
+     * @param tableName The name of the table.
      * @param logger Logger to send storage info to.
      */
     constructor(storageClient: IStorageClient,
                 configProvider: IDataTableConfigProvider,
+                tableName: string,
                 logger?: ILogger) {
         this._storageClient = storageClient;
         this._configProvider = configProvider;
+        this._tableName = tableName;
         this._logger = logger || new NullLogger();
     }
 
@@ -85,31 +91,64 @@ export class DataTable<T> implements IDataTable<T> {
      * @returns The id of the stored item.
      */
     public async store(data: T, tag: Tag = Tag.EMPTY): Promise<Hash> {
-        this._logger.info("===> DataTable::store");
+        this._logger.info("===> DataTable::store", data, tag);
+
+        await this.loadConfig();
+
+        const objectToTrytesConverter = new ObjectTrytesConverter<T>();
+        const trytes = objectToTrytesConverter.to(data);
+
+        const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
+
+        const bundleHash = await this._storageClient.save(dataAddress, trytes, tag);
+
+        const addHash = bundleHash.toTrytes().toString();
+
+        let index = await this.index();
+        index = index || [];
+        index.push(addHash);
+
+        await this.saveIndex(index);
+
+        this._logger.info("<=== DataTable::store", bundleHash);
+
+        return bundleHash;
+    }
+
+    /**
+     * Update an item of data in the table.
+     * @param originalId The id of the item to update.
+     * @param data The data to update.
+     * @param tag The tag to store with the item.
+     * @returns The id of the updated item.
+     */
+    public async update(originalId: Hash, data: T, tag?: Tag): Promise<Hash> {
+        this._logger.info("===> DataTable::update", originalId, data, tag);
 
         await this.loadConfig();
 
         const objectToTrytesConverter = new ObjectTrytesConverter<T>();
 
         const trytes = objectToTrytesConverter.to(data);
+        const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
 
-        const storageAddress = Address.fromTrytes(Trytes.fromString(this._config.storageAddress));
-
-        const bundleHash = await this._storageClient.save(storageAddress, trytes, tag);
+        const bundleHash = await this._storageClient.save(dataAddress, trytes, tag);
 
         let index = await this.index();
         index = index || [];
-        index.push(bundleHash.toTrytes().toString());
+        const removeHash = originalId.toTrytes().toString();
+        const addHash = bundleHash.toTrytes().toString();
 
-        const objectToTrytesConverterIndex = new ObjectTrytesConverter<DataTableIndex>();
+        const idx = index.indexOf(removeHash);
+        if (idx >= 0) {
+            index.splice(idx, 1, addHash);
+        } else {
+            index.push(addHash);
+        }
 
-        const trytesIndex = objectToTrytesConverterIndex.to(index);
+        await this.saveIndex(index);
 
-        const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
-        this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
-        await this.saveConfig();
-
-        this._logger.info("<=== DataTable::store", bundleHash);
+        this._logger.info("<=== DataTable::update", bundleHash);
 
         return bundleHash;
     }
@@ -176,15 +215,7 @@ export class DataTable<T> implements IDataTable<T> {
         if (idx >= 0) {
             index.splice(idx, 1);
 
-            const objectToTrytesConverter = new ObjectTrytesConverter<DataTableIndex>();
-
-            const trytesIndex = objectToTrytesConverter.to(index);
-
-            const storageAddress = Address.fromTrytes(Trytes.fromString(this._config.storageAddress));
-
-            const indexBundleHash = await this._storageClient.save(storageAddress, trytesIndex, DataTable.INDEX_TAG);
-            this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
-            await this.saveConfig();
+            await this.saveIndex(index);
 
             this._logger.info("<=== DataTable::remove");
         } else {
@@ -196,9 +227,11 @@ export class DataTable<T> implements IDataTable<T> {
     private async loadConfig(): Promise<void> {
         if (ObjectHelper.isEmpty(this._config)) {
             this._logger.info("===> DataTable::getConfig");
-            this._config = await this._configProvider.load();
-            if (ObjectHelper.isEmpty(this._config) || ObjectHelper.isEmpty(this._config.storageAddress)) {
-                throw new StorageError("Configuration must contain at least the storageAddress");
+            this._config = await this._configProvider.load(this._tableName);
+            if (ObjectHelper.isEmpty(this._config) ||
+                ObjectHelper.isEmpty(this._config.indexAddress) ||
+                ObjectHelper.isEmpty(this._config.dataAddress)) {
+                throw new StorageError("Configuration must contain at least the indexAddress and dataAddress");
             }
             this._logger.info("<=== DataTable::getConfig", this._config);
         }
@@ -208,8 +241,21 @@ export class DataTable<T> implements IDataTable<T> {
     private async saveConfig(): Promise<void> {
         if (!ObjectHelper.isEmpty(this._config)) {
             this._logger.info("===> DataTable::setConfig", this._config);
-            await this._configProvider.save(this._config);
+            await this._configProvider.save(this._tableName, this._config);
             this._logger.info("<=== DataTable::setConfig");
         }
+    }
+
+    /* @internal */
+    private async saveIndex(index: DataTableIndex): Promise<void> {
+        const indexAddress = Address.fromTrytes(Trytes.fromString(this._config.indexAddress));
+
+        const objectToTrytesConverterIndex = new ObjectTrytesConverter<DataTableIndex>();
+
+        const trytesIndex = objectToTrytesConverterIndex.to(index);
+
+        const indexBundleHash = await this._storageClient.save(indexAddress, trytesIndex, DataTable.INDEX_TAG);
+        this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
+        await this.saveConfig();
     }
 }

@@ -7,13 +7,15 @@ import { IDataTableConfig } from "./IDataTableConfig";
 export interface IDataTableConfigProvider {
     /**
      * Load the configuration for the data table.
+     * @param tableName The table to load the configuration for.
      * @returns The configuration.
      */
-    load(): Promise<IDataTableConfig>;
+    load(tableName: string): Promise<IDataTableConfig>;
 
     /**
      * Save the configuration for the data table.
+     * @param tableName The table to save the configuration for.
      * @param config The configuration to set.
      */
-    save(config: IDataTableConfig): Promise<void>;
+    save(tableName: string, config: IDataTableConfig): Promise<void>;
 }
