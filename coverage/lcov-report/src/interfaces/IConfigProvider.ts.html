@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/interfaces/IGoogleServiceAccountKey.ts</title>
+    <title>Code coverage report for src/interfaces/IConfigProvider.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">src/interfaces</a> IGoogleServiceAccountKey.ts
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/interfaces</a> IConfigProvider.ts
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -61,7 +61,11 @@
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -77,19 +81,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Represents the configuration for google service account.
+ * Represents a class that can get/set configuration.
+ * @interface
  */
-export interface IGoogleServiceAccountKey {
-    "type": string;
-    "project_id": string;
-    "private_key_id": string;
-    "private_key": string;
-    "client_email": string;
-    "client_id": string;
-    "auth_uri": string;
-    "token_uri": string;
-    "auth_provider_x509_cert_url": string;
-    "client_x509_cert_url": string;
+export interface IConfigProvider {
+    /**
+     * Load the configuration.
+     * @returns The configuration.
+     */
+    load&lt;T&gt;(): Promise&lt;T&gt;;
+&nbsp;
+    /**
+     * Save the configuration.
+     * @param config The configuration to set.
+     */
+    save&lt;T&gt;(config: T): Promise&lt;void&gt;;
 }
 &nbsp;</pre></td></tr>
 </table></pre>

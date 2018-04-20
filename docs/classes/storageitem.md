@@ -1,18 +1,18 @@
 [@iota-pico/storage](../README.md) > [StorageItem](../classes/storageitem.md)
 
-
-
 # Class: StorageItem
 
-
 Class to maintain an item stored on the tangle.
+
+## Hierarchy
+
+**StorageItem**
 
 ## Index
 
 ### Constructors
 
 * [constructor](storageitem.md#constructor)
-
 
 ### Properties
 
@@ -23,19 +23,15 @@ Class to maintain an item stored on the tangle.
 * [tag](storageitem.md#tag)
 * [transactionHashes](storageitem.md#transactionhashes)
 
-
-
 ---
-## Constructors
-<a id="constructor"></a>
 
+## Constructors
+
+<a id="constructor"></a>
 
 ### ⊕ **new StorageItem**(id: *`Hash`*, data: *`Trytes`*, tag: *`Tag`*, attachmentTimestamp: *`number`*, bundleHash: *`Hash`*, transactionHashes: *`Hash`[]*): [StorageItem](storageitem.md)
 
-
 *Defined in storage/storageItem.ts:14*
-
-
 
 **Parameters:**
 
@@ -48,16 +44,12 @@ Class to maintain an item stored on the tangle.
 | bundleHash | `Hash`   |  - |
 | transactionHashes | `Hash`[]   |  - |
 
-
-
-
-
 **Returns:** [StorageItem](storageitem.md)
 
 ---
 
-
 ## Properties
+
 <a id="attachmenttimestamp"></a>
 
 ###  attachmentTimestamp
@@ -65,10 +57,6 @@ Class to maintain an item stored on the tangle.
 **●  attachmentTimestamp**:  *`number`* 
 
 *Defined in storage/storageItem.ts:12*
-
-
-
-
 
 ___
 
@@ -80,10 +68,6 @@ ___
 
 *Defined in storage/storageItem.ts:13*
 
-
-
-
-
 ___
 
 <a id="data"></a>
@@ -93,10 +77,6 @@ ___
 **●  data**:  *`Trytes`* 
 
 *Defined in storage/storageItem.ts:10*
-
-
-
-
 
 ___
 
@@ -108,10 +88,6 @@ ___
 
 *Defined in storage/storageItem.ts:9*
 
-
-
-
-
 ___
 
 <a id="tag"></a>
@@ -121,10 +97,6 @@ ___
 **●  tag**:  *`Tag`* 
 
 *Defined in storage/storageItem.ts:11*
-
-
-
-
 
 ___
 
@@ -136,10 +108,5 @@ ___
 
 *Defined in storage/storageItem.ts:14*
 
-
-
-
-
 ___
-
 

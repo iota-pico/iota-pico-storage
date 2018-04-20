@@ -182,11 +182,11 @@ export class DataTable<T> implements IDataTable<T> {
             for (let i = 0; i < allStorageItems.length; i++) {
                 const item = objectToTrytesConverter.from(allStorageItems[i].data);
                 Object.defineProperty(item, "bundleHash", {
-                    value: allStorageItems[i].bundleHash,
+                    value: allStorageItems[i].bundleHash.toTrytes().toString(),
                     enumerable: true
                 });
                 Object.defineProperty(item, "transactionHashes", {
-                    value: allStorageItems[i].transactionHashes,
+                    value: allStorageItems[i].transactionHashes.map(th => th.toTrytes().toString()),
                     enumerable: true
                 });
                 ret.push(item);

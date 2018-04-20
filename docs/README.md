@@ -1,6 +1,4 @@
 
-
-
 #  @iota-pico/storage
 
 ## Index
@@ -8,31 +6,32 @@
 ### Classes
 
 * [DataTable](classes/datatable.md)
+* [DataTableConfigProvider](classes/datatableconfigprovider.md)
 * [GoogleStorageConfigProvider](classes/googlestorageconfigprovider.md)
 * [SignedDataTable](classes/signeddatatable.md)
 * [StorageClient](classes/storageclient.md)
 * [StorageError](classes/storageerror.md)
 * [StorageItem](classes/storageitem.md)
 
-
 ### Interfaces
 
+* [IConfigProvider](interfaces/iconfigprovider.md)
 * [IDataTable](interfaces/idatatable.md)
 * [IDataTableConfig](interfaces/idatatableconfig.md)
+* [IDataTableConfigCollection](interfaces/idatatableconfigcollection.md)
 * [IDataTableConfigProvider](interfaces/idatatableconfigprovider.md)
 * [IGoogleServiceAccountKey](interfaces/igoogleserviceaccountkey.md)
 * [ISignedItem](interfaces/isigneditem.md)
 * [IStorageClient](interfaces/istorageclient.md)
 
-
 ### Type aliases
 
 * [DataTableIndex](#datatableindex)
 
-
-
 ---
-# Type aliases
+
+## Type aliases
+
 <a id="datatableindex"></a>
 
 ###  DataTableIndex
@@ -41,13 +40,7 @@
 
 *Defined in interfaces/dataTableIndex.ts:4*
 
-
-
 Represents a table index for storing data.
 
-
-
-
 ___
-
 

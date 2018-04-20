@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/interfaces/IGoogleServiceAccountKey.ts</title>
+    <title>Code coverage report for src/interfaces/IDataTableConfigCollection.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">src/interfaces</a> IGoogleServiceAccountKey.ts
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/interfaces</a> IDataTableConfigCollection.ts
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -55,13 +55,7 @@
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a>
-<a name='L10'></a><a href='#L10'>10</a>
-<a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L10'></a><a href='#L10'>10</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -70,26 +64,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Represents the configuration for google service account.
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IDataTableConfig } from "./IDataTableConfig";
+&nbsp;
+/**
+ * Represents the configuration required by data tables.
+ * @interface
  */
-export interface IGoogleServiceAccountKey {
-    "type": string;
-    "project_id": string;
-    "private_key_id": string;
-    "private_key": string;
-    "client_email": string;
-    "client_id": string;
-    "auth_uri": string;
-    "token_uri": string;
-    "auth_provider_x509_cert_url": string;
-    "client_x509_cert_url": string;
+export interface IDataTableConfigCollection {
+    [tableName: string]: IDataTableConfig;
 }
 &nbsp;</pre></td></tr>
 </table></pre>

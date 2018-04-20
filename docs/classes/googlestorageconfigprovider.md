@@ -1,15 +1,16 @@
 [@iota-pico/storage](../README.md) > [GoogleStorageConfigProvider](../classes/googlestorageconfigprovider.md)
 
-
-
 # Class: GoogleStorageConfigProvider
-
 
 Represents a config provider which uses google storage.
 
+## Hierarchy
+
+**GoogleStorageConfigProvider**
+
 ## Implements
 
-* [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)
+* [IConfigProvider](../interfaces/iconfigprovider.md)
 
 ## Index
 
@@ -17,28 +18,22 @@ Represents a config provider which uses google storage.
 
 * [constructor](googlestorageconfigprovider.md#constructor)
 
-
 ### Methods
 
 * [load](googlestorageconfigprovider.md#load)
 * [save](googlestorageconfigprovider.md#save)
 
-
-
 ---
-## Constructors
-<a id="constructor"></a>
 
+## Constructors
+
+<a id="constructor"></a>
 
 ### ⊕ **new GoogleStorageConfigProvider**(bucketName: *`string`*, configName: *`string`*, serviceAccountKey?: *[IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)*, logger?: *`ILogger`*): [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
 
-
-*Defined in configProvider/googleStorageConfigProvider.ts:28*
-
-
+*Defined in configProvider/googleStorageConfigProvider.ts:27*
 
 Create a new instance of the GoogleStorageConfigProvider.
-
 
 **Parameters:**
 
@@ -49,42 +44,30 @@ Create a new instance of the GoogleStorageConfigProvider.
 | serviceAccountKey | [IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)   |  The key to acccess the google api. |
 | logger | `ILogger`   |  Logger to send info to. |
 
-
-
-
-
 **Returns:** [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
 
 ---
 
-
 ## Methods
+
 <a id="load"></a>
 
 ###  load
 
-► **load**(): `Promise`.<[IDataTableConfig](../interfaces/idatatableconfig.md)>
+▸ **load**T(): `Promise`.<`T`>
 
+*Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-
-*Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[load](../interfaces/idatatableconfigprovider.md#load)*
-
-*Defined in configProvider/googleStorageConfigProvider.ts:55*
-
-
+*Defined in configProvider/googleStorageConfigProvider.ts:54*
 
 Load the configuration for the data table.
 
+**Type parameters:**
 
+#### T 
 
-
-**Returns:** `Promise`.<[IDataTableConfig](../interfaces/idatatableconfig.md)>
+**Returns:** `Promise`.<`T`>
 The configuration.
-
-
-
-
-
 
 ___
 
@@ -92,35 +75,24 @@ ___
 
 ###  save
 
-► **save**(config: *[IDataTableConfig](../interfaces/idatatableconfig.md)*): `Promise`.<`void`>
+▸ **save**T(config: *`T`*): `Promise`.<`void`>
 
+*Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-
-*Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[save](../interfaces/idatatableconfigprovider.md#save)*
-
-*Defined in configProvider/googleStorageConfigProvider.ts:87*
-
-
+*Defined in configProvider/googleStorageConfigProvider.ts:86*
 
 Save the configuration for the data table.
 
+**Type parameters:**
 
+#### T 
 **Parameters:**
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| config | [IDataTableConfig](../interfaces/idatatableconfig.md)   |  The configuration to set. |
-
-
-
-
+| config | `T`   |  The configuration to set. |
 
 **Returns:** `Promise`.<`void`>
 
-
-
-
-
 ___
-
 

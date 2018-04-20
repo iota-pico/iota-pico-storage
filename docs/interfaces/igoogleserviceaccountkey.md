@@ -1,14 +1,32 @@
 [@iota-pico/storage](../README.md) > [IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)
 
-
-
 # Interface: IGoogleServiceAccountKey
-
 
 Represents the configuration for google service account.
 
+## Hierarchy
+
+**IGoogleServiceAccountKey**
+
+## Index
+
+### Properties
+
+* [auth_provider_x509_cert_url](igoogleserviceaccountkey.md#auth_provider_x509_cert_url)
+* [auth_uri](igoogleserviceaccountkey.md#auth_uri)
+* [client_email](igoogleserviceaccountkey.md#client_email)
+* [client_id](igoogleserviceaccountkey.md#client_id)
+* [client_x509_cert_url](igoogleserviceaccountkey.md#client_x509_cert_url)
+* [private_key](igoogleserviceaccountkey.md#private_key)
+* [private_key_id](igoogleserviceaccountkey.md#private_key_id)
+* [project_id](igoogleserviceaccountkey.md#project_id)
+* [token_uri](igoogleserviceaccountkey.md#token_uri)
+* [type](igoogleserviceaccountkey.md#type)
+
+---
 
 ## Properties
+
 <a id="auth_provider_x509_cert_url"></a>
 
 ###  auth_provider_x509_cert_url
@@ -16,10 +34,6 @@ Represents the configuration for google service account.
 **●  auth_provider_x509_cert_url**:  *`string`* 
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:13*
-
-
-
-
 
 ___
 
@@ -31,10 +45,6 @@ ___
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:11*
 
-
-
-
-
 ___
 
 <a id="client_email"></a>
@@ -44,10 +54,6 @@ ___
 **●  client_email**:  *`string`* 
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:9*
-
-
-
-
 
 ___
 
@@ -59,10 +65,6 @@ ___
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:10*
 
-
-
-
-
 ___
 
 <a id="client_x509_cert_url"></a>
@@ -72,10 +74,6 @@ ___
 **●  client_x509_cert_url**:  *`string`* 
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:14*
-
-
-
-
 
 ___
 
@@ -87,10 +85,6 @@ ___
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:8*
 
-
-
-
-
 ___
 
 <a id="private_key_id"></a>
@@ -100,10 +94,6 @@ ___
 **●  private_key_id**:  *`string`* 
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:7*
-
-
-
-
 
 ___
 
@@ -115,10 +105,6 @@ ___
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:6*
 
-
-
-
-
 ___
 
 <a id="token_uri"></a>
@@ -128,10 +114,6 @@ ___
 **●  token_uri**:  *`string`* 
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:12*
-
-
-
-
 
 ___
 
@@ -143,10 +125,5 @@ ___
 
 *Defined in interfaces/IGoogleServiceAccountKey.ts:5*
 
-
-
-
-
 ___
-
 
