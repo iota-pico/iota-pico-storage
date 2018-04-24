@@ -15,7 +15,7 @@ export interface IStorageClient {
      * @param tag Tag to label the data with.
      * @returns The id of the item saved.
      */
-    save(address: Address, data: Trytes, tag?: Tag): Promise<Hash>;
+    save(address: Address, data: Trytes, tag?: Tag): Promise<StorageItem>;
     /**
      * Load the data stored with the given bundle hash ids.
      * @param ids The ids of the items to load.

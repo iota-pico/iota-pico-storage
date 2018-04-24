@@ -121,9 +121,18 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
 
-        const bundleHash = await this._storageClient.save(dataAddress, trytes, tag);
+        const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
 
-        const addHash = bundleHash.toTrytes().toString();
+        Object.defineProperty(data, "bundleHash", {
+            value: storageItem.bundleHash.toTrytes().toString(),
+            enumerable: true
+        });
+        Object.defineProperty(data, "transactionHashes", {
+            value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
+            enumerable: true
+        });
+
+        const addHash = storageItem.bundleHash.toTrytes().toString();
 
         let index = await this.index();
         index = index || [];
@@ -131,9 +140,9 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         await this.saveIndex(index);
 
-        this._logger.info("<=== SignedDataTable::store", bundleHash);
+        this._logger.info("<=== SignedDataTable::store", storageItem.bundleHash);
 
-        return bundleHash;
+        return storageItem.bundleHash;
     }
 
     /**
@@ -154,12 +163,21 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
 
-        const bundleHash = await this._storageClient.save(dataAddress, trytes, tag);
+        const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
+
+        Object.defineProperty(data, "bundleHash", {
+            value: storageItem.bundleHash.toTrytes().toString(),
+            enumerable: true
+        });
+        Object.defineProperty(data, "transactionHashes", {
+            value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
+            enumerable: true
+        });
 
         let index = await this.index();
         index = index || [];
         const removeHash = originalId.toTrytes().toString();
-        const addHash = bundleHash.toTrytes().toString();
+        const addHash = storageItem.bundleHash.toTrytes().toString();
 
         const idx = index.indexOf(removeHash);
         if (idx >= 0) {
@@ -170,9 +188,9 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         await this.saveIndex(index);
 
-        this._logger.info("<=== SignedDataTable::update", bundleHash);
+        this._logger.info("<=== SignedDataTable::update", storageItem.bundleHash);
 
-        return bundleHash;
+        return storageItem.bundleHash;
     }
 
     /**
@@ -309,8 +327,8 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         const trytesIndex = objectToTrytesConverterIndex.to(signedItemIndex);
 
-        const indexBundleHash = await this._storageClient.save(indexAddress, trytesIndex, SignedDataTable.INDEX_TAG);
-        this._config.indexBundleHash = indexBundleHash.toTrytes().toString();
+        const indexStorageItem = await this._storageClient.save(indexAddress, trytesIndex, SignedDataTable.INDEX_TAG);
+        this._config.indexBundleHash = indexStorageItem.bundleHash.toTrytes().toString();
 
         await this.saveConfig();
     }

@@ -21,7 +21,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/iotaeco/iota-pico-storage.git"
+        "url": "https://github.com/iota-pico/storage.git"
     },
     "engines": {
         "node": ">=8"
@@ -49,6 +49,7 @@
     "dependencies": {
         "@iota-pico/business": "^0.9.3",
         "@iota-pico/core": "^0.9.3",
+        "@iota-pico/crypto": "^0.9.3",
         "@iota-pico/data": "^0.9.3",
         "jws": "^3.1.4"
     },

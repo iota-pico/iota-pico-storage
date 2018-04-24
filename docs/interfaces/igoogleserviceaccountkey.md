@@ -33,7 +33,7 @@ Represents the configuration for google service account.
 
 **●  auth_provider_x509_cert_url**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:13*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:13](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L13)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 **●  auth_uri**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:11*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:11](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L11)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 **●  client_email**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:9*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:9](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L9)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 **●  client_id**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:10*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:10](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L10)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 **●  client_x509_cert_url**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:14*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:14](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L14)*
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 **●  private_key**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:8*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:8](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L8)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 **●  private_key_id**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:7*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:7](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L7)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 **●  project_id**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:6*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:6](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L6)*
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 **●  token_uri**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:12*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:12](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L12)*
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 **●  type**:  *`string`* 
 
-*Defined in interfaces/IGoogleServiceAccountKey.ts:5*
+*Defined in [interfaces/IGoogleServiceAccountKey.ts:5](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IGoogleServiceAccountKey.ts#L5)*
 
 ___
 

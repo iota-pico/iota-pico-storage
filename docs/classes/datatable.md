@@ -36,7 +36,7 @@ Represents a table for storing data.
 
 ### ⊕ **new DataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, logger?: *`ILogger`*): [DataTable](datatable.md)
 
-*Defined in dataTable/dataTable.ts:38*
+*Defined in [dataTable/dataTable.ts:38](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L38)*
 
 Create a new instance of the DataTable.
 
@@ -63,7 +63,7 @@ Create a new instance of the DataTable.
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[index](../interfaces/idatatable.md#index)*
 
-*Defined in dataTable/dataTable.ts:61*
+*Defined in [dataTable/dataTable.ts:61](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L61)*
 
 Get the index for the table.
 
@@ -80,7 +80,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[remove](../interfaces/idatatable.md#remove)*
 
-*Defined in dataTable/dataTable.ts:205*
+*Defined in [dataTable/dataTable.ts:223](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L223)*
 
 Remove an item of data from the table.
 
@@ -102,7 +102,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieve](../interfaces/idatatable.md#retrieve)*
 
-*Defined in dataTable/dataTable.ts:161*
+*Defined in [dataTable/dataTable.ts:179](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L179)*
 
 Retrieve all the data stored in the table.
 
@@ -125,7 +125,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[store](../interfaces/idatatable.md#store)*
 
-*Defined in dataTable/dataTable.ts:93*
+*Defined in [dataTable/dataTable.ts:93](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L93)*
 
 Store an item of data in the table.
 
@@ -149,7 +149,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[update](../interfaces/idatatable.md#update)*
 
-*Defined in dataTable/dataTable.ts:125*
+*Defined in [dataTable/dataTable.ts:134](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/dataTable.ts#L134)*
 
 Update an item of data in the table.
 

@@ -36,7 +36,7 @@ Represents a table for storing data.
 
 ▸ **index**(): `Promise`.<[DataTableIndex](../#datatableindex)>
 
-*Defined in interfaces/IDataTable.ts:14*
+*Defined in [interfaces/IDataTable.ts:14](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTable.ts#L14)*
 
 Get the index address for the table.
 
@@ -51,7 +51,7 @@ ___
 
 ▸ **remove**(id: *`Hash`*): `Promise`.<`void`>
 
-*Defined in interfaces/IDataTable.ts:44*
+*Defined in [interfaces/IDataTable.ts:44](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTable.ts#L44)*
 
 Remove an item of data from the table.
 
@@ -71,7 +71,7 @@ ___
 
 ▸ **retrieve**(ids?: *`Hash`[]*): `Promise`.<`T`[]>
 
-*Defined in interfaces/IDataTable.ts:38*
+*Defined in [interfaces/IDataTable.ts:38](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTable.ts#L38)*
 
 Retrieve all the data stored in the table.
 
@@ -92,7 +92,7 @@ ___
 
 ▸ **store**(data: *`T`*, tag?: *`Tag`*): `Promise`.<`Hash`>
 
-*Defined in interfaces/IDataTable.ts:22*
+*Defined in [interfaces/IDataTable.ts:22](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTable.ts#L22)*
 
 Store an item of data in the table.
 
@@ -114,7 +114,7 @@ ___
 
 ▸ **update**(originalId: *`Hash`*, data: *`T`*, tag?: *`Tag`*): `Promise`.<`Hash`>
 
-*Defined in interfaces/IDataTable.ts:31*
+*Defined in [interfaces/IDataTable.ts:31](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTable.ts#L31)*
 
 Update an item of data in the table.
 

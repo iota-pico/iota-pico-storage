@@ -36,7 +36,7 @@ Represents a table for storing data with signing.
 
 ### ⊕ **new SignedDataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, platformCrypto: *`IPlatformCrypto`*, logger?: *`ILogger`*): [SignedDataTable](signeddatatable.md)
 
-*Defined in dataTable/signedDataTable.ts:49*
+*Defined in [dataTable/signedDataTable.ts:49](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L49)*
 
 Create a new instance of the DataTable.
 
@@ -64,7 +64,7 @@ Create a new instance of the DataTable.
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[index](../interfaces/idatatable.md#index)*
 
-*Defined in dataTable/signedDataTable.ts:75*
+*Defined in [dataTable/signedDataTable.ts:75](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L75)*
 
 Get the index for the table.
 
@@ -81,7 +81,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[remove](../interfaces/idatatable.md#remove)*
 
-*Defined in dataTable/signedDataTable.ts:224*
+*Defined in [dataTable/signedDataTable.ts:242](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L242)*
 
 Remove an item of data from the table.
 
@@ -103,7 +103,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieve](../interfaces/idatatable.md#retrieve)*
 
-*Defined in dataTable/signedDataTable.ts:183*
+*Defined in [dataTable/signedDataTable.ts:201](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L201)*
 
 Retrieve all the data stored in the table.
 
@@ -126,7 +126,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[store](../interfaces/idatatable.md#store)*
 
-*Defined in dataTable/signedDataTable.ts:113*
+*Defined in [dataTable/signedDataTable.ts:113](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L113)*
 
 Store an item of data in the table.
 
@@ -150,7 +150,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[update](../interfaces/idatatable.md#update)*
 
-*Defined in dataTable/signedDataTable.ts:146*
+*Defined in [dataTable/signedDataTable.ts:155](https://github.com/iota-pico/storage/blob/2e37eb2/src/dataTable/signedDataTable.ts#L155)*
 
 Update an item of data in the table.
 

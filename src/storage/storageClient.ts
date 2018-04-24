@@ -3,6 +3,7 @@ import { ArrayHelper } from "@iota-pico/core/dist/helpers/arrayHelper";
 import { ObjectHelper } from "@iota-pico/core/dist/helpers/objectHelper";
 import { ILogger } from "@iota-pico/core/dist/interfaces/ILogger";
 import { NullLogger } from "@iota-pico/core/dist/loggers/nullLogger";
+import { TransactionHelper } from "@iota-pico/crypto/dist/helpers/transactionHelper";
 import { Transaction } from "@iota-pico/data";
 import { Address } from "@iota-pico/data/dist/data/address";
 import { Hash } from "@iota-pico/data/dist/data/hash";
@@ -40,7 +41,7 @@ export class StorageClient implements IStorageClient {
      * @param tag Tag to label the data with.
      * @returns The id of the item saved.
      */
-    public async save(address: Address, data: Trytes, tag: Tag = Tag.EMPTY): Promise<Hash> {
+    public async save(address: Address, data: Trytes, tag: Tag = Tag.EMPTY): Promise<StorageItem> {
         this._logger.info("===> StorageClient::save", address, data, tag);
 
         if (!ObjectHelper.isType(address, Address)) {
@@ -63,7 +64,13 @@ export class StorageClient implements IStorageClient {
 
         this._logger.info("<=== StorageClient::save", hash);
 
-        return hash;
+        return new StorageItem(
+            hash,
+            data,
+            tag,
+            bundle.transactions[0].attachmentTimestamp.toNumber(),
+            hash,
+            bundle.transactions.map(t => TransactionHelper.hash(t)));
     }
 
     /**
@@ -95,7 +102,7 @@ export class StorageClient implements IStorageClient {
                     byBundle[bundleHash].push({hash: transactions[idx], transaction});
                 });
 
-                items = this.processBundles(byBundle);
+                items = this.processBundles(ids, byBundle);
             }
         }
 
@@ -105,24 +112,16 @@ export class StorageClient implements IStorageClient {
     }
 
     /* @internal */
-    private processBundles(byBundle: { [id: string]: { hash: Hash; transaction: Transaction }[] }): StorageItem[] {
-        const items: StorageItem[] = [];
+    private processBundles(ids: Hash[], byBundle: { [id: string]: { hash: Hash; transaction: Transaction }[] }): StorageItem[] {
+        const itemsByBundle: { [id: string]: StorageItem } = {};
 
-        const bundles = Object.keys(byBundle).map((key) => byBundle[key]);
+        const keys = Object.keys(byBundle);
 
-        // Sort the bundles
-        const sortedBundles = bundles
-            .sort((a, b) => {
-                const x = a[0].transaction.attachmentTimestamp.toNumber();
-                const y = b[0].transaction.attachmentTimestamp.toNumber();
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            });
-
-        sortedBundles.forEach(bundle => {
-            items.push(this.processItem(bundle));
+        keys.forEach(bundle => {
+            itemsByBundle[bundle] = this.processItem(byBundle[bundle]);
         });
 
-        return items;
+        return ids.map(id => itemsByBundle[id.toTrytes().toString()]);
     }
 
     /* @internal */
@@ -151,6 +150,7 @@ export class StorageClient implements IStorageClient {
                                Trytes.fromString(itemTrytes),
                                bundle[0].transaction.tag,
                                bundle[0].transaction.attachmentTimestamp.toNumber(),
-                               bundle[0].transaction.bundle, bundle.map(th => th.hash));
+                               bundle[0].transaction.bundle,
+                               bundle.map(th => th.hash));
     }
 }
