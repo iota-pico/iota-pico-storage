@@ -27,7 +27,7 @@ Represents the configuration required by data table.
 
 **●  dataAddress**:  *`string`* 
 
-*Defined in [interfaces/IDataTableConfig.ts:8](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTableConfig.ts#L8)*
+*Defined in [interfaces/IDataTableConfig.ts:8](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/IDataTableConfig.ts#L8)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 **●  indexAddress**:  *`string`* 
 
-*Defined in [interfaces/IDataTableConfig.ts:7](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTableConfig.ts#L7)*
+*Defined in [interfaces/IDataTableConfig.ts:7](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/IDataTableConfig.ts#L7)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 **●  indexBundleHash**:  *`string`* 
 
-*Defined in [interfaces/IDataTableConfig.ts:6](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IDataTableConfig.ts#L6)*
+*Defined in [interfaces/IDataTableConfig.ts:6](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/IDataTableConfig.ts#L6)*
 
 ___
 

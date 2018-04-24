@@ -30,7 +30,7 @@ Represents a client for performing storage operations.
 
 ▸ **load**(ids: *`Hash`[]*): `Promise`.<[StorageItem](../classes/storageitem.md)[]>
 
-*Defined in [interfaces/IStorageClient.ts:26](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IStorageClient.ts#L26)*
+*Defined in [interfaces/IStorageClient.ts:26](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/IStorageClient.ts#L26)*
 
 Load the data stored with the given bundle hash ids.
 
@@ -51,7 +51,7 @@ ___
 
 ▸ **save**(address: *`Address`*, data: *`Trytes`*, tag?: *`Tag`*): `Promise`.<[StorageItem](../classes/storageitem.md)>
 
-*Defined in [interfaces/IStorageClient.ts:19](https://github.com/iota-pico/storage/blob/2e37eb2/src/interfaces/IStorageClient.ts#L19)*
+*Defined in [interfaces/IStorageClient.ts:19](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/IStorageClient.ts#L19)*
 
 Save an item of data on the address.
 
