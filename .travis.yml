@@ -7,6 +7,11 @@ install:
   - cd iota-pico/core
   - npm link
   - cd ../../
+  - git clone --branch=$TRAVIS_BRANCH https://github.com/iota-pico/api.git iota-pico/api
+  - cd iota-pico/api
+  - npm link @iota-pico/core
+  - npm link
+  - cd ../../
   - git clone --branch=$TRAVIS_BRANCH https://github.com/iota-pico/data.git iota-pico/data
   - cd iota-pico/data
   - npm link @iota-pico/core
@@ -15,11 +20,6 @@ install:
   - git clone --branch=$TRAVIS_BRANCH https://github.com/iota-pico/crypto.git iota-pico/crypto
   - cd iota-pico/crypto
   - npm link @iota-pico/core @iota-pico/data
-  - npm link
-  - cd ../../
-  - git clone --branch=$TRAVIS_BRANCH https://github.com/iota-pico/api.git iota-pico/api
-  - cd iota-pico/api
-  - npm link @iota-pico/core
   - npm link
   - cd ../../
   - git clone --branch=$TRAVIS_BRANCH https://github.com/iota-pico/business.git iota-pico/business
