@@ -38,7 +38,7 @@
 
 **Τ DataTableIndex**:  *`string`[]* 
 
-*Defined in [interfaces/dataTableIndex.ts:4](https://github.com/iota-pico/storage/blob/0dba858/src/interfaces/dataTableIndex.ts#L4)*
+*Defined in [interfaces/dataTableIndex.ts:4](https://github.com/iota-pico/storage/blob/64cdce9/src/interfaces/dataTableIndex.ts#L4)*
 
 Represents a table index for storing data.
 

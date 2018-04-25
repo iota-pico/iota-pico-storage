@@ -31,7 +31,7 @@ Represents a config provider which uses google storage.
 
 ### ⊕ **new GoogleStorageConfigProvider**(bucketName: *`string`*, configName: *`string`*, serviceAccountKey?: *[IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)*, logger?: *`ILogger`*): [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:27](https://github.com/iota-pico/storage/blob/0dba858/src/configProvider/googleStorageConfigProvider.ts#L27)*
+*Defined in [configProvider/googleStorageConfigProvider.ts:27](https://github.com/iota-pico/storage/blob/64cdce9/src/configProvider/googleStorageConfigProvider.ts#L27)*
 
 Create a new instance of the GoogleStorageConfigProvider.
 
@@ -58,7 +58,7 @@ Create a new instance of the GoogleStorageConfigProvider.
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:54](https://github.com/iota-pico/storage/blob/0dba858/src/configProvider/googleStorageConfigProvider.ts#L54)*
+*Defined in [configProvider/googleStorageConfigProvider.ts:54](https://github.com/iota-pico/storage/blob/64cdce9/src/configProvider/googleStorageConfigProvider.ts#L54)*
 
 Load the configuration for the data table.
 
@@ -79,7 +79,7 @@ ___
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:86](https://github.com/iota-pico/storage/blob/0dba858/src/configProvider/googleStorageConfigProvider.ts#L86)*
+*Defined in [configProvider/googleStorageConfigProvider.ts:86](https://github.com/iota-pico/storage/blob/64cdce9/src/configProvider/googleStorageConfigProvider.ts#L86)*
 
 Save the configuration for the data table.
 
