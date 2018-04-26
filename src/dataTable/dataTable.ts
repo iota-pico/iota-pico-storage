@@ -13,6 +13,7 @@ import { DataTableIndex } from "../interfaces/dataTableIndex";
 import { IDataTable } from "../interfaces/IDataTable";
 import { IDataTableConfig } from "../interfaces/IDataTableConfig";
 import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { IDataTableProgress } from "../interfaces/IDataTableProgress";
 import { IStorageClient } from "../interfaces/IStorageClient";
 
 /**
@@ -36,6 +37,9 @@ export class DataTable<T> implements IDataTable<T> {
 
     /* @internal */
     private readonly _logger: ILogger;
+
+    /* @internal */
+    private _progressCallback: (progress: IDataTableProgress) => void;
 
     /**
      * Create a new instance of the DataTable.
@@ -66,7 +70,10 @@ export class DataTable<T> implements IDataTable<T> {
         let dataTableIndex;
         if (!StringHelper.isEmpty(this._config.indexBundleHash)) {
             const indexBundleHash = Hash.fromTrytes(Trytes.fromString(this._config.indexBundleHash));
+
+            this.updateProgress(0, 1, "Retrieving Index");
             const index = await this._storageClient.load([indexBundleHash]);
+            this.updateProgress(1, 1, "Retrieving Index");
 
             if (index && index.length > 0) {
                 const objectToTrytesConverter = new ObjectTrytesConverter<DataTableIndex>();
@@ -85,6 +92,17 @@ export class DataTable<T> implements IDataTable<T> {
     }
 
     /**
+     * Clear the index for the table.
+     */
+    public async clearIndex(): Promise<void> {
+        this._logger.info("===> DataTable::clearIndex");
+
+        await this.loadConfig();
+
+        await this.saveIndex([]);
+    }
+
+    /**
      * Store an item of data in the table.
      * @param data The data to store.
      * @param tag The tag to store with the item.
@@ -100,7 +118,9 @@ export class DataTable<T> implements IDataTable<T> {
 
         const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
 
+        this.updateProgress(0, 1, "Storing Item");
         const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
+        this.updateProgress(1, 1, "Storing Item");
 
         Object.defineProperty(data, "bundleHash", {
             value: storageItem.bundleHash.toTrytes().toString(),
@@ -125,6 +145,59 @@ export class DataTable<T> implements IDataTable<T> {
     }
 
     /**
+     * Store multiple items of data in the table.
+     * @param data The data to store.
+     * @param tags The tag to store with the items.
+     * @param clearIndex Clear the index so there is no data.
+     * @returns The ids of the stored items.
+     */
+    public async storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean): Promise<Hash[]> {
+        this._logger.info("===> DataTable::storeMultiple", data, tags, clearIndex);
+
+        await this.loadConfig();
+
+        const hashes = [];
+
+        let index;
+        if (!clearIndex) {
+            index = await this.index();
+        }
+        index = index || [];
+
+        this.updateProgress(0, data.length, "Storing Items");
+        for (let i = 0; i < data.length; i++) {
+            const objectToTrytesConverter = new ObjectTrytesConverter<T>();
+            const trytes = objectToTrytesConverter.to(data[i]);
+
+            const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
+
+            const storageItem = await this._storageClient.save(dataAddress, trytes, tags ? tags[i] : undefined);
+            this.updateProgress(i, data.length, "Storing Items");
+
+            Object.defineProperty(data[i], "bundleHash", {
+                value: storageItem.bundleHash.toTrytes().toString(),
+                enumerable: true
+            });
+            Object.defineProperty(data[i], "transactionHashes", {
+                value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
+                enumerable: true
+            });
+
+            const addHash = storageItem.bundleHash.toTrytes().toString();
+
+            index.push(addHash);
+
+            hashes.push(storageItem.bundleHash);
+        }
+
+        await this.saveIndex(index);
+
+        this._logger.info("<=== DataTable::storeMultiple", hashes);
+
+        return hashes;
+    }
+
+    /**
      * Update an item of data in the table.
      * @param originalId The id of the item to update.
      * @param data The data to update.
@@ -141,7 +214,9 @@ export class DataTable<T> implements IDataTable<T> {
         const trytes = objectToTrytesConverter.to(data);
         const dataAddress = Address.fromTrytes(Trytes.fromString(this._config.dataAddress));
 
+        this.updateProgress(0, 1, "Updating Item");
         const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
+        this.updateProgress(1, 1, "Updating Item");
 
         Object.defineProperty(data, "bundleHash", {
             value: storageItem.bundleHash.toTrytes().toString(),
@@ -172,11 +247,45 @@ export class DataTable<T> implements IDataTable<T> {
     }
 
     /**
+     * Retrieve the data stored in the table.
+     * @param id Id of the item to retrieve.
+     * @returns The item stored in the table.
+     */
+    public async retrieve(id: Hash): Promise<T> {
+        this._logger.info("===> DataTable::retrieve", id);
+
+        await this.loadConfig();
+
+        let item: T;
+        this.updateProgress(0, 1, "Retrieving Item");
+        const allStorageItems = await this._storageClient.load([id]);
+        this.updateProgress(1, 1, "Retrieving Item");
+
+        if (allStorageItems && allStorageItems.length > 0) {
+            const objectToTrytesConverter = new ObjectTrytesConverter<T>();
+
+            item = objectToTrytesConverter.from(allStorageItems[0].data);
+            Object.defineProperty(item, "bundleHash", {
+                value: allStorageItems[0].bundleHash.toTrytes().toString(),
+                enumerable: true
+            });
+            Object.defineProperty(item, "transactionHashes", {
+                value: allStorageItems[0].transactionHashes.map(th => th.toTrytes().toString()),
+                enumerable: true
+            });
+        }
+
+        this._logger.info("<=== DataTable::retrieve", item);
+
+        return item;
+    }
+
+    /**
      * Retrieve all the data stored in the table.
      * @param ids Ids of all the items to retrieve, if empty will retrieve all items from index.
      * @returns The items stored in the table.
      */
-    public async retrieve(ids?: Hash[]): Promise<T[]> {
+    public async retrieveMultiple(ids?: Hash[]): Promise<T[]> {
         let loadIds;
         if (ArrayHelper.isTyped(ids, Hash)) {
             loadIds = ids;
@@ -187,13 +296,15 @@ export class DataTable<T> implements IDataTable<T> {
             }
         }
 
-        this._logger.info("===> DataTable::retrieve", loadIds);
+        this._logger.info("===> DataTable::retrieveMultiple", loadIds);
 
         await this.loadConfig();
 
         const ret: T[] = [];
         if (ArrayHelper.isTyped(loadIds, Hash)) {
+            this.updateProgress(0, loadIds.length, "Retrieving Items");
             const allStorageItems = await this._storageClient.load(loadIds);
+            this.updateProgress(loadIds.length, loadIds.length, "Retrieving Items");
 
             const objectToTrytesConverter = new ObjectTrytesConverter<T>();
 
@@ -211,7 +322,7 @@ export class DataTable<T> implements IDataTable<T> {
             }
         }
 
-        this._logger.info("<=== DataTable::retrieve", ret);
+        this._logger.info("<=== DataTable::retrieveMultiple", ret);
 
         return ret;
     }
@@ -239,6 +350,47 @@ export class DataTable<T> implements IDataTable<T> {
         } else {
             this._logger.info("<=== DataTable::remove nothing to remove");
         }
+    }
+
+    /**
+     * Remove multiple items of data from the table.
+     * @param ids The ids of the items to remove.
+     */
+    public async removeMultiple(ids: Hash[]): Promise<void> {
+        this._logger.info("===> DataTable::removeMultiple", ids);
+
+        await this.loadConfig();
+
+        let index = await this.index();
+        index = index || [];
+        let removed = false;
+
+        for (let i = 0; i < ids.length; i++) {
+            const removeHash = ids[i].toTrytes().toString();
+
+            const idx = index.indexOf(removeHash);
+            if (idx >= 0) {
+                index.splice(idx, 1);
+
+                this._logger.info("<=== DataTable::removeMultiple", ids[i]);
+
+                removed = true;
+            } else {
+                this._logger.info("<=== DataTable::removeMultiple nothing to remove", ids[i]);
+            }
+        }
+
+        if (removed) {
+            await this.saveIndex(index);
+        }
+    }
+
+    /**
+     * Set the progress callback.
+     * @param progressCallback Callback supplied with progress details.
+     */
+    public setProgressCallback(progressCallback: (progress: IDataTableProgress) => void): void {
+        this._progressCallback = progressCallback;
     }
 
     /* @internal */
@@ -272,8 +424,23 @@ export class DataTable<T> implements IDataTable<T> {
 
         const trytesIndex = objectToTrytesConverterIndex.to(index);
 
+        this.updateProgress(0, 1, "Storing Index");
         const indexStorageItem = await this._storageClient.save(indexAddress, trytesIndex, DataTable.INDEX_TAG);
+
         this._config.indexBundleHash = indexStorageItem.bundleHash.toTrytes().toString();
         await this.saveConfig();
+        this.updateProgress(1, 1, "Storing Index");
+    }
+
+    /* @internal */
+    private updateProgress(num: number, total: number, status: string): void {
+        if (this._progressCallback) {
+            this._progressCallback({
+                numItems: num,
+                totalItems: total,
+                percent: total > 0 ? Math.ceil((num / total) * 100) : 100,
+                status
+            });
+        }
     }
 }

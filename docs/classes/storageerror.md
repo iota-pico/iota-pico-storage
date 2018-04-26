@@ -40,7 +40,7 @@ A storage implementation of an error.
 
 *Overrides CoreError.__constructor*
 
-*Defined in [error/storageError.ts:6](https://github.com/iota-pico/storage/blob/64cdce9/src/error/storageError.ts#L6)*
+*Defined in [error/storageError.ts:6](https://github.com/iota-pico/storage/blob/761de37/src/error/storageError.ts#L6)*
 
 Create an instance of StorageError.
 
@@ -152,11 +152,12 @@ ___
 
 *Inherited from CoreError.format*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:37*
+*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:38*
 
 Format the error to a readable version.
 
 **Returns:** `string`
+Formatted version of the error.
 
 ___
 
