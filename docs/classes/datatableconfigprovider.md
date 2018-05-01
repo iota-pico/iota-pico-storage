@@ -29,9 +29,11 @@ Represents a data table config provider which uses and IConfigProvider.
 
 <a id="constructor"></a>
 
-### ⊕ **new DataTableConfigProvider**(configProvider: *[IConfigProvider](../interfaces/iconfigprovider.md)*, logger?: *`ILogger`*): [DataTableConfigProvider](datatableconfigprovider.md)
+###  constructor
 
-*Defined in [configProvider/dataTableConfigProvider.ts:19](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/dataTableConfigProvider.ts#L19)*
+⊕ **new DataTableConfigProvider**(configProvider: *[IConfigProvider](../interfaces/iconfigprovider.md)*, logger?: *`ILogger`*): [DataTableConfigProvider](datatableconfigprovider.md)
+
+*Defined in [configProvider/dataTableConfigProvider.ts:19](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/dataTableConfigProvider.ts#L19)*
 
 Create a new instance of the DataTableConfigProvider.
 
@@ -39,12 +41,12 @@ Create a new instance of the DataTableConfigProvider.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| configProvider | [IConfigProvider](../interfaces/iconfigprovider.md)   |  The config provider to use. |
-| logger | `ILogger`   |  Logger to send info to. |
+| configProvider | [IConfigProvider](../interfaces/iconfigprovider.md) |  The config provider to use. |
+| `Optional` logger | `ILogger` |  Logger to send info to. |
 
 **Returns:** [DataTableConfigProvider](datatableconfigprovider.md)
 
----
+___
 
 ## Methods
 
@@ -52,11 +54,11 @@ Create a new instance of the DataTableConfigProvider.
 
 ###  load
 
-▸ **load**(tableName: *`string`*): `Promise`.<[IDataTableConfig](../interfaces/idatatableconfig.md)>
+▸ **load**(tableName: *`string`*): `Promise`<[IDataTableConfig](../interfaces/idatatableconfig.md)>
 
 *Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[load](../interfaces/idatatableconfigprovider.md#load)*
 
-*Defined in [configProvider/dataTableConfigProvider.ts:40](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/dataTableConfigProvider.ts#L40)*
+*Defined in [configProvider/dataTableConfigProvider.ts:40](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/dataTableConfigProvider.ts#L40)*
 
 Load the configuration for the data table.
 
@@ -64,22 +66,21 @@ Load the configuration for the data table.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| tableName | `string`   |  The table to load the configuration for. |
+| tableName | `string` |  The table to load the configuration for. |
 
-**Returns:** `Promise`.<[IDataTableConfig](../interfaces/idatatableconfig.md)>
+**Returns:** `Promise`<[IDataTableConfig](../interfaces/idatatableconfig.md)>
 The configuration.
 
 ___
-
 <a id="save"></a>
 
 ###  save
 
-▸ **save**(tableName: *`string`*, config: *[IDataTableConfig](../interfaces/idatatableconfig.md)*): `Promise`.<`void`>
+▸ **save**(tableName: *`string`*, config: *[IDataTableConfig](../interfaces/idatatableconfig.md)*): `Promise`<`void`>
 
 *Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[save](../interfaces/idatatableconfigprovider.md#save)*
 
-*Defined in [configProvider/dataTableConfigProvider.ts:66](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/dataTableConfigProvider.ts#L66)*
+*Defined in [configProvider/dataTableConfigProvider.ts:66](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/dataTableConfigProvider.ts#L66)*
 
 Save the configuration for the data table.
 
@@ -87,10 +88,10 @@ Save the configuration for the data table.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| tableName | `string`   |  The table to save the configuration for. |
-| config | [IDataTableConfig](../interfaces/idatatableconfig.md)   |  The configuration to set. |
+| tableName | `string` |  The table to save the configuration for. |
+| config | [IDataTableConfig](../interfaces/idatatableconfig.md) |  The configuration to set. |
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`<`void`>
 
 ___
 

@@ -29,9 +29,11 @@ Represents a config provider which uses google storage.
 
 <a id="constructor"></a>
 
-### ⊕ **new GoogleStorageConfigProvider**(bucketName: *`string`*, configName: *`string`*, serviceAccountKey?: *[IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)*, logger?: *`ILogger`*): [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
+###  constructor
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:27](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/googleStorageConfigProvider.ts#L27)*
+⊕ **new GoogleStorageConfigProvider**(bucketName: *`string`*, configName: *`string`*, serviceAccountKey?: *[IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)*, logger?: *`ILogger`*): [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
+
+*Defined in [configProvider/googleStorageConfigProvider.ts:27](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/googleStorageConfigProvider.ts#L27)*
 
 Create a new instance of the GoogleStorageConfigProvider.
 
@@ -39,14 +41,14 @@ Create a new instance of the GoogleStorageConfigProvider.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| bucketName | `string`   |  The name of the bucket object. |
-| configName | `string`   |  The name of the configuration object. |
-| serviceAccountKey | [IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md)   |  The key to acccess the google api. |
-| logger | `ILogger`   |  Logger to send info to. |
+| bucketName | `string` |  The name of the bucket object. |
+| configName | `string` |  The name of the configuration object. |
+| `Optional` serviceAccountKey | [IGoogleServiceAccountKey](../interfaces/igoogleserviceaccountkey.md) |  The key to acccess the google api. |
+| `Optional` logger | `ILogger` |  Logger to send info to. |
 
 **Returns:** [GoogleStorageConfigProvider](googlestorageconfigprovider.md)
 
----
+___
 
 ## Methods
 
@@ -54,11 +56,11 @@ Create a new instance of the GoogleStorageConfigProvider.
 
 ###  load
 
-▸ **load**T(): `Promise`.<`T`>
+▸ **load**T(): `Promise`<`T`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:54](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/googleStorageConfigProvider.ts#L54)*
+*Defined in [configProvider/googleStorageConfigProvider.ts:54](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/googleStorageConfigProvider.ts#L54)*
 
 Load the configuration for the data table.
 
@@ -66,20 +68,19 @@ Load the configuration for the data table.
 
 #### T 
 
-**Returns:** `Promise`.<`T`>
+**Returns:** `Promise`<`T`>
 The configuration.
 
 ___
-
 <a id="save"></a>
 
 ###  save
 
-▸ **save**T(config: *`T`*): `Promise`.<`void`>
+▸ **save**T(config: *`T`*): `Promise`<`void`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-*Defined in [configProvider/googleStorageConfigProvider.ts:86](https://github.com/iota-pico/storage/blob/761de37/src/configProvider/googleStorageConfigProvider.ts#L86)*
+*Defined in [configProvider/googleStorageConfigProvider.ts:86](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/googleStorageConfigProvider.ts#L86)*
 
 Save the configuration for the data table.
 
@@ -90,9 +91,9 @@ Save the configuration for the data table.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| config | `T`   |  The configuration to set. |
+| config | `T` |  The configuration to set. |
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`<`void`>
 
 ___
 

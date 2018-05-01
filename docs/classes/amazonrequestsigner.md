@@ -24,9 +24,11 @@ Class to help with signing Amazon requests.
 
 <a id="constructor"></a>
 
-### ⊕ **new AmazonRequestSigner**(request: *[IAmazonRequest](../interfaces/iamazonrequest.md)*, credentials: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*): [AmazonRequestSigner](amazonrequestsigner.md)
+###  constructor
 
-*Defined in configProvider/amazonRequestSigner.ts:27*
+⊕ **new AmazonRequestSigner**(request: *[IAmazonRequest](../interfaces/iamazonrequest.md)*, credentials: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*): [AmazonRequestSigner](amazonrequestsigner.md)
+
+*Defined in [configProvider/amazonRequestSigner.ts:27](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/amazonRequestSigner.ts#L27)*
 
 Create a new instance of AmazonRequestSigner.
 
@@ -34,12 +36,12 @@ Create a new instance of AmazonRequestSigner.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| request | [IAmazonRequest](../interfaces/iamazonrequest.md)   |  The request to be signed. |
-| credentials | [IAmazonCredentials](../interfaces/iamazoncredentials.md)   |  The credentials to use for signing. |
+| request | [IAmazonRequest](../interfaces/iamazonrequest.md) |  The request to be signed. |
+| credentials | [IAmazonCredentials](../interfaces/iamazoncredentials.md) |  The credentials to use for signing. |
 
 **Returns:** [AmazonRequestSigner](amazonrequestsigner.md)
 
----
+___
 
 ## Methods
 
@@ -49,7 +51,7 @@ Create a new instance of AmazonRequestSigner.
 
 ▸ **sign**(): [IAmazonRequest](../interfaces/iamazonrequest.md)
 
-*Defined in configProvider/amazonRequestSigner.ts:69*
+*Defined in [configProvider/amazonRequestSigner.ts:69](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/amazonRequestSigner.ts#L69)*
 
 Signed the request.
 

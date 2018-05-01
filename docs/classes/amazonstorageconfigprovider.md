@@ -29,9 +29,11 @@ Represents a config provider which uses amazon storage.
 
 <a id="constructor"></a>
 
-### ⊕ **new AmazonStorageConfigProvider**(region: *`string`*, bucketName: *`string`*, configName: *`string`*, credentials?: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*, logger?: *`ILogger`*): [AmazonStorageConfigProvider](amazonstorageconfigprovider.md)
+###  constructor
 
-*Defined in configProvider/amazonStorageConfigProvider.ts:30*
+⊕ **new AmazonStorageConfigProvider**(region: *`string`*, bucketName: *`string`*, configName: *`string`*, credentials?: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*, logger?: *`ILogger`*): [AmazonStorageConfigProvider](amazonstorageconfigprovider.md)
+
+*Defined in [configProvider/amazonStorageConfigProvider.ts:30](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/amazonStorageConfigProvider.ts#L30)*
 
 Create a new instance of the AmazonStorageConfigProvider.
 
@@ -39,15 +41,15 @@ Create a new instance of the AmazonStorageConfigProvider.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| region | `string`   |  The name of the region. |
-| bucketName | `string`   |  The name of the bucket object. |
-| configName | `string`   |  The name of the configuration object. |
-| credentials | [IAmazonCredentials](../interfaces/iamazoncredentials.md)   |  The key to acccess the amazon api. |
-| logger | `ILogger`   |  Logger to send info to. |
+| region | `string` |  The name of the region. |
+| bucketName | `string` |  The name of the bucket object. |
+| configName | `string` |  The name of the configuration object. |
+| `Optional` credentials | [IAmazonCredentials](../interfaces/iamazoncredentials.md) |  The key to acccess the amazon api. |
+| `Optional` logger | `ILogger` |  Logger to send info to. |
 
 **Returns:** [AmazonStorageConfigProvider](amazonstorageconfigprovider.md)
 
----
+___
 
 ## Methods
 
@@ -55,11 +57,11 @@ Create a new instance of the AmazonStorageConfigProvider.
 
 ###  load
 
-▸ **load**T(): `Promise`.<`T`>
+▸ **load**T(): `Promise`<`T`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-*Defined in configProvider/amazonStorageConfigProvider.ts:62*
+*Defined in [configProvider/amazonStorageConfigProvider.ts:62](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/amazonStorageConfigProvider.ts#L62)*
 
 Load the configuration for the data table.
 
@@ -67,20 +69,19 @@ Load the configuration for the data table.
 
 #### T 
 
-**Returns:** `Promise`.<`T`>
+**Returns:** `Promise`<`T`>
 The configuration.
 
 ___
-
 <a id="save"></a>
 
 ###  save
 
-▸ **save**T(config: *`T`*): `Promise`.<`void`>
+▸ **save**T(config: *`T`*): `Promise`<`void`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-*Defined in configProvider/amazonStorageConfigProvider.ts:94*
+*Defined in [configProvider/amazonStorageConfigProvider.ts:94](https://github.com/iota-pico/storage/blob/9579284/src/configProvider/amazonStorageConfigProvider.ts#L94)*
 
 Save the configuration for the data table.
 
@@ -91,9 +92,9 @@ Save the configuration for the data table.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| config | `T`   |  The configuration to set. |
+| config | `T` |  The configuration to set. |
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`<`void`>
 
 ___
 

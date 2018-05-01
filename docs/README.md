@@ -42,11 +42,17 @@
 
 ###  DataTableIndex
 
-**Τ DataTableIndex**:  *`string`[]* 
+**ΤDataTableIndex**: *`object`*
 
-*Defined in [interfaces/dataTableIndex.ts:4](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/dataTableIndex.ts#L4)*
+*Defined in [interfaces/dataTableIndex.ts:4](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/dataTableIndex.ts#L4)*
 
 Represents a table index for storing data.
+
+#### Type declaration
+
+ bundles: `string`[]
+
+ lastIdx: `string`
 
 ___
 

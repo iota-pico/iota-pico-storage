@@ -29,9 +29,9 @@ Represents a class that can get/set configuration.
 
 ###  load
 
-▸ **load**T(): `Promise`.<`T`>
+▸ **load**T(): `Promise`<`T`>
 
-*Defined in [interfaces/IConfigProvider.ts:10](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/IConfigProvider.ts#L10)*
+*Defined in [interfaces/IConfigProvider.ts:10](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IConfigProvider.ts#L10)*
 
 Load the configuration.
 
@@ -39,18 +39,17 @@ Load the configuration.
 
 #### T 
 
-**Returns:** `Promise`.<`T`>
+**Returns:** `Promise`<`T`>
 The configuration.
 
 ___
-
 <a id="save"></a>
 
 ###  save
 
-▸ **save**T(config: *`T`*): `Promise`.<`void`>
+▸ **save**T(config: *`T`*): `Promise`<`void`>
 
-*Defined in [interfaces/IConfigProvider.ts:16](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/IConfigProvider.ts#L16)*
+*Defined in [interfaces/IConfigProvider.ts:16](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IConfigProvider.ts#L16)*
 
 Save the configuration.
 
@@ -61,9 +60,9 @@ Save the configuration.
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| config | `T`   |  The configuration to set. |
+| config | `T` |  The configuration to set. |
 
-**Returns:** `Promise`.<`void`>
+**Returns:** `Promise`<`void`>
 
 ___
 

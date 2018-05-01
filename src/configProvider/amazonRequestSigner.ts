@@ -79,6 +79,11 @@ export class AmazonRequestSigner {
 
         this._request.path = this.formatPath();
 
+        // Remove unsafe headers to avoid browser errors
+        delete this._request.headers.host;
+        delete this._request.headers.Host;
+        delete this._request.headers["Content-Length"];
+
         return this._request;
     }
 
@@ -150,9 +155,6 @@ export class AmazonRequestSigner {
                 if (this._request.body && !this._request.headers["Content-Type"] && !this._request.headers["content-type"]) {
                     this._request.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
                 }
-
-                // if (request.body && !headers['Content-Length'] && !headers['content-length'])
-                //     headers['Content-Length'] = Buffer.byteLength(request.body)
 
                 if (this._credentials.sessionToken && !this._request.headers["X-Amz-Security-Token"] && !this._request.headers["x-amz-security-token"]) {
                     this._request.headers["X-Amz-Security-Token"] = this._credentials.sessionToken;

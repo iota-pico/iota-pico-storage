@@ -24,29 +24,27 @@ Represents the configuration for amazon account.
 
 ###  awsAccessKeyId
 
-**●  awsAccessKeyId**:  *`string`* 
+**● awsAccessKeyId**: *`string`*
 
-*Defined in interfaces/IAmazonCredentials.ts:5*
+*Defined in [interfaces/IAmazonCredentials.ts:5](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IAmazonCredentials.ts#L5)*
 
 ___
-
 <a id="awssecretaccesskey"></a>
 
 ###  awsSecretAccessKey
 
-**●  awsSecretAccessKey**:  *`string`* 
+**● awsSecretAccessKey**: *`string`*
 
-*Defined in interfaces/IAmazonCredentials.ts:6*
+*Defined in [interfaces/IAmazonCredentials.ts:6](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IAmazonCredentials.ts#L6)*
 
 ___
-
 <a id="sessiontoken"></a>
 
 ### `<Optional>` sessionToken
 
-**●  sessionToken**:  *`string`* 
+**● sessionToken**: *`string`*
 
-*Defined in interfaces/IAmazonCredentials.ts:7*
+*Defined in [interfaces/IAmazonCredentials.ts:7](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IAmazonCredentials.ts#L7)*
 
 ___
 

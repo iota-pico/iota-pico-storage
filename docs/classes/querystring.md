@@ -25,7 +25,7 @@ Class for manipulating query string.
 
 ▸ **parse**(queryString: *`string`*, sep?: *`string`*, eq?: *`string`*): `object`
 
-*Defined in helpers/queryString.ts:32*
+*Defined in [helpers/queryString.ts:32](https://github.com/iota-pico/storage/blob/9579284/src/helpers/queryString.ts#L32)*
 
 Parse the query string into an object.
 
@@ -33,22 +33,21 @@ Parse the query string into an object.
 
 | Param | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| queryString | `string`  | - |   The query string to parse. |
-| sep | `string`  | &quot;&amp;&quot; |   The separator to look for. |
-| eq | `string`  | &quot;&#x3D;&quot; |   The equals symbol to look for. |
+| queryString | `string` | - |  The query string to parse. |
+| `Default value` sep | `string` | &quot;&amp;&quot; |  The separator to look for. |
+| `Default value` eq | `string` | &quot;&#x3D;&quot; |  The equals symbol to look for. |
 
 **Returns:** `object`
 The object.
 
 ___
-
 <a id="stringify"></a>
 
 ### `<Static>` stringify
 
 ▸ **stringify**(obj: *`object`*, sep?: *`string`*, eq?: *`string`*): `string`
 
-*Defined in helpers/queryString.ts:14*
+*Defined in [helpers/queryString.ts:14](https://github.com/iota-pico/storage/blob/9579284/src/helpers/queryString.ts#L14)*
 
 Stringify the object for use in a quesry string.
 
@@ -56,9 +55,9 @@ Stringify the object for use in a quesry string.
 
 | Param | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| obj | `object`  | - |   The object to stringify. |
-| sep | `string`  | &quot;&amp;&quot; |   The separator to use in the stringification. |
-| eq | `string`  | &quot;&#x3D;&quot; |   The equals to use in the stringification. |
+| obj | `object` | - |  The object to stringify. |
+| `Default value` sep | `string` | &quot;&amp;&quot; |  The separator to use in the stringification. |
+| `Default value` eq | `string` | &quot;&#x3D;&quot; |  The equals to use in the stringification. |
 
 **Returns:** `string`
 The stringified object.

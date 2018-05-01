@@ -26,39 +26,36 @@ Represents data passed to progress callback.
 
 ###  numItems
 
-**●  numItems**:  *`number`* 
+**● numItems**: *`number`*
 
-*Defined in interfaces/IDataTableProgress.ts:6*
+*Defined in [interfaces/IDataTableProgress.ts:6](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableProgress.ts#L6)*
 
 ___
-
 <a id="percent"></a>
 
 ###  percent
 
-**●  percent**:  *`number`* 
+**● percent**: *`number`*
 
-*Defined in interfaces/IDataTableProgress.ts:8*
+*Defined in [interfaces/IDataTableProgress.ts:8](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableProgress.ts#L8)*
 
 ___
-
 <a id="status"></a>
 
 ###  status
 
-**●  status**:  *`string`* 
+**● status**: *`string`*
 
-*Defined in interfaces/IDataTableProgress.ts:9*
+*Defined in [interfaces/IDataTableProgress.ts:9](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableProgress.ts#L9)*
 
 ___
-
 <a id="totalitems"></a>
 
 ###  totalItems
 
-**●  totalItems**:  *`number`* 
+**● totalItems**: *`number`*
 
-*Defined in interfaces/IDataTableProgress.ts:7*
+*Defined in [interfaces/IDataTableProgress.ts:7](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableProgress.ts#L7)*
 
 ___
 

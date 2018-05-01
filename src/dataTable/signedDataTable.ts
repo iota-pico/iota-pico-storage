@@ -87,7 +87,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         await this.loadConfig();
 
-        let dataTableIndex;
+        let dataTableIndex: DataTableIndex;
         if (!StringHelper.isEmpty(this._config.indexBundleHash)) {
             const indexBundleHash = Hash.fromTrytes(Trytes.fromString(this._config.indexBundleHash));
             this.updateProgress(0, 1, "Retrieving Index");
@@ -95,7 +95,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
             this.updateProgress(1, 1, "Retrieving Index");
 
             if (index && index.length > 0) {
-                const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<DataTableIndex>>();
+                const objectToTrytesConverter = new ObjectTrytesConverter<ISignedItem<DataTableIndex | string[]>>();
 
                 const signedItem = objectToTrytesConverter.from(index[0].data);
 
@@ -103,7 +103,16 @@ export class SignedDataTable<T> implements IDataTable<T> {
                     this._logger.info("<=== SignedDataTable::index invalid signature");
                     throw new StorageError("Item signature was not valid", indexBundleHash);
                 } else {
-                    dataTableIndex = signedItem.data;
+                    const dt = signedItem.data;
+                    if (ArrayHelper.isArray(dt)) {
+                        dataTableIndex = {
+                            bundles: <string[]>dt,
+                            lastIdx: Hash.EMPTY.toTrytes().toString()
+                        };
+                    } else {
+                        dataTableIndex = <DataTableIndex>dt;
+                    }
+
                     this._logger.info("<=== SignedDataTable::index", signedItem);
                 }
             } else {
@@ -120,11 +129,11 @@ export class SignedDataTable<T> implements IDataTable<T> {
      * Clear the index for the table.
      */
     public async clearIndex(): Promise<void> {
-        this._logger.info("===> DataTable::clearIndex");
+        this._logger.info("===> SignedDataTable::clearIndex");
 
         await this.loadConfig();
 
-        await this.saveIndex([]);
+        await this.saveIndexBundleHashes([]);
     }
 
     /**
@@ -159,11 +168,10 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         const addHash = storageItem.bundleHash.toTrytes().toString();
 
-        let index = await this.index();
-        index = index || [];
-        index.push(addHash);
+        const indexBundleHashes = await this.loadIndexBundleHashes();
+        indexBundleHashes.push(addHash);
 
-        await this.saveIndex(index);
+        await this.saveIndexBundleHashes(indexBundleHashes);
 
         this._logger.info("<=== SignedDataTable::store", storageItem.bundleHash);
 
@@ -181,11 +189,11 @@ export class SignedDataTable<T> implements IDataTable<T> {
         this._logger.info("===> SignedDataTable::storeMultiple", data, tags);
 
         const hashes = [];
-        let index;
+        let indexBundleHashes;
         if (!clearIndex) {
-            index = await this.index();
+            indexBundleHashes = await this.loadIndexBundleHashes();
         }
-        index = index || [];
+        indexBundleHashes = indexBundleHashes || [];
 
         this.updateProgress(0, data.length, "Storing Items");
         for (let i = 0; i < data.length; i++) {
@@ -211,12 +219,12 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
             const addHash = storageItem.bundleHash.toTrytes().toString();
 
-            index.push(addHash);
+            indexBundleHashes.push(addHash);
 
             hashes.push(storageItem.bundleHash);
         }
 
-        await this.saveIndex(index);
+        await this.saveIndexBundleHashes(indexBundleHashes);
 
         this._logger.info("<=== SignedDataTable::storeMultiple", hashes);
 
@@ -254,19 +262,18 @@ export class SignedDataTable<T> implements IDataTable<T> {
             enumerable: true
         });
 
-        let index = await this.index();
-        index = index || [];
+        const indexBundleHashes = await this.loadIndexBundleHashes();
         const removeHash = originalId.toTrytes().toString();
         const addHash = storageItem.bundleHash.toTrytes().toString();
 
-        const idx = index.indexOf(removeHash);
+        const idx = indexBundleHashes.indexOf(removeHash);
         if (idx >= 0) {
-            index.splice(idx, 1, addHash);
+            indexBundleHashes.splice(idx, 1, addHash);
         } else {
-            index.push(addHash);
+            indexBundleHashes.push(addHash);
         }
 
-        await this.saveIndex(index);
+        await this.saveIndexBundleHashes(indexBundleHashes);
 
         this._logger.info("<=== SignedDataTable::update", storageItem.bundleHash);
 
@@ -315,9 +322,9 @@ export class SignedDataTable<T> implements IDataTable<T> {
         if (ArrayHelper.isTyped(ids, Hash)) {
             loadIds = ids;
         } else {
-            const index = await this.index();
-            if (ArrayHelper.isTyped(index, String)) {
-                loadIds = index.map(b => Hash.fromTrytes(Trytes.fromString(b)));
+            const indexBundleHashes = await this.loadIndexBundleHashes();
+            if (ArrayHelper.isTyped(indexBundleHashes, String)) {
+                loadIds = indexBundleHashes.map(b => Hash.fromTrytes(Trytes.fromString(b)));
             }
         }
 
@@ -356,7 +363,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
     public async remove(id: Hash): Promise<void> {
         this._logger.info("===> SignedDataTable::remove", id);
 
-        let index = await this.index();
+        let index = await this.loadIndexBundleHashes();
         index = index || [];
         const removeHash = id.toTrytes().toString();
 
@@ -364,7 +371,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
         if (idx >= 0) {
             index.splice(idx, 1);
 
-            await this.saveIndex(index);
+            await this.saveIndexBundleHashes(index);
 
             this._logger.info("<=== SignedDataTable::remove");
         } else {
@@ -381,7 +388,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
 
         await this.loadConfig();
 
-        let index = await this.index();
+        let index = await this.loadIndexBundleHashes();
         index = index || [];
         let removed = false;
 
@@ -401,7 +408,7 @@ export class SignedDataTable<T> implements IDataTable<T> {
         }
 
         if (removed) {
-            await this.saveIndex(index);
+            await this.saveIndexBundleHashes(index);
         }
     }
 
@@ -459,31 +466,43 @@ export class SignedDataTable<T> implements IDataTable<T> {
     /* @internal */
     private async loadConfig(): Promise<void> {
         if (ObjectHelper.isEmpty(this._config)) {
-            this._logger.info("===> DataTable::getConfig");
+            this._logger.info("===> SignedDataTable::getConfig");
             this._config = await this._configProvider.load(this._tableName);
             if (ObjectHelper.isEmpty(this._config) ||
                 ObjectHelper.isEmpty(this._config.indexAddress) ||
                 ObjectHelper.isEmpty(this._config.dataAddress)) {
                 throw new StorageError("Configuration must contain at least the indexAddress and dataAddress");
             }
-            this._logger.info("<=== DataTable::getConfig", this._config);
+            this._logger.info("<=== SignedDataTable::getConfig", this._config);
         }
     }
 
     /* @internal */
     private async saveConfig(): Promise<void> {
         if (!ObjectHelper.isEmpty(this._config)) {
-            this._logger.info("===> DataTable::setConfig", this._config);
+            this._logger.info("===> SignedDataTable::setConfig", this._config);
             await this._configProvider.save(this._tableName, this._config);
-            this._logger.info("<=== DataTable::setConfig");
+            this._logger.info("<=== SignedDataTable::setConfig");
         }
     }
 
     /* @internal */
-    private async saveIndex(index: DataTableIndex): Promise<void> {
+    private async loadIndexBundleHashes(): Promise<string[]> {
+        const idx = await this.index();
+
+        return idx && idx.bundles ? idx.bundles : [];
+    }
+
+    /* @internal */
+    private async saveIndexBundleHashes(bundles: string[]): Promise<void> {
         const indexAddress = Address.fromTrytes(Trytes.fromString(this._config.indexAddress));
 
-        const signedItemIndex = this.createSignedItem(index);
+        const dataTableIndex = {
+            bundles,
+            lastIdx: this._config.indexBundleHash || Hash.EMPTY.toTrytes().toString()
+        };
+
+        const signedItemIndex = this.createSignedItem(dataTableIndex);
 
         const objectToTrytesConverterIndex = new ObjectTrytesConverter<ISignedItem<DataTableIndex>>();
 

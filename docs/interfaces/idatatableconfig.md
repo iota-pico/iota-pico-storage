@@ -25,29 +25,27 @@ Represents the configuration required by data table.
 
 ###  dataAddress
 
-**●  dataAddress**:  *`string`* 
+**● dataAddress**: *`string`*
 
-*Defined in [interfaces/IDataTableConfig.ts:8](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/IDataTableConfig.ts#L8)*
+*Defined in [interfaces/IDataTableConfig.ts:8](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableConfig.ts#L8)*
 
 ___
-
 <a id="indexaddress"></a>
 
 ###  indexAddress
 
-**●  indexAddress**:  *`string`* 
+**● indexAddress**: *`string`*
 
-*Defined in [interfaces/IDataTableConfig.ts:7](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/IDataTableConfig.ts#L7)*
+*Defined in [interfaces/IDataTableConfig.ts:7](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableConfig.ts#L7)*
 
 ___
-
 <a id="indexbundlehash"></a>
 
 ### `<Optional>` indexBundleHash
 
-**●  indexBundleHash**:  *`string`* 
+**● indexBundleHash**: *`string`*
 
-*Defined in [interfaces/IDataTableConfig.ts:6](https://github.com/iota-pico/storage/blob/761de37/src/interfaces/IDataTableConfig.ts#L6)*
+*Defined in [interfaces/IDataTableConfig.ts:6](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableConfig.ts#L6)*
 
 ___
 
