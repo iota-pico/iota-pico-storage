@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/iota-pico/storage/master/LICENSE) [![Build Status](https://travis-ci.org/iota-pico/storage.svg?branch=master)](https://travis-ci.org/iota-pico/storage) [![NSP Status](https://nodesecurity.io/orgs/iota-pico/projects/0187c1c9-1cb0-48e4-9b84-f59a25401121)](https://nodesecurity.io/orgs/iota-pico/projects/0187c1c9-1cb0-48e4-9b84-f59a25401121)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/iota-pico/storage/master/LICENSE) [![Build Status](https://travis-ci.org/iota-pico/storage.svg?branch=master)](https://travis-ci.org/iota-pico/storage) [![NSP Status](https://nodesecurity.io/orgs/iota-pico/projects/0187c1c9-1cb0-48e4-9b84-f59a25401121/badge)](https://nodesecurity.io/orgs/iota-pico/projects/0187c1c9-1cb0-48e4-9b84-f59a25401121)
 [![Coveralls](https://img.shields.io/coveralls/iota-pico/storage.svg)](https://coveralls.io/github/iota-pico/storage)
 
 # IOTA Pico Framework Storage
