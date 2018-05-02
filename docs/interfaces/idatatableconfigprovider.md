@@ -30,7 +30,7 @@ Represents a class that can get/set data table configuration.
 
 ▸ **load**(tableName: *`string`*): `Promise`<[IDataTableConfig](idatatableconfig.md)>
 
-*Defined in [interfaces/IDataTableConfigProvider.ts:13](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableConfigProvider.ts#L13)*
+*Defined in [interfaces/IDataTableConfigProvider.ts:13](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/IDataTableConfigProvider.ts#L13)*
 
 Load the configuration for the data table.
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **save**(tableName: *`string`*, config: *[IDataTableConfig](idatatableconfig.md)*): `Promise`<`void`>
 
-*Defined in [interfaces/IDataTableConfigProvider.ts:20](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/IDataTableConfigProvider.ts#L20)*
+*Defined in [interfaces/IDataTableConfigProvider.ts:20](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/IDataTableConfigProvider.ts#L20)*
 
 Save the configuration for the data table.
 

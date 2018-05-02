@@ -43,7 +43,7 @@ Represents a table for storing data with signing.
 
 ⊕ **new SignedDataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, publicKey: *`string`*, privateKey: *`string`*, logger?: *`ILogger`*): [SignedDataTable](signeddatatable.md)
 
-*Defined in [dataTable/signedDataTable.ts:56](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L56)*
+*Defined in [dataTable/signedDataTable.ts:56](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L56)*
 
 Create a new instance of the DataTable.
 
@@ -72,7 +72,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[clearIndex](../interfaces/idatatable.md#clearindex)*
 
-*Defined in [dataTable/signedDataTable.ts:131](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L131)*
+*Defined in [dataTable/signedDataTable.ts:131](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L131)*
 
 Clear the index for the table.
 
@@ -87,7 +87,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[index](../interfaces/idatatable.md#index)*
 
-*Defined in [dataTable/signedDataTable.ts:85](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L85)*
+*Defined in [dataTable/signedDataTable.ts:85](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L85)*
 
 Get the index for the table.
 
@@ -103,7 +103,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[remove](../interfaces/idatatable.md#remove)*
 
-*Defined in [dataTable/signedDataTable.ts:363](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L363)*
+*Defined in [dataTable/signedDataTable.ts:363](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L363)*
 
 Remove an item of data from the table.
 
@@ -124,7 +124,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[removeMultiple](../interfaces/idatatable.md#removemultiple)*
 
-*Defined in [dataTable/signedDataTable.ts:386](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L386)*
+*Defined in [dataTable/signedDataTable.ts:386](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L386)*
 
 Remove multiple items of data from the table.
 
@@ -145,7 +145,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieve](../interfaces/idatatable.md#retrieve)*
 
-*Defined in [dataTable/signedDataTable.ts:288](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L288)*
+*Defined in [dataTable/signedDataTable.ts:288](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L288)*
 
 Retrieve the data stored in the table.
 
@@ -167,7 +167,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieveMultiple](../interfaces/idatatable.md#retrievemultiple)*
 
-*Defined in [dataTable/signedDataTable.ts:320](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L320)*
+*Defined in [dataTable/signedDataTable.ts:320](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L320)*
 
 Retrieve all the data stored in the table.
 
@@ -187,7 +187,7 @@ ___
 
 ▸ **setProgressCallback**(progressCallback: *`function`*): `void`
 
-*Defined in [dataTable/signedDataTable.ts:419](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L419)*
+*Defined in [dataTable/signedDataTable.ts:419](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L419)*
 
 Set the progress callback.
 
@@ -208,7 +208,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[store](../interfaces/idatatable.md#store)*
 
-*Defined in [dataTable/signedDataTable.ts:145](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L145)*
+*Defined in [dataTable/signedDataTable.ts:145](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L145)*
 
 Store an item of data in the table.
 
@@ -231,7 +231,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[storeMultiple](../interfaces/idatatable.md#storemultiple)*
 
-*Defined in [dataTable/signedDataTable.ts:188](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L188)*
+*Defined in [dataTable/signedDataTable.ts:188](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L188)*
 
 Store multiple items of data in the table.
 
@@ -255,7 +255,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[update](../interfaces/idatatable.md#update)*
 
-*Defined in [dataTable/signedDataTable.ts:241](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/signedDataTable.ts#L241)*
+*Defined in [dataTable/signedDataTable.ts:241](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/signedDataTable.ts#L241)*
 
 Update an item of data in the table.
 

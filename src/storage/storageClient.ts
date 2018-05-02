@@ -127,12 +127,26 @@ export class StorageClient implements IStorageClient {
     /* @internal */
     private processItem(bundle: { hash: Hash; transaction: Transaction }[]): StorageItem {
         let itemTrytes = "";
-        // Sort each of the bundle transactions and create trytes for it
 
+        // Sort all the transactions by timestamp
         bundle.sort((a, b) => {
+            const x = a.transaction.attachmentTimestamp.toNumber();
+            const y = b.transaction.attachmentTimestamp.toNumber();
+            return x - y;
+        });
+
+        // Now look at the first entry and see how many parts it has
+        const numParts = bundle[0].transaction.lastIndex.toNumber();
+
+        // Grab that amount of entries
+        // tslint:disable:restrict-plus-operands false positive
+        const finalEntries = bundle.slice(0, numParts + 1);
+
+        // Sort each of the bundle transactions by index and create trytes for it
+        finalEntries.sort((a, b) => {
             const x = a.transaction.currentIndex.toNumber();
             const y = b.transaction.currentIndex.toNumber();
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return x - y;
         })
             .forEach(transaction => {
                 itemTrytes += transaction.transaction.signatureMessageFragment.toTrytes().toString();
@@ -146,11 +160,11 @@ export class StorageClient implements IStorageClient {
             itemTrytes += "9";
         }
 
-        return new StorageItem(bundle[0].transaction.bundle,
+        return new StorageItem(finalEntries[0].transaction.bundle,
                                Trytes.fromString(itemTrytes),
-                               bundle[0].transaction.tag,
-                               bundle[0].transaction.attachmentTimestamp.toNumber(),
-                               bundle[0].transaction.bundle,
-                               bundle.map(th => th.hash));
+                               finalEntries[0].transaction.tag,
+                               finalEntries[0].transaction.attachmentTimestamp.toNumber(),
+                               finalEntries[0].transaction.bundle,
+                               finalEntries.map(th => th.hash));
     }
 }

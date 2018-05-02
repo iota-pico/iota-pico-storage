@@ -43,7 +43,7 @@ Represents a table for storing data.
 
 ⊕ **new DataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, logger?: *`ILogger`*): [DataTable](datatable.md)
 
-*Defined in [dataTable/dataTable.ts:42](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L42)*
+*Defined in [dataTable/dataTable.ts:42](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L42)*
 
 Create a new instance of the DataTable.
 
@@ -70,7 +70,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[clearIndex](../interfaces/idatatable.md#clearindex)*
 
-*Defined in [dataTable/dataTable.ts:105](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L105)*
+*Defined in [dataTable/dataTable.ts:105](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L105)*
 
 Clear the index for the table.
 
@@ -85,7 +85,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[index](../interfaces/idatatable.md#index)*
 
-*Defined in [dataTable/dataTable.ts:65](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L65)*
+*Defined in [dataTable/dataTable.ts:65](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L65)*
 
 Get the index for the table.
 
@@ -101,7 +101,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[remove](../interfaces/idatatable.md#remove)*
 
-*Defined in [dataTable/dataTable.ts:340](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L340)*
+*Defined in [dataTable/dataTable.ts:340](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L340)*
 
 Remove an item of data from the table.
 
@@ -122,7 +122,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[removeMultiple](../interfaces/idatatable.md#removemultiple)*
 
-*Defined in [dataTable/dataTable.ts:364](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L364)*
+*Defined in [dataTable/dataTable.ts:364](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L364)*
 
 Remove multiple items of data from the table.
 
@@ -143,7 +143,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieve](../interfaces/idatatable.md#retrieve)*
 
-*Defined in [dataTable/dataTable.ts:260](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L260)*
+*Defined in [dataTable/dataTable.ts:260](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L260)*
 
 Retrieve the data stored in the table.
 
@@ -165,7 +165,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieveMultiple](../interfaces/idatatable.md#retrievemultiple)*
 
-*Defined in [dataTable/dataTable.ts:294](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L294)*
+*Defined in [dataTable/dataTable.ts:294](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L294)*
 
 Retrieve all the data stored in the table.
 
@@ -185,7 +185,7 @@ ___
 
 ▸ **setProgressCallback**(progressCallback: *`function`*): `void`
 
-*Defined in [dataTable/dataTable.ts:396](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L396)*
+*Defined in [dataTable/dataTable.ts:396](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L396)*
 
 Set the progress callback.
 
@@ -206,7 +206,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[store](../interfaces/idatatable.md#store)*
 
-*Defined in [dataTable/dataTable.ts:119](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L119)*
+*Defined in [dataTable/dataTable.ts:119](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L119)*
 
 Store an item of data in the table.
 
@@ -229,7 +229,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[storeMultiple](../interfaces/idatatable.md#storemultiple)*
 
-*Defined in [dataTable/dataTable.ts:161](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L161)*
+*Defined in [dataTable/dataTable.ts:161](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L161)*
 
 Store multiple items of data in the table.
 
@@ -253,7 +253,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[update](../interfaces/idatatable.md#update)*
 
-*Defined in [dataTable/dataTable.ts:214](https://github.com/iota-pico/storage/blob/9579284/src/dataTable/dataTable.ts#L214)*
+*Defined in [dataTable/dataTable.ts:214](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L214)*
 
 Update an item of data in the table.
 

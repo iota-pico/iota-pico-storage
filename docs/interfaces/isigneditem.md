@@ -29,7 +29,7 @@ Represents an item of data stored with a signature.
 
 **● data**: *`T`*
 
-*Defined in [interfaces/ISignedItem.ts:6](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/ISignedItem.ts#L6)*
+*Defined in [interfaces/ISignedItem.ts:6](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/ISignedItem.ts#L6)*
 
 ___
 <a id="signature"></a>
@@ -38,7 +38,7 @@ ___
 
 **● signature**: *`string`*
 
-*Defined in [interfaces/ISignedItem.ts:8](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/ISignedItem.ts#L8)*
+*Defined in [interfaces/ISignedItem.ts:8](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/ISignedItem.ts#L8)*
 
 ___
 <a id="timestamp"></a>
@@ -47,7 +47,7 @@ ___
 
 **● timestamp**: *`number`*
 
-*Defined in [interfaces/ISignedItem.ts:7](https://github.com/iota-pico/storage/blob/9579284/src/interfaces/ISignedItem.ts#L7)*
+*Defined in [interfaces/ISignedItem.ts:7](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/ISignedItem.ts#L7)*
 
 ___
 

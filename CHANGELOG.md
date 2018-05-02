@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.6
+
+* Fixed storageClient to always pick first entry from bundle which avoids reattachment duplicates
+
 ## v0.9.5
 
 * Change DataTableIndex format, added lastIdx to facilitate audit trail

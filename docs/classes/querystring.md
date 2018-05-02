@@ -25,7 +25,7 @@ Class for manipulating query string.
 
 ▸ **parse**(queryString: *`string`*, sep?: *`string`*, eq?: *`string`*): `object`
 
-*Defined in [helpers/queryString.ts:32](https://github.com/iota-pico/storage/blob/9579284/src/helpers/queryString.ts#L32)*
+*Defined in [helpers/queryString.ts:32](https://github.com/iota-pico/storage/blob/1c4462e/src/helpers/queryString.ts#L32)*
 
 Parse the query string into an object.
 
@@ -47,7 +47,7 @@ ___
 
 ▸ **stringify**(obj: *`object`*, sep?: *`string`*, eq?: *`string`*): `string`
 
-*Defined in [helpers/queryString.ts:14](https://github.com/iota-pico/storage/blob/9579284/src/helpers/queryString.ts#L14)*
+*Defined in [helpers/queryString.ts:14](https://github.com/iota-pico/storage/blob/1c4462e/src/helpers/queryString.ts#L14)*
 
 Stringify the object for use in a quesry string.
 
