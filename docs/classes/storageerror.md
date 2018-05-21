@@ -42,7 +42,7 @@ A storage implementation of an error.
 
 *Overrides CoreError.__constructor*
 
-*Defined in [error/storageError.ts:6](https://github.com/iota-pico/storage/blob/1c4462e/src/error/storageError.ts#L6)*
+*Defined in [error/storageError.ts:6](https://github.com/iota-pico/storage/blob/d99de76/src/error/storageError.ts#L6)*
 
 Create an instance of StorageError.
 

@@ -1,32 +1,35 @@
 import { ILogger } from "@iota-pico/core/dist/interfaces/ILogger";
 import { Hash } from "@iota-pico/data/dist/data/hash";
 import { Tag } from "@iota-pico/data/dist/data/tag";
-import { DataTableIndex } from "../interfaces/dataTableIndex";
 import { IDataTable } from "../interfaces/IDataTable";
 import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { IDataTableIndex } from "../interfaces/IDataTableIndex";
 import { IDataTableProgress } from "../interfaces/IDataTableProgress";
+import { ISignedDataItem } from "../interfaces/ISignedDataItem";
 import { IStorageClient } from "../interfaces/IStorageClient";
 /**
  * Represents a table for storing data.
  */
-export declare class DataTable<T> implements IDataTable<T> {
+export declare class DataTable<T extends ISignedDataItem> implements IDataTable<T> {
     /**
      * Create a new instance of the DataTable.
      * @param storageClient A storage client to perform storage operations.
      * @param configProvider A provider to get the configuration for the table.
      * @param tableName The name of the table.
+     * @param privateKey Private key to add signature to data.
      * @param logger Logger to send storage info to.
      */
-    constructor(storageClient: IStorageClient, configProvider: IDataTableConfigProvider, tableName: string, logger?: ILogger);
+    constructor(storageClient: IStorageClient, configProvider: IDataTableConfigProvider, tableName: string, privateKey?: string, logger?: ILogger);
     /**
      * Get the index for the table.
      * @returns The table index.
      */
-    index(): Promise<DataTableIndex>;
+    index(): Promise<IDataTableIndex>;
     /**
      * Clear the index for the table.
+     * @param retainHistory Retains the lastIdx value in the index.
      */
-    clearIndex(): Promise<void>;
+    clearIndex(retainHistory: boolean): Promise<void>;
     /**
      * Store an item of data in the table.
      * @param data The data to store.
@@ -39,9 +42,10 @@ export declare class DataTable<T> implements IDataTable<T> {
      * @param data The data to store.
      * @param tags The tag to store with the items.
      * @param clearIndex Clear the index so there is no data.
+     * @param retainHistory Retains the lastIdx value in the index.
      * @returns The ids of the stored items.
      */
-    storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean): Promise<Hash[]>;
+    storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean, retainHistory?: boolean): Promise<Hash[]>;
     /**
      * Update an item of data in the table.
      * @param originalId The id of the item to update.

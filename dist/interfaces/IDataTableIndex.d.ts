@@ -1,7 +1,9 @@
 /**
  * Represents a table index for storing data.
+ * @interface
  */
-export declare type DataTableIndex = {
+export interface IDataTableIndex {
     bundles: string[];
     lastIdx: string;
-};
+    sig?: string;
+}

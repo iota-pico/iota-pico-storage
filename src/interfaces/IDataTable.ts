@@ -1,23 +1,25 @@
 import { Tag } from "@iota-pico/data";
 import { Hash } from "@iota-pico/data/dist/data/hash";
-import { DataTableIndex } from "./dataTableIndex";
+import { IDataTableIndex } from "./IDataTableIndex";
 import { IDataTableProgress } from "./IDataTableProgress";
+import { ISignedDataItem } from "./ISignedDataItem";
 
 /**
  * Represents a table for storing data.
  * @interface
  */
-export interface IDataTable<T> {
+export interface IDataTable<T extends ISignedDataItem> {
     /**
      * Get the index for the table.
      * @returns The table index.
      */
-    index(): Promise<DataTableIndex>;
+    index(): Promise<IDataTableIndex>;
 
     /**
      * Clear the index for the table.
+     * @param retainHistory Retains the lastIdx value in the index.
      */
-    clearIndex(): Promise<void>;
+    clearIndex(retainHistory: boolean): Promise<void>;
 
     /**
      * Store an item of data in the table.
@@ -32,9 +34,10 @@ export interface IDataTable<T> {
      * @param data The data to store.
      * @param tags The tag to store with the items.
      * @param clearIndex Clear the index so there is no data.
+     * @param retainHistory Retains the lastIdx value in the index.
      * @returns The ids of the stored items.
      */
-    storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean): Promise<Hash[]>;
+    storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean, retainHistory?: boolean): Promise<Hash[]>;
 
     /**
      * Update an item of data in the table.

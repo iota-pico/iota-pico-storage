@@ -1,3 +1,4 @@
+import { PlatformCryptoFactory } from "@iota-pico/core/dist/factories/platformCryptoFactory";
 import { ArrayHelper } from "@iota-pico/core/dist/helpers/arrayHelper";
 import { ObjectHelper } from "@iota-pico/core/dist/helpers/objectHelper";
 import { StringHelper } from "@iota-pico/core/dist/helpers/stringHelper";
@@ -9,17 +10,18 @@ import { Hash } from "@iota-pico/data/dist/data/hash";
 import { Tag } from "@iota-pico/data/dist/data/tag";
 import { Trytes } from "@iota-pico/data/dist/data/trytes";
 import { StorageError } from "../error/storageError";
-import { DataTableIndex } from "../interfaces/dataTableIndex";
 import { IDataTable } from "../interfaces/IDataTable";
 import { IDataTableConfig } from "../interfaces/IDataTableConfig";
 import { IDataTableConfigProvider } from "../interfaces/IDataTableConfigProvider";
+import { IDataTableIndex } from "../interfaces/IDataTableIndex";
 import { IDataTableProgress } from "../interfaces/IDataTableProgress";
+import { ISignedDataItem } from "../interfaces/ISignedDataItem";
 import { IStorageClient } from "../interfaces/IStorageClient";
 
 /**
  * Represents a table for storing data.
  */
-export class DataTable<T> implements IDataTable<T> {
+export class DataTable<T extends ISignedDataItem> implements IDataTable<T> {
     /* @internal */
     private static readonly INDEX_TAG: Tag = Tag.fromTrytes(Trytes.fromString("INDEX"));
 
@@ -39,6 +41,9 @@ export class DataTable<T> implements IDataTable<T> {
     private readonly _logger: ILogger;
 
     /* @internal */
+    private readonly _privateKey: string;
+
+    /* @internal */
     private _progressCallback: (progress: IDataTableProgress) => void;
 
     /**
@@ -46,28 +51,31 @@ export class DataTable<T> implements IDataTable<T> {
      * @param storageClient A storage client to perform storage operations.
      * @param configProvider A provider to get the configuration for the table.
      * @param tableName The name of the table.
+     * @param privateKey Private key to add signature to data.
      * @param logger Logger to send storage info to.
      */
     constructor(storageClient: IStorageClient,
                 configProvider: IDataTableConfigProvider,
                 tableName: string,
+                privateKey?: string,
                 logger?: ILogger) {
         this._storageClient = storageClient;
         this._configProvider = configProvider;
         this._tableName = tableName;
         this._logger = logger || new NullLogger();
+        this._privateKey = privateKey;
     }
 
     /**
      * Get the index for the table.
      * @returns The table index.
      */
-    public async index(): Promise<DataTableIndex> {
+    public async index(): Promise<IDataTableIndex> {
         this._logger.info("===> DataTable::index");
 
         await this.loadConfig();
 
-        let dataTableIndex: DataTableIndex;
+        let dataTableIndex: IDataTableIndex;
         if (!StringHelper.isEmpty(this._config.indexBundleHash)) {
             const indexBundleHash = Hash.fromTrytes(Trytes.fromString(this._config.indexBundleHash));
 
@@ -76,7 +84,7 @@ export class DataTable<T> implements IDataTable<T> {
             this.updateProgress(1, 1, "Retrieving Index");
 
             if (index && index.length > 0) {
-                const objectToTrytesConverter = new ObjectTrytesConverter<DataTableIndex | string[]>();
+                const objectToTrytesConverter = new ObjectTrytesConverter<IDataTableIndex | string[]>();
 
                 const dt = objectToTrytesConverter.from(index[0].data);
                 if (ArrayHelper.isArray(dt)) {
@@ -85,7 +93,7 @@ export class DataTable<T> implements IDataTable<T> {
                         lastIdx: Hash.EMPTY.toTrytes().toString()
                     };
                 } else {
-                    dataTableIndex = <DataTableIndex>dt;
+                    dataTableIndex = <IDataTableIndex>dt;
                 }
 
                 this._logger.info("<=== DataTable::index", dataTableIndex);
@@ -101,13 +109,14 @@ export class DataTable<T> implements IDataTable<T> {
 
     /**
      * Clear the index for the table.
+     * @param retainHistory Retains the lastIdx value in the index.
      */
-    public async clearIndex(): Promise<void> {
-        this._logger.info("===> DataTable::clearIndex");
+    public async clearIndex(retainHistory: boolean): Promise<void> {
+        this._logger.info("===> DataTable::clearIndex", retainHistory);
 
         await this.loadConfig();
 
-        await this.saveIndexBundleHashes([]);
+        await this.saveIndexBundleHashes([], retainHistory);
     }
 
     /**
@@ -121,6 +130,12 @@ export class DataTable<T> implements IDataTable<T> {
 
         await this.loadConfig();
 
+        if (!StringHelper.isEmpty(this._privateKey)) {
+            const platformCrypto = PlatformCryptoFactory.instance().create("default");
+            data.sig = undefined;
+            data.sig = platformCrypto.sign(this._privateKey, JSON.stringify(data));
+        }
+
         const objectToTrytesConverter = new ObjectTrytesConverter<T>();
         const trytes = objectToTrytesConverter.to(data);
 
@@ -130,21 +145,15 @@ export class DataTable<T> implements IDataTable<T> {
         const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
         this.updateProgress(1, 1, "Storing Item");
 
-        Object.defineProperty(data, "bundleHash", {
-            value: storageItem.bundleHash.toTrytes().toString(),
-            enumerable: true
-        });
-        Object.defineProperty(data, "transactionHashes", {
-            value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
-            enumerable: true
-        });
+        data.bundleHash = storageItem.bundleHash.toTrytes().toString();
+        data.transactionHashes = storageItem.transactionHashes.map(th => th.toTrytes().toString());
 
         const addHash = storageItem.bundleHash.toTrytes().toString();
 
         const indexBundleHashes = await this.loadIndexBundleHashes();
         indexBundleHashes.push(addHash);
 
-        await this.saveIndexBundleHashes(indexBundleHashes);
+        await this.saveIndexBundleHashes(indexBundleHashes, true);
 
         this._logger.info("<=== DataTable::store", storageItem.bundleHash);
 
@@ -156,9 +165,10 @@ export class DataTable<T> implements IDataTable<T> {
      * @param data The data to store.
      * @param tags The tag to store with the items.
      * @param clearIndex Clear the index so there is no data.
+     * @param retainHistory Retains the lastIdx value in the index.
      * @returns The ids of the stored items.
      */
-    public async storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean): Promise<Hash[]> {
+    public async storeMultiple(data: T[], tags?: Tag[], clearIndex?: boolean, retainHistory?: boolean): Promise<Hash[]> {
         this._logger.info("===> DataTable::storeMultiple", data, tags, clearIndex);
 
         await this.loadConfig();
@@ -173,6 +183,12 @@ export class DataTable<T> implements IDataTable<T> {
 
         this.updateProgress(0, data.length, "Storing Items");
         for (let i = 0; i < data.length; i++) {
+            if (!StringHelper.isEmpty(this._privateKey)) {
+                const platformCrypto = PlatformCryptoFactory.instance().create("default");
+                data[i].sig = undefined;
+                data[i].sig = platformCrypto.sign(this._privateKey, JSON.stringify(data));
+            }
+
             const objectToTrytesConverter = new ObjectTrytesConverter<T>();
             const trytes = objectToTrytesConverter.to(data[i]);
 
@@ -181,14 +197,8 @@ export class DataTable<T> implements IDataTable<T> {
             const storageItem = await this._storageClient.save(dataAddress, trytes, tags ? tags[i] : undefined);
             this.updateProgress(i, data.length, "Storing Items");
 
-            Object.defineProperty(data[i], "bundleHash", {
-                value: storageItem.bundleHash.toTrytes().toString(),
-                enumerable: true
-            });
-            Object.defineProperty(data[i], "transactionHashes", {
-                value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
-                enumerable: true
-            });
+            data[i].bundleHash = storageItem.bundleHash.toTrytes().toString();
+            data[i].transactionHashes = storageItem.transactionHashes.map(th => th.toTrytes().toString());
 
             const addHash = storageItem.bundleHash.toTrytes().toString();
 
@@ -197,7 +207,7 @@ export class DataTable<T> implements IDataTable<T> {
             hashes.push(storageItem.bundleHash);
         }
 
-        await this.saveIndexBundleHashes(indexBundleHashes);
+        await this.saveIndexBundleHashes(indexBundleHashes, retainHistory);
 
         this._logger.info("<=== DataTable::storeMultiple", hashes);
 
@@ -216,6 +226,12 @@ export class DataTable<T> implements IDataTable<T> {
 
         await this.loadConfig();
 
+        if (!StringHelper.isEmpty(this._privateKey)) {
+            const platformCrypto = PlatformCryptoFactory.instance().create("default");
+            data.sig = undefined;
+            data.sig = platformCrypto.sign(this._privateKey, JSON.stringify(data));
+        }
+
         const objectToTrytesConverter = new ObjectTrytesConverter<T>();
 
         const trytes = objectToTrytesConverter.to(data);
@@ -225,14 +241,8 @@ export class DataTable<T> implements IDataTable<T> {
         const storageItem = await this._storageClient.save(dataAddress, trytes, tag);
         this.updateProgress(1, 1, "Updating Item");
 
-        Object.defineProperty(data, "bundleHash", {
-            value: storageItem.bundleHash.toTrytes().toString(),
-            enumerable: true
-        });
-        Object.defineProperty(data, "transactionHashes", {
-            value: storageItem.transactionHashes.map(th => th.toTrytes().toString()),
-            enumerable: true
-        });
+        data.bundleHash = storageItem.bundleHash.toTrytes().toString();
+        data.transactionHashes = storageItem.transactionHashes.map(th => th.toTrytes().toString());
 
         const indexBundleHashes = await this.loadIndexBundleHashes();
         const removeHash = originalId.toTrytes().toString();
@@ -245,7 +255,7 @@ export class DataTable<T> implements IDataTable<T> {
             indexBundleHashes.push(addHash);
         }
 
-        await this.saveIndexBundleHashes(indexBundleHashes);
+        await this.saveIndexBundleHashes(indexBundleHashes, true);
 
         this._logger.info("<=== DataTable::update", storageItem.bundleHash);
 
@@ -271,14 +281,9 @@ export class DataTable<T> implements IDataTable<T> {
             const objectToTrytesConverter = new ObjectTrytesConverter<T>();
 
             item = objectToTrytesConverter.from(allStorageItems[0].data);
-            Object.defineProperty(item, "bundleHash", {
-                value: allStorageItems[0].bundleHash.toTrytes().toString(),
-                enumerable: true
-            });
-            Object.defineProperty(item, "transactionHashes", {
-                value: allStorageItems[0].transactionHashes.map(th => th.toTrytes().toString()),
-                enumerable: true
-            });
+
+            item.bundleHash = allStorageItems[0].bundleHash.toTrytes().toString();
+            item.transactionHashes = allStorageItems[0].transactionHashes.map(th => th.toTrytes().toString());
         }
 
         this._logger.info("<=== DataTable::retrieve", item);
@@ -316,14 +321,10 @@ export class DataTable<T> implements IDataTable<T> {
 
             for (let i = 0; i < allStorageItems.length; i++) {
                 const item = objectToTrytesConverter.from(allStorageItems[i].data);
-                Object.defineProperty(item, "bundleHash", {
-                    value: allStorageItems[i].bundleHash.toTrytes().toString(),
-                    enumerable: true
-                });
-                Object.defineProperty(item, "transactionHashes", {
-                    value: allStorageItems[i].transactionHashes.map(th => th.toTrytes().toString()),
-                    enumerable: true
-                });
+
+                item.bundleHash = allStorageItems[i].bundleHash.toTrytes().toString();
+                item.transactionHashes = allStorageItems[i].transactionHashes.map(th => th.toTrytes().toString());
+
                 ret.push(item);
             }
         }
@@ -349,7 +350,7 @@ export class DataTable<T> implements IDataTable<T> {
         if (idx >= 0) {
             indexBundleHashes.splice(idx, 1);
 
-            await this.saveIndexBundleHashes(indexBundleHashes);
+            await this.saveIndexBundleHashes(indexBundleHashes, true);
 
             this._logger.info("<=== DataTable::remove");
         } else {
@@ -385,7 +386,7 @@ export class DataTable<T> implements IDataTable<T> {
         }
 
         if (removed) {
-            await this.saveIndexBundleHashes(indexBundleHashes);
+            await this.saveIndexBundleHashes(indexBundleHashes, true);
         }
     }
 
@@ -428,15 +429,20 @@ export class DataTable<T> implements IDataTable<T> {
     }
 
     /* @internal */
-    private async saveIndexBundleHashes(bundles: string[]): Promise<void> {
+    private async saveIndexBundleHashes(bundles: string[], retainHistory: boolean): Promise<void> {
         const indexAddress = Address.fromTrytes(Trytes.fromString(this._config.indexAddress));
 
-        const dataTableIndex = {
+        const dataTableIndex: IDataTableIndex = {
             bundles,
-            lastIdx: this._config.indexBundleHash || Hash.EMPTY.toTrytes().toString()
+            lastIdx: retainHistory ? this._config.indexBundleHash || Hash.EMPTY.toTrytes().toString() : undefined
         };
 
-        const objectToTrytesConverterIndex = new ObjectTrytesConverter<DataTableIndex>();
+        if (!StringHelper.isEmpty(this._privateKey)) {
+            const platformCrypto = PlatformCryptoFactory.instance().create("default");
+            dataTableIndex.sig = platformCrypto.sign(this._privateKey, JSON.stringify(dataTableIndex));
+        }
+
+        const objectToTrytesConverterIndex = new ObjectTrytesConverter<IDataTableIndex>();
 
         const trytesIndex = objectToTrytesConverterIndex.to(dataTableIndex);
 

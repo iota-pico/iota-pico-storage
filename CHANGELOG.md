@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.9.7
+
+* Added MemoryCacheConfigProvider
+* Added optional sig member to DataTableIndex
+* DataTable index renamed to IDataTableIndex
+
 ## v0.9.6
 
 * Fixed storageClient to always pick first entry from bundle which avoids reattachment duplicates

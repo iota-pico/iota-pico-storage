@@ -5,7 +5,7 @@
 Represents a table for storing data.
 
 ## Type parameters
-#### T 
+#### T :  [ISignedDataItem](../interfaces/isigneddataitem.md)
 ## Hierarchy
 
 **DataTable**
@@ -41,9 +41,9 @@ Represents a table for storing data.
 
 ###  constructor
 
-⊕ **new DataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, logger?: *`ILogger`*): [DataTable](datatable.md)
+⊕ **new DataTable**(storageClient: *[IStorageClient](../interfaces/istorageclient.md)*, configProvider: *[IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md)*, tableName: *`string`*, privateKey?: *`string`*, logger?: *`ILogger`*): [DataTable](datatable.md)
 
-*Defined in [dataTable/dataTable.ts:42](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L42)*
+*Defined in [dataTable/dataTable.ts:47](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L47)*
 
 Create a new instance of the DataTable.
 
@@ -54,6 +54,7 @@ Create a new instance of the DataTable.
 | storageClient | [IStorageClient](../interfaces/istorageclient.md) |  A storage client to perform storage operations. |
 | configProvider | [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md) |  A provider to get the configuration for the table. |
 | tableName | `string` |  The name of the table. |
+| `Optional` privateKey | `string` |  Private key to add signature to data. |
 | `Optional` logger | `ILogger` |  Logger to send storage info to. |
 
 **Returns:** [DataTable](datatable.md)
@@ -66,13 +67,19 @@ ___
 
 ###  clearIndex
 
-▸ **clearIndex**(): `Promise`<`void`>
+▸ **clearIndex**(retainHistory: *`boolean`*): `Promise`<`void`>
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[clearIndex](../interfaces/idatatable.md#clearindex)*
 
-*Defined in [dataTable/dataTable.ts:105](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L105)*
+*Defined in [dataTable/dataTable.ts:114](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L114)*
 
 Clear the index for the table.
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| retainHistory | `boolean` |  Retains the lastIdx value in the index. |
 
 **Returns:** `Promise`<`void`>
 
@@ -81,15 +88,15 @@ ___
 
 ###  index
 
-▸ **index**(): `Promise`<[DataTableIndex](../#datatableindex)>
+▸ **index**(): `Promise`<[IDataTableIndex](../interfaces/idatatableindex.md)>
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[index](../interfaces/idatatable.md#index)*
 
-*Defined in [dataTable/dataTable.ts:65](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L65)*
+*Defined in [dataTable/dataTable.ts:73](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L73)*
 
 Get the index for the table.
 
-**Returns:** `Promise`<[DataTableIndex](../#datatableindex)>
+**Returns:** `Promise`<[IDataTableIndex](../interfaces/idatatableindex.md)>
 The table index.
 
 ___
@@ -101,7 +108,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[remove](../interfaces/idatatable.md#remove)*
 
-*Defined in [dataTable/dataTable.ts:340](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L340)*
+*Defined in [dataTable/dataTable.ts:341](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L341)*
 
 Remove an item of data from the table.
 
@@ -122,7 +129,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[removeMultiple](../interfaces/idatatable.md#removemultiple)*
 
-*Defined in [dataTable/dataTable.ts:364](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L364)*
+*Defined in [dataTable/dataTable.ts:365](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L365)*
 
 Remove multiple items of data from the table.
 
@@ -143,7 +150,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieve](../interfaces/idatatable.md#retrieve)*
 
-*Defined in [dataTable/dataTable.ts:260](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L260)*
+*Defined in [dataTable/dataTable.ts:270](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L270)*
 
 Retrieve the data stored in the table.
 
@@ -165,7 +172,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[retrieveMultiple](../interfaces/idatatable.md#retrievemultiple)*
 
-*Defined in [dataTable/dataTable.ts:294](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L294)*
+*Defined in [dataTable/dataTable.ts:299](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L299)*
 
 Retrieve all the data stored in the table.
 
@@ -185,7 +192,7 @@ ___
 
 ▸ **setProgressCallback**(progressCallback: *`function`*): `void`
 
-*Defined in [dataTable/dataTable.ts:396](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L396)*
+*Defined in [dataTable/dataTable.ts:397](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L397)*
 
 Set the progress callback.
 
@@ -206,7 +213,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[store](../interfaces/idatatable.md#store)*
 
-*Defined in [dataTable/dataTable.ts:119](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L119)*
+*Defined in [dataTable/dataTable.ts:128](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L128)*
 
 Store an item of data in the table.
 
@@ -225,11 +232,11 @@ ___
 
 ###  storeMultiple
 
-▸ **storeMultiple**(data: *`T`[]*, tags?: *`Tag`[]*, clearIndex?: *`boolean`*): `Promise`<`Hash`[]>
+▸ **storeMultiple**(data: *`T`[]*, tags?: *`Tag`[]*, clearIndex?: *`boolean`*, retainHistory?: *`boolean`*): `Promise`<`Hash`[]>
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[storeMultiple](../interfaces/idatatable.md#storemultiple)*
 
-*Defined in [dataTable/dataTable.ts:161](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L161)*
+*Defined in [dataTable/dataTable.ts:171](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L171)*
 
 Store multiple items of data in the table.
 
@@ -240,6 +247,7 @@ Store multiple items of data in the table.
 | data | `T`[] |  The data to store. |
 | `Optional` tags | `Tag`[] |  The tag to store with the items. |
 | `Optional` clearIndex | `boolean` |  Clear the index so there is no data. |
+| `Optional` retainHistory | `boolean` |  Retains the lastIdx value in the index. |
 
 **Returns:** `Promise`<`Hash`[]>
 The ids of the stored items.
@@ -253,7 +261,7 @@ ___
 
 *Implementation of [IDataTable](../interfaces/idatatable.md).[update](../interfaces/idatatable.md#update)*
 
-*Defined in [dataTable/dataTable.ts:214](https://github.com/iota-pico/storage/blob/1c4462e/src/dataTable/dataTable.ts#L214)*
+*Defined in [dataTable/dataTable.ts:224](https://github.com/iota-pico/storage/blob/d99de76/src/dataTable/dataTable.ts#L224)*
 
 Update an item of data in the table.
 

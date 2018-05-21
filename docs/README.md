@@ -10,8 +10,8 @@
 * [DataTable](classes/datatable.md)
 * [DataTableConfigProvider](classes/datatableconfigprovider.md)
 * [GoogleStorageConfigProvider](classes/googlestorageconfigprovider.md)
+* [MemoryCacheConfigProvider](classes/memorycacheconfigprovider.md)
 * [QueryString](classes/querystring.md)
-* [SignedDataTable](classes/signeddatatable.md)
 * [StorageClient](classes/storageclient.md)
 * [StorageError](classes/storageerror.md)
 * [StorageItem](classes/storageitem.md)
@@ -25,34 +25,11 @@
 * [IDataTableConfig](interfaces/idatatableconfig.md)
 * [IDataTableConfigCollection](interfaces/idatatableconfigcollection.md)
 * [IDataTableConfigProvider](interfaces/idatatableconfigprovider.md)
+* [IDataTableIndex](interfaces/idatatableindex.md)
 * [IDataTableProgress](interfaces/idatatableprogress.md)
 * [IGoogleServiceAccountKey](interfaces/igoogleserviceaccountkey.md)
-* [ISignedItem](interfaces/isigneditem.md)
+* [ISignedDataItem](interfaces/isigneddataitem.md)
 * [IStorageClient](interfaces/istorageclient.md)
 
-### Type aliases
-
-* [DataTableIndex](#datatableindex)
-
 ---
-
-## Type aliases
-
-<a id="datatableindex"></a>
-
-###  DataTableIndex
-
-**ΤDataTableIndex**: *`object`*
-
-*Defined in [interfaces/dataTableIndex.ts:4](https://github.com/iota-pico/storage/blob/1c4462e/src/interfaces/dataTableIndex.ts#L4)*
-
-Represents a table index for storing data.
-
-#### Type declaration
-
- bundles: `string`[]
-
- lastIdx: `string`
-
-___
 
