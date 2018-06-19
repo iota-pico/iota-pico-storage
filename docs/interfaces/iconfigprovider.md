@@ -32,7 +32,7 @@ Represents a class that can get/set configuration.
 
 ▸ **load**T(): `Promise`<`T`>
 
-*Defined in [interfaces/IConfigProvider.ts:10](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IConfigProvider.ts#L10)*
+*Defined in [interfaces/IConfigProvider.ts:10](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IConfigProvider.ts#L10)*
 
 Load the configuration.
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **save**T(config: *`T`*): `Promise`<`void`>
 
-*Defined in [interfaces/IConfigProvider.ts:16](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IConfigProvider.ts#L16)*
+*Defined in [interfaces/IConfigProvider.ts:16](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IConfigProvider.ts#L16)*
 
 Save the configuration.
 

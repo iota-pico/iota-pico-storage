@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.9.8
+
+* Added timestamp to index data
+* Remove old string[] support from index
+
 ## v0.9.7
 
 * Added MemoryCacheConfigProvider

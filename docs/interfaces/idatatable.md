@@ -40,7 +40,7 @@ Represents a table for storing data.
 
 ▸ **clearIndex**(retainHistory: *`boolean`*): `Promise`<`void`>
 
-*Defined in [interfaces/IDataTable.ts:22](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L22)*
+*Defined in [interfaces/IDataTable.ts:22](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L22)*
 
 Clear the index for the table.
 
@@ -59,7 +59,7 @@ ___
 
 ▸ **index**(): `Promise`<[IDataTableIndex](idatatableindex.md)>
 
-*Defined in [interfaces/IDataTable.ts:16](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L16)*
+*Defined in [interfaces/IDataTable.ts:16](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L16)*
 
 Get the index for the table.
 
@@ -73,7 +73,7 @@ ___
 
 ▸ **remove**(id: *`Hash`*): `Promise`<`void`>
 
-*Defined in [interfaces/IDataTable.ts:69](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L69)*
+*Defined in [interfaces/IDataTable.ts:69](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L69)*
 
 Remove an item of data from the table.
 
@@ -92,7 +92,7 @@ ___
 
 ▸ **removeMultiple**(ids: *`Hash`[]*): `Promise`<`void`>
 
-*Defined in [interfaces/IDataTable.ts:75](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L75)*
+*Defined in [interfaces/IDataTable.ts:75](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L75)*
 
 Remove multiple items of data from the table.
 
@@ -111,7 +111,7 @@ ___
 
 ▸ **retrieve**(id: *`Hash`*): `Promise`<`T`>
 
-*Defined in [interfaces/IDataTable.ts:56](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L56)*
+*Defined in [interfaces/IDataTable.ts:56](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L56)*
 
 Retrieve the data stored in the table.
 
@@ -131,7 +131,7 @@ ___
 
 ▸ **retrieveMultiple**(ids?: *`Hash`[]*): `Promise`<`T`[]>
 
-*Defined in [interfaces/IDataTable.ts:63](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L63)*
+*Defined in [interfaces/IDataTable.ts:63](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L63)*
 
 Retrieve all the data stored in the table.
 
@@ -151,7 +151,7 @@ ___
 
 ▸ **setProgressCallback**(progressCallback: *`function`*): `void`
 
-*Defined in [interfaces/IDataTable.ts:81](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L81)*
+*Defined in [interfaces/IDataTable.ts:81](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L81)*
 
 Set the progress callback.
 
@@ -170,7 +170,7 @@ ___
 
 ▸ **store**(data: *`T`*, tag?: *`Tag`*): `Promise`<`Hash`>
 
-*Defined in [interfaces/IDataTable.ts:30](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L30)*
+*Defined in [interfaces/IDataTable.ts:30](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L30)*
 
 Store an item of data in the table.
 
@@ -191,7 +191,7 @@ ___
 
 ▸ **storeMultiple**(data: *`T`[]*, tags?: *`Tag`[]*, clearIndex?: *`boolean`*, retainHistory?: *`boolean`*): `Promise`<`Hash`[]>
 
-*Defined in [interfaces/IDataTable.ts:40](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L40)*
+*Defined in [interfaces/IDataTable.ts:40](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L40)*
 
 Store multiple items of data in the table.
 
@@ -214,7 +214,7 @@ ___
 
 ▸ **update**(originalId: *`Hash`*, data: *`T`*, tag?: *`Tag`*): `Promise`<`Hash`>
 
-*Defined in [interfaces/IDataTable.ts:49](https://github.com/iota-pico/storage/blob/d99de76/src/interfaces/IDataTable.ts#L49)*
+*Defined in [interfaces/IDataTable.ts:49](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTable.ts#L49)*
 
 Update an item of data in the table.
 

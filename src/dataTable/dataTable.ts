@@ -84,17 +84,9 @@ export class DataTable<T extends ISignedDataItem> implements IDataTable<T> {
             this.updateProgress(1, 1, "Retrieving Index");
 
             if (index && index.length > 0) {
-                const objectToTrytesConverter = new ObjectTrytesConverter<IDataTableIndex | string[]>();
+                const objectToTrytesConverter = new ObjectTrytesConverter<IDataTableIndex>();
 
-                const dt = objectToTrytesConverter.from(index[0].data);
-                if (ArrayHelper.isArray(dt)) {
-                    dataTableIndex = {
-                        bundles: <string[]>dt,
-                        lastIdx: Hash.EMPTY.toTrytes().toString()
-                    };
-                } else {
-                    dataTableIndex = <IDataTableIndex>dt;
-                }
+                dataTableIndex = objectToTrytesConverter.from(index[0].data);
 
                 this._logger.info("<=== DataTable::index", dataTableIndex);
             } else {
@@ -433,6 +425,7 @@ export class DataTable<T extends ISignedDataItem> implements IDataTable<T> {
         const indexAddress = Address.fromTrytes(Trytes.fromString(this._config.indexAddress));
 
         const dataTableIndex: IDataTableIndex = {
+            ts: Date.now(),
             bundles,
             lastIdx: retainHistory ? this._config.indexBundleHash || Hash.EMPTY.toTrytes().toString() : undefined
         };

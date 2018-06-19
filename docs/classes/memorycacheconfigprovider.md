@@ -33,7 +33,7 @@ Represents a config provider which caches content from another provider.
 
 ⊕ **new MemoryCacheConfigProvider**(configProvider: *[IConfigProvider](../interfaces/iconfigprovider.md)*): [MemoryCacheConfigProvider](memorycacheconfigprovider.md)
 
-*Defined in configProvider/memoryCacheConfigProvider.ts:13*
+*Defined in [configProvider/memoryCacheConfigProvider.ts:13](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/memoryCacheConfigProvider.ts#L13)*
 
 Create a new instance of the MemoryCacheConfigProvider.
 
@@ -57,7 +57,7 @@ ___
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-*Defined in configProvider/memoryCacheConfigProvider.ts:31*
+*Defined in [configProvider/memoryCacheConfigProvider.ts:31](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/memoryCacheConfigProvider.ts#L31)*
 
 Load the configuration for the data table.
 
@@ -77,7 +77,7 @@ ___
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-*Defined in configProvider/memoryCacheConfigProvider.ts:43*
+*Defined in [configProvider/memoryCacheConfigProvider.ts:43](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/memoryCacheConfigProvider.ts#L43)*
 
 Save the configuration for the data table.
 

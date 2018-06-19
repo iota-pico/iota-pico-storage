@@ -14,6 +14,7 @@
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "strictNullChecks": false,
+        "types": [],
         "esModuleInterop": true,
         "stripInternal": true,
         "inlineSourceMap": true,

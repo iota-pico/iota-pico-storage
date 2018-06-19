@@ -16,6 +16,7 @@ Represents a table index for storing data.
 * [bundles](idatatableindex.md#bundles)
 * [lastIdx](idatatableindex.md#lastidx)
 * [sig](idatatableindex.md#sig)
+* [ts](idatatableindex.md#ts)
 
 ---
 
@@ -27,7 +28,7 @@ Represents a table index for storing data.
 
 **● bundles**: *`string`[]*
 
-*Defined in interfaces/IDataTableIndex.ts:6*
+*Defined in [interfaces/IDataTableIndex.ts:7](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTableIndex.ts#L7)*
 
 ___
 <a id="lastidx"></a>
@@ -36,7 +37,7 @@ ___
 
 **● lastIdx**: *`string`*
 
-*Defined in interfaces/IDataTableIndex.ts:7*
+*Defined in [interfaces/IDataTableIndex.ts:8](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTableIndex.ts#L8)*
 
 ___
 <a id="sig"></a>
@@ -45,7 +46,16 @@ ___
 
 **● sig**: *`string`*
 
-*Defined in interfaces/IDataTableIndex.ts:8*
+*Defined in [interfaces/IDataTableIndex.ts:9](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTableIndex.ts#L9)*
+
+___
+<a id="ts"></a>
+
+###  ts
+
+**● ts**: *`number`*
+
+*Defined in [interfaces/IDataTableIndex.ts:6](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/IDataTableIndex.ts#L6)*
 
 ___
 

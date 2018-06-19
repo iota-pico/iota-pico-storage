@@ -33,7 +33,7 @@ Represents a data table config provider which uses and IConfigProvider.
 
 ⊕ **new DataTableConfigProvider**(configProvider: *[IConfigProvider](../interfaces/iconfigprovider.md)*, logger?: *`ILogger`*): [DataTableConfigProvider](datatableconfigprovider.md)
 
-*Defined in [configProvider/dataTableConfigProvider.ts:19](https://github.com/iota-pico/storage/blob/d99de76/src/configProvider/dataTableConfigProvider.ts#L19)*
+*Defined in [configProvider/dataTableConfigProvider.ts:19](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/dataTableConfigProvider.ts#L19)*
 
 Create a new instance of the DataTableConfigProvider.
 
@@ -58,7 +58,7 @@ ___
 
 *Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[load](../interfaces/idatatableconfigprovider.md#load)*
 
-*Defined in [configProvider/dataTableConfigProvider.ts:40](https://github.com/iota-pico/storage/blob/d99de76/src/configProvider/dataTableConfigProvider.ts#L40)*
+*Defined in [configProvider/dataTableConfigProvider.ts:40](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/dataTableConfigProvider.ts#L40)*
 
 Load the configuration for the data table.
 
@@ -80,7 +80,7 @@ ___
 
 *Implementation of [IDataTableConfigProvider](../interfaces/idatatableconfigprovider.md).[save](../interfaces/idatatableconfigprovider.md#save)*
 
-*Defined in [configProvider/dataTableConfigProvider.ts:66](https://github.com/iota-pico/storage/blob/d99de76/src/configProvider/dataTableConfigProvider.ts#L66)*
+*Defined in [configProvider/dataTableConfigProvider.ts:66](https://github.com/iota-pico/storage/blob/a72b6fc/src/configProvider/dataTableConfigProvider.ts#L66)*
 
 Save the configuration for the data table.
 

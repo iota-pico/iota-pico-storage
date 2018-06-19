@@ -27,7 +27,7 @@ Represents a table item with optional signature.
 
 **● bundleHash**: *`string`*
 
-*Defined in interfaces/ISignedDataItem.ts:7*
+*Defined in [interfaces/ISignedDataItem.ts:7](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/ISignedDataItem.ts#L7)*
 
 ___
 <a id="sig"></a>
@@ -36,7 +36,7 @@ ___
 
 **● sig**: *`string`*
 
-*Defined in interfaces/ISignedDataItem.ts:6*
+*Defined in [interfaces/ISignedDataItem.ts:6](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/ISignedDataItem.ts#L6)*
 
 ___
 <a id="transactionhashes"></a>
@@ -45,7 +45,7 @@ ___
 
 **● transactionHashes**: *`string`[]*
 
-*Defined in interfaces/ISignedDataItem.ts:8*
+*Defined in [interfaces/ISignedDataItem.ts:8](https://github.com/iota-pico/storage/blob/a72b6fc/src/interfaces/ISignedDataItem.ts#L8)*
 
 ___
 

@@ -3,6 +3,7 @@
  * @interface
  */
 export interface IDataTableIndex {
+    ts: number;
     bundles: string[];
     lastIdx: string;
     sig?: string;

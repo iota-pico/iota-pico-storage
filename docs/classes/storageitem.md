@@ -33,7 +33,7 @@ Class to maintain an item stored on the tangle.
 
 ⊕ **new StorageItem**(id: *`Hash`*, data: *`Trytes`*, tag: *`Tag`*, attachmentTimestamp: *`number`*, bundleHash: *`Hash`*, transactionHashes: *`Hash`[]*): [StorageItem](storageitem.md)
 
-*Defined in [storage/storageItem.ts:14](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L14)*
+*Defined in [storage/storageItem.ts:14](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L14)*
 
 **Parameters:**
 
@@ -58,7 +58,7 @@ ___
 
 **● attachmentTimestamp**: *`number`*
 
-*Defined in [storage/storageItem.ts:12](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L12)*
+*Defined in [storage/storageItem.ts:12](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L12)*
 
 ___
 <a id="bundlehash"></a>
@@ -67,7 +67,7 @@ ___
 
 **● bundleHash**: *`Hash`*
 
-*Defined in [storage/storageItem.ts:13](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L13)*
+*Defined in [storage/storageItem.ts:13](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L13)*
 
 ___
 <a id="data"></a>
@@ -76,7 +76,7 @@ ___
 
 **● data**: *`Trytes`*
 
-*Defined in [storage/storageItem.ts:10](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L10)*
+*Defined in [storage/storageItem.ts:10](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L10)*
 
 ___
 <a id="id"></a>
@@ -85,7 +85,7 @@ ___
 
 **● id**: *`Hash`*
 
-*Defined in [storage/storageItem.ts:9](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L9)*
+*Defined in [storage/storageItem.ts:9](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L9)*
 
 ___
 <a id="tag"></a>
@@ -94,7 +94,7 @@ ___
 
 **● tag**: *`Tag`*
 
-*Defined in [storage/storageItem.ts:11](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L11)*
+*Defined in [storage/storageItem.ts:11](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L11)*
 
 ___
 <a id="transactionhashes"></a>
@@ -103,7 +103,7 @@ ___
 
 **● transactionHashes**: *`Hash`[]*
 
-*Defined in [storage/storageItem.ts:14](https://github.com/iota-pico/storage/blob/d99de76/src/storage/storageItem.ts#L14)*
+*Defined in [storage/storageItem.ts:14](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageItem.ts#L14)*
 
 ___
 
