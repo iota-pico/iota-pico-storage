@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.9
+
+* Reduced umd module size with externals
+
 ## v0.9.8
 
 * Added timestamp to index data

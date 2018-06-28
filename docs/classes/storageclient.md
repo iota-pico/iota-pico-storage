@@ -33,7 +33,7 @@ Default implementation of the StorageClient.
 
 ⊕ **new StorageClient**(transactionClient: *`ITransactionClient`*, logger?: *`ILogger`*): [StorageClient](storageclient.md)
 
-*Defined in [storage/storageClient.ts:25](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageClient.ts#L25)*
+*Defined in [storage/storageClient.ts:25](https://github.com/iota-pico/storage/blob/893ad8d/src/storage/storageClient.ts#L25)*
 
 Create a new instance of the StorageClient.
 
@@ -58,7 +58,7 @@ ___
 
 *Implementation of [IStorageClient](../interfaces/istorageclient.md).[load](../interfaces/istorageclient.md#load)*
 
-*Defined in [storage/storageClient.ts:81](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageClient.ts#L81)*
+*Defined in [storage/storageClient.ts:81](https://github.com/iota-pico/storage/blob/893ad8d/src/storage/storageClient.ts#L81)*
 
 Load the data stored with the given bundle hash ids.
 
@@ -80,7 +80,7 @@ ___
 
 *Implementation of [IStorageClient](../interfaces/istorageclient.md).[save](../interfaces/istorageclient.md#save)*
 
-*Defined in [storage/storageClient.ts:44](https://github.com/iota-pico/storage/blob/a72b6fc/src/storage/storageClient.ts#L44)*
+*Defined in [storage/storageClient.ts:44](https://github.com/iota-pico/storage/blob/893ad8d/src/storage/storageClient.ts#L44)*
 
 Save an item of data on the address.
 
