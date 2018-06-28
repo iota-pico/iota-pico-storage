@@ -28,7 +28,7 @@ Class to help with signing Amazon requests.
 
 ⊕ **new AmazonRequestSigner**(request: *[IAmazonRequest](../interfaces/iamazonrequest.md)*, credentials: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*): [AmazonRequestSigner](amazonrequestsigner.md)
 
-*Defined in [configProvider/amazonRequestSigner.ts:27](https://github.com/iota-pico/storage/blob/893ad8d/src/configProvider/amazonRequestSigner.ts#L27)*
+*Defined in [configProvider/amazonRequestSigner.ts:27](https://github.com/iota-pico/storage/tree/master/src/configProvider/amazonRequestSigner.ts#L27*
 
 Create a new instance of AmazonRequestSigner.
 
@@ -51,7 +51,7 @@ ___
 
 ▸ **sign**(): [IAmazonRequest](../interfaces/iamazonrequest.md)
 
-*Defined in [configProvider/amazonRequestSigner.ts:69](https://github.com/iota-pico/storage/blob/893ad8d/src/configProvider/amazonRequestSigner.ts#L69)*
+*Defined in [configProvider/amazonRequestSigner.ts:69](https://github.com/iota-pico/storage/tree/master/src/configProvider/amazonRequestSigner.ts#L69*
 
 Signed the request.
 

@@ -35,7 +35,7 @@ Interface to help with signing Amazon requests.
 
 **● body**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:6](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L6)*
+*Defined in [interfaces/IAmazonRequest.ts:6](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L6*
 
 ___
 <a id="donotencodepath"></a>
@@ -44,7 +44,7 @@ ___
 
 **● doNotEncodePath**: *`boolean`*
 
-*Defined in [interfaces/IAmazonRequest.ts:16](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L16)*
+*Defined in [interfaces/IAmazonRequest.ts:16](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L16*
 
 ___
 <a id="donotmodifyheaders"></a>
@@ -53,7 +53,7 @@ ___
 
 **● doNotModifyHeaders**: *`boolean`*
 
-*Defined in [interfaces/IAmazonRequest.ts:15](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L15)*
+*Defined in [interfaces/IAmazonRequest.ts:15](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L15*
 
 ___
 <a id="headers"></a>
@@ -62,7 +62,7 @@ ___
 
 **● headers**: *`object`*
 
-*Defined in [interfaces/IAmazonRequest.ts:11](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L11)*
+*Defined in [interfaces/IAmazonRequest.ts:11](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L11*
 
 #### Type declaration
 
@@ -75,7 +75,7 @@ ___
 
 **● host**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:7](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L7)*
+*Defined in [interfaces/IAmazonRequest.ts:7](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L7*
 
 ___
 <a id="hostname"></a>
@@ -84,7 +84,7 @@ ___
 
 **● hostname**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:8](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L8)*
+*Defined in [interfaces/IAmazonRequest.ts:8](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L8*
 
 ___
 <a id="method"></a>
@@ -93,7 +93,7 @@ ___
 
 **● method**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:10](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L10)*
+*Defined in [interfaces/IAmazonRequest.ts:10](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L10*
 
 ___
 <a id="path"></a>
@@ -102,7 +102,7 @@ ___
 
 **● path**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:5](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L5)*
+*Defined in [interfaces/IAmazonRequest.ts:5](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L5*
 
 ___
 <a id="port"></a>
@@ -111,7 +111,7 @@ ___
 
 **● port**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:9](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L9)*
+*Defined in [interfaces/IAmazonRequest.ts:9](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L9*
 
 ___
 <a id="region"></a>
@@ -120,7 +120,7 @@ ___
 
 **● region**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:13](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L13)*
+*Defined in [interfaces/IAmazonRequest.ts:13](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L13*
 
 ___
 <a id="service"></a>
@@ -129,7 +129,7 @@ ___
 
 **● service**: *`string`*
 
-*Defined in [interfaces/IAmazonRequest.ts:12](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L12)*
+*Defined in [interfaces/IAmazonRequest.ts:12](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L12*
 
 ___
 <a id="signquery"></a>
@@ -138,7 +138,7 @@ ___
 
 **● signQuery**: *`boolean`*
 
-*Defined in [interfaces/IAmazonRequest.ts:14](https://github.com/iota-pico/storage/blob/893ad8d/src/interfaces/IAmazonRequest.ts#L14)*
+*Defined in [interfaces/IAmazonRequest.ts:14](https://github.com/iota-pico/storage/tree/master/src/interfaces/IAmazonRequest.ts#L14*
 
 ___
 

@@ -33,7 +33,7 @@ Represents a config provider which uses amazon storage.
 
 ⊕ **new AmazonStorageConfigProvider**(region: *`string`*, bucketName: *`string`*, configName: *`string`*, credentials?: *[IAmazonCredentials](../interfaces/iamazoncredentials.md)*, logger?: *`ILogger`*): [AmazonStorageConfigProvider](amazonstorageconfigprovider.md)
 
-*Defined in [configProvider/amazonStorageConfigProvider.ts:30](https://github.com/iota-pico/storage/blob/893ad8d/src/configProvider/amazonStorageConfigProvider.ts#L30)*
+*Defined in [configProvider/amazonStorageConfigProvider.ts:30](https://github.com/iota-pico/storage/tree/master/src/configProvider/amazonStorageConfigProvider.ts#L30*
 
 Create a new instance of the AmazonStorageConfigProvider.
 
@@ -61,7 +61,7 @@ ___
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
-*Defined in [configProvider/amazonStorageConfigProvider.ts:62](https://github.com/iota-pico/storage/blob/893ad8d/src/configProvider/amazonStorageConfigProvider.ts#L62)*
+*Defined in [configProvider/amazonStorageConfigProvider.ts:62](https://github.com/iota-pico/storage/tree/master/src/configProvider/amazonStorageConfigProvider.ts#L62*
 
 Load the configuration for the data table.
 
@@ -81,7 +81,7 @@ ___
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 
-*Defined in [configProvider/amazonStorageConfigProvider.ts:94](https://github.com/iota-pico/storage/blob/893ad8d/src/configProvider/amazonStorageConfigProvider.ts#L94)*
+*Defined in [configProvider/amazonStorageConfigProvider.ts:94](https://github.com/iota-pico/storage/tree/master/src/configProvider/amazonStorageConfigProvider.ts#L94*
 
 Save the configuration for the data table.
 
