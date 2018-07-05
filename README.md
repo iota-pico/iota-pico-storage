@@ -39,7 +39,6 @@ The layered libraries are written in TypeScript so are all strongly typed. The m
 
 Some tutorials can be found in the following repo [@iota-pico/tutorials](https://github.com/iota-pico/tutorials)
 
-
 # Contributing
 
 Contributions are always welcome to the project. Feel free to raise issues, create pull requests or just make suggestions.
