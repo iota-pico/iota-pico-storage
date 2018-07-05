@@ -48,11 +48,11 @@
         "dist": "npm-run-all build test pkg docs"
     },
     "dependencies": {
-        "@iota-pico/api": "^0.9.8",
-        "@iota-pico/business": "^0.9.8",
-        "@iota-pico/core": "^0.9.8",
-        "@iota-pico/crypto": "^0.9.8",
-        "@iota-pico/data": "^0.9.8",
+        "@iota-pico/api": "^0.9.9",
+        "@iota-pico/business": "^0.9.9",
+        "@iota-pico/core": "^0.9.9",
+        "@iota-pico/crypto": "^0.9.9",
+        "@iota-pico/data": "^0.9.9",
         "jws": "^3.1.5"
     },
     "devDependencies": {
