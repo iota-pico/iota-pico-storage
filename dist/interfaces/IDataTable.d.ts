@@ -1,5 +1,5 @@
-import { Tag } from "@iota-pico/data";
 import { Hash } from "@iota-pico/data/dist/data/hash";
+import { Tag } from "@iota-pico/data/dist/data/tag";
 import { IDataTableIndex } from "./IDataTableIndex";
 import { IDataTableProgress } from "./IDataTableProgress";
 import { ISignedDataItem } from "./ISignedDataItem";

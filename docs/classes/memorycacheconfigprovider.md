@@ -53,7 +53,7 @@ ___
 
 ###  load
 
-▸ **load**T(): `Promise`<`T`>
+▸ **load**<`T`>(): `Promise`<`T`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[load](../interfaces/iconfigprovider.md#load)*
 
@@ -73,7 +73,7 @@ ___
 
 ###  save
 
-▸ **save**T(config: *`T`*): `Promise`<`void`>
+▸ **save**<`T`>(config: *`T`*): `Promise`<`void`>
 
 *Implementation of [IConfigProvider](../interfaces/iconfigprovider.md).[save](../interfaces/iconfigprovider.md#save)*
 

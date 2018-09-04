@@ -1,5 +1,5 @@
-import { Hash } from "@iota-pico/data";
 import { Address } from "@iota-pico/data/dist/data/address";
+import { Hash } from "@iota-pico/data/dist/data/hash";
 import { Tag } from "@iota-pico/data/dist/data/tag";
 import { Trytes } from "@iota-pico/data/dist/data/trytes";
 import { StorageItem } from "../storage/storageItem";
