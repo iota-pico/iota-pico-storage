@@ -63,7 +63,7 @@ export class GoogleStorageConfigProvider implements IConfigProvider {
         let config: T;
 
         try {
-            config = await networkClient.getJson<T>(`${this._bucketName}/${this._configName}.json${cacheBust}`);
+            config = await networkClient.json<any, T>(undefined, "GET", `${this._bucketName}/${this._configName}.json${cacheBust}`);
         } catch (exc) {
             let emptyConfig = false;
             if (ObjectHelper.isType(exc, NetworkError)) {
@@ -99,7 +99,7 @@ export class GoogleStorageConfigProvider implements IConfigProvider {
 
         const token = await this.getToken("https://www.googleapis.com/auth/devstorage.full_control");
 
-        await networkClient.postJson(config, `upload/storage/v1/b/${this._bucketName}/o?name=${this._configName}.json`, {
+        await networkClient.json(config, "POST", `upload/storage/v1/b/${this._bucketName}/o?name=${this._configName}.json`, {
             Authorization: `Bearer ${token}`
         });
 
@@ -108,7 +108,7 @@ export class GoogleStorageConfigProvider implements IConfigProvider {
             role: "READER"
         };
 
-        await networkClient.postJson(permissions, `storage/v1/b/${this._bucketName}/o/${this._configName}.json/acl`, {
+        await networkClient.json(permissions, "POST", `storage/v1/b/${this._bucketName}/o/${this._configName}.json/acl`, {
             Authorization: `Bearer ${token}`
         });
 

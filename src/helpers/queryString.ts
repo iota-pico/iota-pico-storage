@@ -1,3 +1,4 @@
+import { NumberHelper } from "@iota-pico/core/dist/helpers/numberHelper";
 import { StringHelper } from "@iota-pico/core/dist/helpers/stringHelper";
 
 /**
@@ -78,7 +79,7 @@ export class QueryString {
                 return v ? "true" : "false";
 
             case "number":
-                return isFinite(v) ? v : "";
+                return NumberHelper.isNumber(v) ? v.toString() : "";
 
             default:
                 return "";

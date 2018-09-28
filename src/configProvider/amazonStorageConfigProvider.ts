@@ -71,7 +71,7 @@ export class AmazonStorageConfigProvider implements IConfigProvider {
         let config: T;
 
         try {
-            config = await networkClient.getJson<T>(`${this._bucketName}/${this._configName}.json${cacheBust}`);
+            config = await networkClient.json<any, T>(undefined, "GET", `${this._bucketName}/${this._configName}.json${cacheBust}`);
         } catch (exc) {
             let emptyConfig = false;
             if (ObjectHelper.isType(exc, NetworkError)) {
