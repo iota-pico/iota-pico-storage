@@ -34,7 +34,7 @@ Create a new instance of AmazonRequestSigner.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | request | [IAmazonRequest](../interfaces/iamazonrequest.md) |  The request to be signed. |
 | credentials | [IAmazonCredentials](../interfaces/iamazoncredentials.md) |  The credentials to use for signing. |

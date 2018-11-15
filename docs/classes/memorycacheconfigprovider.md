@@ -39,7 +39,7 @@ Create a new instance of the MemoryCacheConfigProvider.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | configProvider | [IConfigProvider](../interfaces/iconfigprovider.md) |  The config provider to cache. |
 
@@ -86,7 +86,7 @@ Save the configuration for the data table.
 #### T 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | config | `T` |  The configuration to set. |
 

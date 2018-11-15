@@ -39,7 +39,7 @@ Create a new instance of the DataTableConfigProvider.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | configProvider | [IConfigProvider](../interfaces/iconfigprovider.md) |  The config provider to use. |
 | `Optional` logger | `ILogger` |  Logger to send info to. |
@@ -64,7 +64,7 @@ Load the configuration for the data table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | tableName | `string` |  The table to load the configuration for. |
 
@@ -86,7 +86,7 @@ Save the configuration for the data table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | tableName | `string` |  The table to save the configuration for. |
 | config | [IDataTableConfig](../interfaces/idatatableconfig.md) |  The configuration to set. |

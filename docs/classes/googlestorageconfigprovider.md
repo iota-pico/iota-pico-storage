@@ -39,7 +39,7 @@ Create a new instance of the GoogleStorageConfigProvider.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | bucketName | `string` |  The name of the bucket object. |
 | configName | `string` |  The name of the configuration object. |
@@ -89,7 +89,7 @@ Save the configuration for the data table.
 #### T 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | config | `T` |  The configuration to set. |
 

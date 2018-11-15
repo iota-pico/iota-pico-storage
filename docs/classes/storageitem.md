@@ -37,7 +37,7 @@ Class to maintain an item stored on the tangle.
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | id | `Hash` |
 | data | `Trytes` |

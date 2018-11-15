@@ -46,7 +46,7 @@ Clear the index for the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | retainHistory | `boolean` |  Retains the lastIdx value in the index. |
 
@@ -79,7 +79,7 @@ Remove an item of data from the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | id | `Hash` |  The id of the item to remove. |
 
@@ -98,7 +98,7 @@ Remove multiple items of data from the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | ids | `Hash`[] |  The ids of the items to remove. |
 
@@ -117,7 +117,7 @@ Retrieve the data stored in the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | id | `Hash` |  Id of the item to retrieve. |
 
@@ -137,7 +137,7 @@ Retrieve all the data stored in the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | `Optional` ids | `Hash`[] |  Ids of all the items to retrieve, if empty will retrieve all items from index. |
 
@@ -157,7 +157,7 @@ Set the progress callback.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | progressCallback | `function` |  Callback supplied with progress details. |
 
@@ -176,7 +176,7 @@ Store an item of data in the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | data | `T` |  The data to store. |
 | `Optional` tag | `Tag` |  The tag to store with the item. |
@@ -197,7 +197,7 @@ Store multiple items of data in the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | data | `T`[] |  The data to store. |
 | `Optional` tags | `Tag`[] |  The tag to store with the items. |
@@ -220,7 +220,7 @@ Update an item of data in the table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | originalId | `Hash` |  The id of the item to update. |
 | data | `T` |  The data to update. |

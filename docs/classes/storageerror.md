@@ -48,7 +48,7 @@ Create an instance of StorageError.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | message | `string` |  The message for the error. |
 | `Optional` additional | `object` |  Additional details about the error. |
@@ -68,7 +68,7 @@ ___
 
 *Inherited from CoreError.additional*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:12*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:12*
 
 Additional details about the error.
 
@@ -85,7 +85,7 @@ ___
 
 *Inherited from CoreError.domain*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:8*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:8*
 
 The domain of the error.
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from CoreError.innerError*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:18*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:18*
 
 The inner error if there was one.
 
@@ -111,7 +111,7 @@ ___
 
 *Inherited from Error.message*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:904*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/typescript/lib/lib.es5.d.ts:904*
 
 ___
 <a id="name"></a>
@@ -122,7 +122,7 @@ ___
 
 *Inherited from Error.name*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:903*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/typescript/lib/lib.es5.d.ts:903*
 
 ___
 <a id="stack"></a>
@@ -135,7 +135,7 @@ ___
 
 *Overrides Error.stack*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:905*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/typescript/lib/lib.es5.d.ts:905*
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 *Inherited from CoreError.format*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:38*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:38*
 
 Format the error to a readable version.
 
@@ -165,13 +165,13 @@ ___
 
 *Inherited from CoreError.isError*
 
-*Defined in D:/Workarea/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:33*
+*Defined in D:/Workarea/iota.eco/iota-pico/storage/node_modules/@iota-pico/core/dist/error/coreError.d.ts:33*
 
 Check if an object could be a CoreError.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | obj | `any` |  The object to check if it is a CoreError. |
 

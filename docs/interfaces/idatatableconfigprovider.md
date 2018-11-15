@@ -36,7 +36,7 @@ Load the configuration for the data table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | tableName | `string` |  The table to load the configuration for. |
 
@@ -56,7 +56,7 @@ Save the configuration for the data table.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | tableName | `string` |  The table to save the configuration for. |
 | config | [IDataTableConfig](idatatableconfig.md) |  The configuration to set. |

@@ -39,7 +39,7 @@ Create a new instance of the StorageClient.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | transactionClient | `ITransactionClient` |  A transaction client to perform tangle operations. |
 | `Optional` logger | `ILogger` |  Logger to send storage info to. |
@@ -64,7 +64,7 @@ Load the data stored with the given bundle hash ids.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | ids | `Hash`[] |  The ids of the items to load. |
 
@@ -86,7 +86,7 @@ Save an item of data on the address.
 
 **Parameters:**
 
-| Param | Type | Default value | Description |
+| Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | address | `Address` | - |  The address to store the item. |
 | data | `Trytes` | - |  The data to store. |

@@ -59,7 +59,7 @@ Save the configuration.
 #### T 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | config | `T` |  The configuration to set. |
 

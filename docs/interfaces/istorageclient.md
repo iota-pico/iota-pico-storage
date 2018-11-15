@@ -36,7 +36,7 @@ Load the data stored with the given bundle hash ids.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | ids | `Hash`[] |  The ids of the items to load. |
 
@@ -56,7 +56,7 @@ Save an item of data on the address.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | address | `Address` |  The address to store the item. |
 | data | `Trytes` |  The data to store. |

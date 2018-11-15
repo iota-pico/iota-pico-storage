@@ -31,7 +31,7 @@ Parse the query string into an object.
 
 **Parameters:**
 
-| Param | Type | Default value | Description |
+| Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | queryString | `string` | - |  The query string to parse. |
 | `Default value` sep | `string` | &quot;&amp;&quot; |  The separator to look for. |
@@ -53,7 +53,7 @@ Stringify the object for use in a quesry string.
 
 **Parameters:**
 
-| Param | Type | Default value | Description |
+| Name | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | obj | `object` | - |  The object to stringify. |
 | `Default value` sep | `string` | &quot;&amp;&quot; |  The separator to use in the stringification. |

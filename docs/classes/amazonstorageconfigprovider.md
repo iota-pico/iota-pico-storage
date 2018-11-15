@@ -39,7 +39,7 @@ Create a new instance of the AmazonStorageConfigProvider.
 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | region | `string` |  The name of the region. |
 | bucketName | `string` |  The name of the bucket object. |
@@ -90,7 +90,7 @@ Save the configuration for the data table.
 #### T 
 **Parameters:**
 
-| Param | Type | Description |
+| Name | Type | Description |
 | ------ | ------ | ------ |
 | config | `T` |  The configuration to set. |
 
