@@ -194,7 +194,7 @@ ___
 
 *Defined in [dataTable/dataTable.ts:389](https://github.com/iota-pico/storage/tree/master/src/dataTable/dataTable.ts#L389*
 
-Set the progress callback.
+Set the progress callback for operations.
 
 **Parameters:**
 

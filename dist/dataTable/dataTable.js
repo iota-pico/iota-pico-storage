@@ -270,7 +270,7 @@ class DataTable {
         }
     }
     /**
-     * Set the progress callback.
+     * Set the progress callback for operations.
      * @param progressCallback Callback supplied with progress details.
      */
     setProgressCallback(progressCallback) {

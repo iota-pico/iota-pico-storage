@@ -383,7 +383,7 @@ export class DataTable<T extends ISignedDataItem> implements IDataTable<T> {
     }
 
     /**
-     * Set the progress callback.
+     * Set the progress callback for operations.
      * @param progressCallback Callback supplied with progress details.
      */
     public setProgressCallback(progressCallback: (progress: IDataTableProgress) => void): void {

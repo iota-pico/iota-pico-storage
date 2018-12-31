@@ -77,7 +77,7 @@ export declare class DataTable<T extends ISignedDataItem> implements IDataTable<
      */
     removeMultiple(ids: Hash[]): Promise<void>;
     /**
-     * Set the progress callback.
+     * Set the progress callback for operations.
      * @param progressCallback Callback supplied with progress details.
      */
     setProgressCallback(progressCallback: (progress: IDataTableProgress) => void): void;
