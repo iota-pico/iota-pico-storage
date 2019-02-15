@@ -3,6 +3,7 @@
 # Interface: IDataTableConfig
 
 Represents the configuration required by data table.
+
 *__interface__*: 
 
 ## Hierarchy

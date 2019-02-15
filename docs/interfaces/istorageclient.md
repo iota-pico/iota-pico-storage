@@ -3,6 +3,7 @@
 # Interface: IStorageClient
 
 Represents a client for performing storage operations.
+
 *__interface__*: 
 
 ## Hierarchy

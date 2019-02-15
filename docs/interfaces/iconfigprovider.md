@@ -3,6 +3,7 @@
 # Interface: IConfigProvider
 
 Represents a class that can get/set configuration.
+
 *__interface__*: 
 
 ## Hierarchy

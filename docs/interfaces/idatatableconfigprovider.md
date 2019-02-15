@@ -3,6 +3,7 @@
 # Interface: IDataTableConfigProvider
 
 Represents a class that can get/set data table configuration.
+
 *__interface__*: 
 
 ## Hierarchy

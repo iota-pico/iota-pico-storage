@@ -3,6 +3,7 @@
 # Interface: IDataTableProgress
 
 Represents data passed to progress callback.
+
 *__interface__*: 
 
 ## Hierarchy

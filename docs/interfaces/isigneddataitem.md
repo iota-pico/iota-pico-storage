@@ -3,6 +3,7 @@
 # Interface: ISignedDataItem
 
 Represents a table item with optional signature.
+
 *__interface__*: 
 
 ## Hierarchy

@@ -3,6 +3,7 @@
 # Interface: IDataTableIndex
 
 Represents a table index for storing data.
+
 *__interface__*: 
 
 ## Hierarchy

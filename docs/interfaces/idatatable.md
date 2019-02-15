@@ -3,6 +3,7 @@
 # Interface: IDataTable
 
 Represents a table for storing data.
+
 *__interface__*: 
 
 ## Type parameters
