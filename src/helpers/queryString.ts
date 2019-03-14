@@ -12,14 +12,13 @@ export class QueryString {
      * @param eq The equals to use in the stringification.
      * @returns The stringified object.
      */
-    public static stringify(obj: { [id: string]: any}, sep: string = "&", eq: string = "="): string {
+    public static stringify(obj: { [id: string]: any }, sep: string = "&", eq: string = "="): string {
         return Object.keys(obj).map((k) => {
             const ks = encodeURIComponent(QueryString.stringifyPrimitive(k)) + eq;
             if (Array.isArray(obj[k])) {
                 return obj[k].map((v: any) => ks + encodeURIComponent(QueryString.stringifyPrimitive(v))).join(sep);
-            } else {
-                return ks + encodeURIComponent(QueryString.stringifyPrimitive(obj[k]));
             }
+            return ks + encodeURIComponent(QueryString.stringifyPrimitive(obj[k]));
         }).filter(Boolean).join(sep);
     }
 

@@ -25,7 +25,7 @@ Class for manipulating query string.
 
 ▸ **parse**(queryString: *`string`*, sep?: *`string`*, eq?: *`string`*): `object`
 
-*Defined in [helpers/queryString.ts:33](https://github.com/iota-pico/storage/tree/master/src/helpers/queryString.ts#L33*
+*Defined in [helpers/queryString.ts:32](https://github.com/iota-pico/storage/tree/master/src/helpers/queryString.ts#L32*
 
 Parse the query string into an object.
 
